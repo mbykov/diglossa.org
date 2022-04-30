@@ -1,0 +1,15 @@
+node_modules
+.routify
+*.log
+*.pid
+*.seed
+.DS_Store
+coverage
+logs
+pids
+dist
+Junk
+_*.org
+Junk
+test/test-Junk
+test-more
