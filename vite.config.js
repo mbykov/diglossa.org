@@ -12,19 +12,22 @@ module.exports = {
   server: {
     port: port,
   },
-  build: {
-    polyfillModulePreload: false,
-    cssCodeSplit: false,
-  },
-  optimizeDeps: {
-    exclude: ['@roxi/routify'],
-  },
-  resolve: {
-    dedupe: ['@roxi/routify'],
-  },
-  plugins: [
-    viteMainJs(),
-    svelte({
+    build: {
+        commonjsOptions: {
+            include: [/linked-dep/, /node_modules/]
+        },
+        polyfillModulePreload: false,
+        cssCodeSplit: false,
+    },
+    optimizeDeps: {
+        exclude: ['@roxi/routify'],
+    },
+    resolve: {
+        dedupe: ['@roxi/routify'],
+    },
+    plugins: [
+        viteMainJs(),
+        svelte({
       preprocess: [
         mdsvex({
           remarkPlugins: [slug],
