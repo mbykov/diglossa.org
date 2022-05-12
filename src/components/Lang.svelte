@@ -6,6 +6,7 @@
     en: { short: 'en', long: 'english', default: true },
     fr: { short: 'fr', long: 'french' },
     de: { short: 'de', long: 'german' },
+    ru: { short: 'ru', long: 'russian' },
   }
 
   // let's use a store for reactivity
@@ -19,7 +20,8 @@
        * we want to use the language as an URL prefix
        */
       const lang = get(language)
-      const prefix = !lang.default ? `/${lang.short}` : ''
+      // const prefix = !lang.default ? `/${lang.short}` : ''
+      const prefix = `/${lang.short}`
       return prefix + url
     },
     remove: (url) => {
