@@ -11,7 +11,7 @@
   </aside>
   <section>
     <header />
-    <main class="container">
+    <main class="container px-16">
       <slot />
     </main>
     <footer />

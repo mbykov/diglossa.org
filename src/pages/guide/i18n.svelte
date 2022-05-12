@@ -51,6 +51,9 @@
     Cliquez sur la liste déroulante des langues pour changer la langue de cette
     page.
   </p>
+{:else if lang === 'ru'}
+  <h1>Русский</h1>
+
 {/if}
 
 <style>
