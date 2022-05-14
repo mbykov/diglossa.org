@@ -25,6 +25,8 @@
     // jsonview.render(tree, document.querySelector('#anthrax-results'))
     // jsonview.expand(tree)
 
+    let greek= "ἀλλ᾿ ἥ γε ὑπὸ τὸν Καύκασον λίμνη, ἣν καλοῦσιν οἱ ἐκεῖ θάλατταν· αὕτη γὰρ ποταμῶν πολλῶν καὶ μεγάλων εἰσβαλλόντων οὐκ ἔχουσα ἔκρουν φανερὸν ἐκδίδωσιν ὑπὸ γῆν κατὰ Κοραξούς, περὶ τὰ καλούμενα βαθέα τοῦ Πόντου·"
+
 
     let lang = franc('ἀθλητικός πολέμου τῶν καλῶν')
     console.log('_LANG', lang)
@@ -73,14 +75,20 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<div class="px-8">
-  <h1 class="text-xl text-pink-500">App?! ===</h1>
-  <p>A short introduction would have been nice here...</p>
+<p> ἀλλ᾿ ἥ γε ὑπὸ τὸν Καύκασον λίμνη, ἣν καλοῦσιν οἱ ἐκεῖ θάλατταν· αὕτη γὰρ ποταμῶν πολλῶν καὶ μεγάλων εἰσβαλλόντων οὐκ ἔχουσα ἔκρουν φανερὸν ἐκδίδωσιν ὑπὸ γῆν κατὰ Κοραξούς, περὶ τὰ καλούμενα βαθέα τοῦ Πόντου·</p>
 
-  <!-- <p id="anthrax-results" contenteditable="true" class="px-8">editable</p> -->
-  <p id="anthrax-results" class="px-8">editable</p>
-  <p id="clip-results" class="px-8">clip</p>
+<div class="flex flex-wrap h-screen gap-3_ mx-8 my-8 ">
+
+  <div class="p-8 w-1/2 bg-blue-100">
+    <p id="clip-results" class="px-8">clip</p>
+  </div>
+
+  <div class="p-8 w-1/2 bg-red-100">
+      <h1 class="text-xl text-pink-500">App?! ===</h1>
+      <p id="anthrax-results" class="px-8">editable</p>
+  </div>
 
 </div>
+
 
 <!-- <a href="/guide">guide</a> -->
