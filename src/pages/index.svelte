@@ -3,7 +3,8 @@
   import { onMount } from 'svelte'
   import jsonview from '@pgrabovets/json-view'
   // import Clipboard from "svelte-clipboard";
-  import clipboard from 'clipboardy';
+  // import clipboard from 'clipboardy';
+  import {franc, francAll} from 'franc-min'
 
   import { anthrax } from "@mbykov/anthrax"
 
@@ -24,6 +25,9 @@
     // jsonview.render(tree, document.querySelector('#anthrax-results'))
     // jsonview.expand(tree)
 
+
+    let lang = franc('ἀθλητικός πολέμου τῶν καλῶν')
+    console.log('_LANG', lang)
 
     // https://github.com/mbykov/anthrax
 	});
@@ -59,7 +63,7 @@
 	}
 
   document.addEventListener('paste', (e) => {
-    const copiedText = e.clipboardData.getData('text/html');
+    const copiedText = e.clipboardData.getData('text/plain');
     // console.log('_HTML', copiedText)
     let oclip = document.querySelector('#clip-results')
     oclip.textContent = copiedText

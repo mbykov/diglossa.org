@@ -74,6 +74,7 @@
     "@pgrabovets/json-view": "^2.7.1",
     "clipboardy": "^3.0.0",
     "debug": "^4.3.4",
+    "franc-min": "^6.0.0",
     "lodash": "^4.17.21",
     "orthos": "^0.7.2"
   }
