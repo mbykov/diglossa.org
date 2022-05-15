@@ -6,7 +6,8 @@
   // import clipboard from 'clipboardy';
   import {franc, francAll} from 'franc-min'
 
-  import { anthrax } from "@mbykov/anthrax"
+  // import { anthrax } from "@mbykov/anthrax"
+  import { anthrax } from "/home/michael/greek/anthrax"
 
   onMount(async () => {
 		// const res = await fetch(`/tutorial/api/album`);
@@ -18,8 +19,8 @@
 
     // let anthrax = await import('/home/michael/greek/anthrax')
     let wf = 'ἀθλητής'
-    // let res = await anthrax(wf)
-    // console.log('_R', res)
+    let res = await anthrax(wf)
+    console.log('_RES', res)
 
     // tree = jsonview.create(res)
     // jsonview.render(tree, document.querySelector('#anthrax-results'))
@@ -56,8 +57,6 @@
       // let text = await clipboard.read()
       // console.log("CLIPBOARD", text)
     }
-
-
 	}
 
 	function handleKeyup(event) {
@@ -66,26 +65,44 @@
 
   document.addEventListener('paste', (e) => {
     const copiedText = e.clipboardData.getData('text/plain');
+    let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
     // console.log('_HTML', copiedText)
     let oclip = document.querySelector('#clip-results')
-    oclip.textContent = copiedText
+    oclip.innerHTML = html
   })
+
+  async function handleClick(ev) {
+    let owf = ev.target
+    let wf = owf.textContent
+    console.log('_CLICK', owf.textContent)
+    let res = await anthrax(wf)
+    console.log('_CLICK_RES', res)
+
+    let tree = jsonview.create(res)
+    jsonview.render(tree, document.querySelector('#anthrax-results'))
+    jsonview.expand(tree)
+
+  }
+
 
 </script>
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<p> ἀλλ᾿ ἥ γε ὑπὸ τὸν Καύκασον λίμνη, ἣν καλοῦσιν οἱ ἐκεῖ θάλατταν· αὕτη γὰρ ποταμῶν πολλῶν καὶ μεγάλων εἰσβαλλόντων οὐκ ἔχουσα ἔκρουν φανερὸν ἐκδίδωσιν ὑπὸ γῆν κατὰ Κοραξούς, περὶ τὰ καλούμενα βαθέα τοῦ Πόντου·</p>
+<div class="flex flex-wrap h-screen gap-3_ mx-8">
 
-<div class="flex flex-wrap h-screen gap-3_ mx-8 my-8 ">
-
-  <div class="p-8 w-1/2 bg-blue-100">
-    <p id="clip-results" class="px-8">clip</p>
+  <!-- <div class="p-8 w-1/2  bg-[#FFFACD]"> -->
+  <div class="p-8 w-1/2  bg-[#f7fafc]">
+    <p id="clip-results" class="px-8" on:click={handleClick}>clip</p>
   </div>
 
-  <div class="p-8 w-1/2 bg-red-100">
+  <div class="p-8 w-1/2 ">
       <h1 class="text-xl text-pink-500">App?! ===</h1>
       <p id="anthrax-results" class="px-8">editable</p>
+
+      <p> ἀλλ᾿ ἥ γε ὑπὸ τὸν Καύκασον λίμνη, ἣν καλοῦσιν οἱ ἐκεῖ θάλατταν· αὕτη γὰρ ποταμῶν πολλῶν καὶ μεγάλων εἰσβαλλόντων οὐκ ἔχουσα ἔκρουν φανερὸν ἐκδίδωσιν ὑπὸ γῆν κατὰ Κοραξούς, περὶ τὰ καλούμενα βαθέα τοῦ Πόντου·</p>
+
+      <p>But there is the lake beneath the Caucasus, which the inhabitants call a sea: for this is fed by many great rivers, and having no obvious outlet runs out beneath the earth in the district of the Coraxi and comes up somewhere about the so-called deeps of Pontus [3] Aristotle. Meteorologica</p>
   </div>
 
 </div>

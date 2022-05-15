@@ -11,7 +11,7 @@
   </aside>
   <section>
     <header />
-    <main class="container px-16">
+    <main class="container px-1">
       <slot />
     </main>
     <footer />
@@ -21,17 +21,18 @@
 <style>
   #app {
     display: grid;
-    grid-template-columns: 196px auto;
+    grid-template-columns: 196px auto 196px ;
     height: 100%;
     width: 100%;
     position: absolute;
   }
   main {
-    padding-top: 64px;
+    padding-top: 24px;
   }
   aside {
     padding: 16px;
-    box-shadow: 0 0 16px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 32px rgba(0, 0, 0, 0.4);
     height: 100%;
   }
+
 </style>

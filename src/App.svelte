@@ -14,4 +14,15 @@
   @tailwind base;
   @tailwind components;
   @tailwind utilities;
+
+
+  span.wf:hover {
+    background-color: #eee8aa;
+    cursor: pointer;
+  }
+
+	p {
+		font-size: 1em;
+	}
+
 </style>
