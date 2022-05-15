@@ -77,9 +77,11 @@
     console.log('_CLICK', owf.textContent)
     let res = await anthrax(wf)
     console.log('_CLICK_RES', res)
+    let oresults = document.querySelector('#anthrax-results')
+    oresults.innerHTML = ''
 
     let tree = jsonview.create(res)
-    jsonview.render(tree, document.querySelector('#anthrax-results'))
+    jsonview.render(tree, oresults)
     jsonview.expand(tree)
 
   }
@@ -89,10 +91,10 @@
 
 <svelte:window on:keydown={handleKeydown}/>
 
-<div class="flex flex-wrap h-screen gap-3_ mx-8">
+<div class="flex flex-wrap h-screen gap-3_ mx-8 ">
 
-  <!-- <div class="p-8 w-1/2  bg-[#FFFACD]"> -->
-  <div class="p-8 w-1/2  bg-[#f7fafc]">
+  <div class="p-8 w-1/2  bg-[#FFFACD] left-shadow ">
+  <!-- <div class="p-8 w-1/2  bg-[#f7fafc] left-shadow"> -->
     <p id="clip-results" class="px-8" on:click={handleClick}>clip</p>
   </div>
 
@@ -107,5 +109,11 @@
 
 </div>
 
+<style>
+.left-shadow {
+  box-shadow: -15px 0 15px -15px #333;
+}
+
+</style>
 
 <!-- <a href="/guide">guide</a> -->
