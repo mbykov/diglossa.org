@@ -17,10 +17,9 @@
     jsonview.render(tree, document.querySelector('#anthrax-results'))
     jsonview.expand(tree)
 
-    // let anthrax = await import('/home/michael/greek/anthrax')
     let wf = 'ἀθλητής'
-    let res = await anthrax(wf)
-    console.log('_RES', res)
+    // let res = await anthrax(wf)
+    // console.log('_RES', res)
 
     // tree = jsonview.create(res)
     // jsonview.render(tree, document.querySelector('#anthrax-results'))
