@@ -1,0 +1,97 @@
+// this file is generated — do not edit it
+/// <reference types="@sveltejs/kit" />
+
+declare module '$env/static/public' {
+
+}
+
+declare module '$env/static/private' {
+	export const NVM_DIR: string;
+	export const LS_COLORS: string;
+	export const npm_config_node_gyp: string;
+	export const npm_execpath: string;
+	export const _: string;
+	export const LANG: string;
+	export const LESS: string;
+	export const DISPLAY: string;
+	export const HOSTNAME: string;
+	export const OLDPWD: string;
+	export const EDITOR: string;
+	export const GPG_TTY: string;
+	export const GTK_OVERLAY_SCROLLING: string;
+	export const COLORTERM: string;
+	export const NVM_CD_FLAGS: string;
+	export const npm_config_global_prefix: string;
+	export const npm_package_json: string;
+	export const JAVA_HOME: string;
+	export const npm_config_user_agent: string;
+	export const XDG_VTNR: string;
+	export const GTK3_MODULES: string;
+	export const ZSH: string;
+	export const SSH_AUTH_SOCK: string;
+	export const npm_config_init_module: string;
+	export const XDG_SESSION_ID: string;
+	export const XDG_GREETER_DATA_DIR: string;
+	export const USER: string;
+	export const PAGER: string;
+	export const LSCOLORS: string;
+	export const DESKTOP_SESSION: string;
+	export const npm_config_userconfig: string;
+	export const npm_lifecycle_event: string;
+	export const PWD: string;
+	export const SSH_ASKPASS: string;
+	export const HOME: string;
+	export const npm_config_cache: string;
+	export const TMP: string;
+	export const BROWSER: string;
+	export const SSH_AGENT_PID: string;
+	export const npm_command: string;
+	export const XDG_SESSION_TYPE: string;
+	export const BASH_ENV: string;
+	export const MATE_DESKTOP_SESSION_ID: string;
+	export const npm_config_noproxy: string;
+	export const XDG_SESSION_DESKTOP: string;
+	export const QT_SCALE_FACTOR: string;
+	export const TMPDIR: string;
+	export const SYSTEMD_PAGER: string;
+	export const npm_config_metrics_registry: string;
+	export const npm_config_globalconfig: string;
+	export const MAIL: string;
+	export const HELP_BROWSER: string;
+	export const npm_lifecycle_script: string;
+	export const LESSKEY: string;
+	export const INIT_CWD: string;
+	export const SHELL: string;
+	export const VTE_VERSION: string;
+	export const TERM: string;
+	export const XDG_SESSION_CLASS: string;
+	export const XDG_SEAT_PATH: string;
+	export const NVM_BIN: string;
+	export const XDG_CURRENT_DESKTOP: string;
+	export const COLOR: string;
+	export const SHLVL: string;
+	export const XDG_SEAT: string;
+	export const G_FILENAME_ENCODING: string;
+	export const npm_node_execpath: string;
+	export const npm_config_prefix: string;
+	export const WINDOWID: string;
+	export const npm_config_local_prefix: string;
+	export const GDMSESSION: string;
+	export const npm_package_version: string;
+	export const LOGNAME: string;
+	export const DBUS_SESSION_BUS_ADDRESS: string;
+	export const XDG_RUNTIME_DIR: string;
+	export const XAUTHORITY: string;
+	export const XDG_SESSION_PATH: string;
+	export const QT_AUTO_SCREEN_SCALE_FACTOR: string;
+	export const PATH: string;
+	export const npm_config_engine_strict: string;
+	export const G_BROKEN_FILENAMES: string;
+	export const NVM_INC: string;
+	export const NODE: string;
+	export const HISTSIZE: string;
+	export const HISTFILESIZE: string;
+	export const SESSION_MANAGER: string;
+	export const npm_package_name: string;
+	export const LESSOPEN: string;
+}
