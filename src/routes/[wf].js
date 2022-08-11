@@ -1,17 +1,23 @@
-console.log('_WF.JS')
+// console.log('_WF.JS')
 
 export const GET = async ({ locals }) => {
-    // locals.userid comes from src/hooks.js
-    console.log('_WF.JS__ GET')
+    // console.log('_WF.JS__ GET')
+    // console.log('____ GET.JS 200', locals)
 
-    console.log('____ GET.JS 200', locals)
-    return {
-        body: {
-            chains: await locals.data
-        }
-    };
+  let chains
+  try {
+    chains = JSON.parse(locals.data)
+  } catch(err) {
+    chains = {err: 'kuku'}
+  }
 
-    return {
-        status: 'response.status'
-    };
+  return {
+    body: {
+      chains: await chains
+    }
+  };
+
+  return {
+    status: 'response.status'
+  };
 };
