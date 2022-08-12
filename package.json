@@ -1,6 +1,6 @@
 {
   "name": "anthrax.diglossa.org",
-  "version": "0.0.1",
+  "version": "1.1.1",
   "scripts": {
     "dev": "vite dev",
     "build": "vite build",
@@ -29,8 +29,6 @@
     "anthrax": "^2.2.3",
     "franc-min": "^6.0.0",
     "lodash": "^4.17.21",
-    "orthos": "^0.7.2",
-    "svelte-agnostic-draggable": "^0.1.11",
-    "svelte-moveable": "^0.27.0"
+    "orthos": "^0.7.2"
   }
 }

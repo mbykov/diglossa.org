@@ -21,19 +21,10 @@
 
  export let chains, wf
 
+
  onMount(async () => {
-     document.addEventListener('paste', (e) => {
-         const copiedText = e.clipboardData.getData('text/plain');
-         let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
-         // console.log('_HTML', copiedText)
-         let oclip = document.querySelector('#clip-results')
-         oclip.innerHTML = html
-     })
 
-     console.log('_PARSE', chains)
-
-     // Fly = (await import('./Fly.svelte')).default;
-
+   console.log('_PARSE', chains)
  })
 
  async function handleClick(ev) {
@@ -58,11 +49,6 @@
             <p>
                 сюда - ctrl-v, mouse, etc. Дернуть anthrax. Всплывающее окно. wf - pathname, reload - ssr
             </p>
-
-            <h1 class="text-xl font-bold mb-4">anthrax</h1>
-            <svelte:component this={Anthrax} chains={chains} wf={wf}>
-	              <p>some slotted content</p>
-            </svelte:component>
 
             <div class="overflow-y-auto">
 

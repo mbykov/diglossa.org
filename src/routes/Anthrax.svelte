@@ -12,9 +12,9 @@
   }
 
   function trns(chain) {
-    let cdict = chain.slice(-2)[0].cdict
-    if (!cdict) return []
-    let trns = cdict.trns
+    let cdictseg = chain.find(seg=> seg.mainseg)
+    if (!cdictseg) return []
+    let trns = cdictseg.cdict.trns || cdictseg.regdict?.trns
     return trns
   }
 
