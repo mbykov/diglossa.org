@@ -1,7 +1,34 @@
 <script>
- import "../app.css";
+  import "../app.css";
+  import { onMount } from 'svelte'
 
- // import Anthrax from './Anthrax.svelte'
+  onMount(async () => {
+    document.addEventListener('paste', (e) => {
+      const copiedText = e.clipboardData.getData('text/plain');
+      let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
+      let oclip = document.querySelector('#clip-results')
+      oclip.innerHTML = html
+    })
+
+    document.body.addEventListener("keydown", function(e) {
+       let key = e.which || e.keyCode; // keyCode detection
+        if (key == 67 && e.ctrlKey ) {
+          let owf = document.querySelector('.wf:hover')
+          if (!owf || !owf.textContent) return
+          // console.log("Ctrl + C Pressed !", owf.textContent);
+          copyTextToClipboard(owf.textContent)
+        }
+    }, false);
+
+  })
+
+  function copyTextToClipboard(text) {
+    navigator.clipboard.writeText(text).then(function() {
+      console.log('Async: Copying!', text);
+    }, function(err) {
+      console.error('Async: Could not copy text: ', err);
+    });
+  }
 </script>
 
 
