@@ -213,7 +213,7 @@ export const npm_config_local_prefix = "/home/michael/greek/anthrax.diglossa.org
 export const GDMSESSION = "mate";
 
 /** @type {import('$env/static/private').npm_package_version} */
-export const npm_package_version = "0.0.1";
+export const npm_package_version = "1.1.1";
 
 /** @type {import('$env/static/private').LOGNAME} */
 export const LOGNAME = "michael";
