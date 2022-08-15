@@ -1,33 +1,42 @@
 <script>
- export let chain
- export let wf
+  export let chain
+  export let wf
 
   // title: wf -----------> segs: seg-seg-seg
- // rdict --------> dname
- // morph
- // trns
+  // rdict --------> dname
+  // morph
+  // trns
   $: segs = chain.map(seg=> seg.seg).join('-')
   $: mainseg = chain.find(seg=> seg.mainseg)
   $: fls = chain.find(seg=> seg.fls)?.fls
-
-  $: term = chain.find(seg=> seg.term)
-  $: pref = chain.find(seg=> seg.pref)
   $: console.log('_MS', mainseg)
 
-  $: rdict = mainseg?.cdict?.rdict || term?.cdict.rdict
-  $: trns = mainseg?.cdict?.trns || term?.cdict.trns
+  $: term = chain.find(seg=> seg.term)
+  // $: console.log('_TERM', term)
 
-  $: console.log('_FLS', fls)
-  $: morph = prettyMorph(mainseg, fls)
+  $: pref = false // chain.find(seg=> seg.pref)
+
+  // $: rdict = mainseg?.cdict?.rdict || term?.cdict.rdict
+  // $: trns = mainseg?.cdict?.trns || term?.cdict.trns
+
+  // $: console.log('_TRNS', trns)
+  $: morph = false // (mainseg) ? prettyMorph(mainseg, fls) : prettyTerm(term)
+
+  function prettyTerm(term) {
+    let fls = term.cdict.fls
+    $: console.log('_TERM FLS', fls)
+    if (!fls) return 'kuku'
+    return prettyNameFLS(fls)
+  }
 
   function prettyMorph(mainseg, fls) {
-    if (!mainseg) return 'no-mainseg'
+    // if (!mainseg) return 'no-mainseg'
     if (mainseg.cdict.verb) {
       return prettyVerbFLS(fls)
     } else if (mainseg.cdict.name) {
       return prettyNameFLS(fls)
     } else {
-      return 'other'
+      return null
     }
   }
 
@@ -52,10 +61,10 @@
   Anthrax
   <div class="chain border border-solid p-4">
     <div class="title flex ">
-      <div class="title w-1/2">wf: {wf}</div> <div class="title w-1/2">segments: {segs}</div>
+      <div class="title w-1/2">wf: <b>{wf}</b></div> <div class="title w-1/2">segments: {segs}</div>
     </div>
     {#if morph}
-      <div class="morph p-2">
+      <div class="morph py-2">
         morph: {morph}
         <!-- {#each pref.cdicts as cdict} -->
           <!-- pref: {cdict.rdict} trns: {cdict.trns} -->
@@ -64,20 +73,43 @@
     {/if}
 
     {#if pref}
-    <div class="pref p-2">
-      {#each pref.cdicts as cdict}
-        pref: {cdict.rdict} trns: {cdict.trns}
+      <div class="pref py-2">
+        {#each pref.cdicts as cdict}
+          prefix: <b>{cdict.rdict}</b>
+        <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
+          {#each cdict.trns as trn}
+            {trn}<br>
+          {/each}
+        </div>
       {/each}
     </div>
-    {/if}
-    <div class="rdict p-2">
-      rdict: {rdict}
+  {/if}
 
-      <div class="trns">
-        trns: {trns}
-      </div>
-
+    {#if mainseg}
+        <div class="mainseg py-2">
+          {#each mainseg.cdicts as cdict}
+            <div class="flex">
+              <div class="w-1/2"> <b>dict</b>: {cdict.rdict}        </div>
+              <div class="w-1/2 text-right text-green-600">              {cdict.dname}            </div>
+            </div>
+          <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
+            {#each cdict.trns as trn}
+              {trn}<br>
+            {/each}
+          </div>
+        {/each}
     </div>
+  {/if}
+
+    <div class="rdict py-2">
+     <!-- dict: <b>{rdict}</b> -->
+     <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
+       <!-- {#each trns as trn} -->
+         <!-- {trn}<br> -->
+       <!-- {/each} -->
+     </div>
+
+  </div>
   </div>
 
 </div>
