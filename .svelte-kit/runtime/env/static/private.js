@@ -27,7 +27,7 @@ export const DISPLAY = ":0";
 export const HOSTNAME = "think";
 
 /** @type {import('$env/static/private').OLDPWD} */
-export const OLDPWD = "/home/michael/greek/anthrax.diglossa.org/src/routes";
+export const OLDPWD = "/home/michael/greek/anthrax.diglossa.org";
 
 /** @type {import('$env/static/private').EDITOR} */
 export const EDITOR = "vi";
