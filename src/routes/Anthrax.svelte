@@ -58,11 +58,11 @@
 </script>
 
 <div class="h-screen_">
-  <div class="chain border border-solid p-4">
-    <div class="title flex ">
-      <div class="title w-1/2">wf: <b>{wf}</b></div> <div class="title w-1/2">segments: {segs}</div>
-    </div>
-    {#if morph}
+  <div class="chain p-4">
+      <div class="title flex flex-cols ">
+          <div class="wf w-1/3">wf: <b>{wf}</b></div> <div class="segs w-1/3">segments: {segs}</div><div class="esc w-1/3 text-right">[x]</div>
+      </div>
+      {#if morph}
       <div class="morph py-2">
         morph: {morph}
         <!-- {#each pref.cdicts as cdict} -->
@@ -114,3 +114,10 @@
   </div>
 
 </div>
+
+<style>
+ .esc {
+   color: maroon;
+   cursor: pointer;
+ }
+</style>

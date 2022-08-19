@@ -11,29 +11,38 @@
     })
 
     document.body.addEventListener("keydown", function(e) {
-       let key = e.which || e.keyCode; // keyCode detection
-        if (key == 67 && e.ctrlKey ) {
+       let key = e.which || e.keyCode; // keyCode detection // v = 67
+        if (e.key == 'v' && e.ctrlKey ) {
           let owf = document.querySelector('.wf:hover')
           if (!owf || !owf.textContent) return
-          // console.log("Ctrl + C Pressed !", owf.textContent);
           copyTextToClipboard(owf.textContent)
+        } else if (e.key == 'Escape') {
+          closeAll()
         }
     }, false);
+
       document.body.addEventListener("click", function(e) {
         let target = e.target
         if (target.classList.contains('trns')) {
-          console.log('TRNS')
+          console.log('TRNS', target)
           target.classList.toggle('overflow-y-auto')
           target.classList.toggle('max-h-24')
-          //target.classList.add('bg-gray-100')
-
+        } else if (target.classList.contains('esc')) {
+          closeAll()
         } else if (target.classList.contains('wf')) {
           let omorph = document.body.querySelector('#popup-morph')
           console.log('_OMORPH', omorph)
-          omorph.classList.toggle('hidden')
+          omorph.classList.remove('hidden')
         }
       }, false);
 
+   function closeAll() {
+     let opopups = document.querySelectorAll('.absolute')
+     for (let opopup of opopups) {
+       console.log(opopup);
+       opopup.classList.add('hidden')
+     }
+   }
 
   })
 

@@ -13,7 +13,8 @@
  })
 
  async function handleClick(ev) {
-     let owf = ev.target
+   let owf = ev.target
+   if (!owf.classList.contains('wf')) return
      wf = owf.textContent
      if (!wf) return
      let oresults = document.querySelector('#anthrax-results')
@@ -58,8 +59,8 @@
 </div>
 
 
-<div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
-    <div class="h-full bg-[#FAFAD2] p-4 pr-2 border shadow-2xl">
+<div id="popup-morph" class="hidden absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+    <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
         {#each chains as chain}
             <svelte:component this={Anthrax} {chain} {wf} />
         {/each}
