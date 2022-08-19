@@ -14,13 +14,13 @@
   $: term = chain.find(seg=> seg.term)
   // $: console.log('_TERM', term)
 
-  $: pref = false // chain.find(seg=> seg.pref)
+  $: pref = chain.find(seg=> seg.pref)
 
   // $: rdict = mainseg?.cdict?.rdict || term?.cdict.rdict
   // $: trns = mainseg?.cdict?.trns || term?.cdict.trns
 
   // $: console.log('_TRNS', trns)
-  $: morph = false // (mainseg) ? prettyMorph(mainseg, fls) : prettyTerm(term)
+  $: morph = [] // (mainseg) ? prettyMorph(mainseg, fls) : prettyTerm(term)
 
   function prettyTerm(term) {
     let fls = term.cdict.fls
@@ -57,8 +57,7 @@
 
 </script>
 
-<div class="h-screen">
-  Anthrax
+<div class="h-screen_">
   <div class="chain border border-solid p-4">
     <div class="title flex ">
       <div class="title w-1/2">wf: <b>{wf}</b></div> <div class="title w-1/2">segments: {segs}</div>
@@ -74,9 +73,11 @@
 
     {#if pref}
       <div class="pref py-2">
+
         {#each pref.cdicts as cdict}
           prefix: <b>{cdict.rdict}</b>
         <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
+
           {#each cdict.trns as trn}
             {trn}<br>
           {/each}
