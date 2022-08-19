@@ -1,9 +1,9 @@
 <script>
   import "../app.css";
-  import { onMount } from 'svelte'
+ import { onMount } from 'svelte'
 
-  onMount(async () => {
-    document.addEventListener('paste', (e) => {
+ onMount(async () => {
+     document.addEventListener('paste', (e) => {
       const copiedText = e.clipboardData.getData('text/plain');
       let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
       let oclip = document.querySelector('#clip-results')
@@ -19,6 +19,21 @@
           copyTextToClipboard(owf.textContent)
         }
     }, false);
+      document.body.addEventListener("click", function(e) {
+        let target = e.target
+        if (target.classList.contains('trns')) {
+          console.log('TRNS')
+          target.classList.toggle('overflow-y-auto')
+          target.classList.toggle('max-h-24')
+          //target.classList.add('bg-gray-100')
+
+        } else if (target.classList.contains('wf')) {
+          let omorph = document.body.querySelector('#popup-morph')
+          console.log('_OMORPH', omorph)
+          omorph.classList.toggle('hidden')
+        }
+      }, false);
+
 
   })
 
@@ -34,7 +49,7 @@
 
 
 
-<div class="flex flex-col min-h-screen max-h-screen overflow-hidden bg-[#F7F6EE]">
+<div class="flex flex-col min-h-screen_ max-h-screen_ h-screen overflow-hidden bg-[#F7F6EE]">
     <main class="flex flex-grow overflow-hidden">
 
         <div class="w-1/6 p-4 bg-gray-200">
@@ -45,26 +60,10 @@
             </div>
         </div>
 
-        <div class="flex flex-col w-5/6 p-4 overflow-y-auto">
+        <div class="flex flex-col w-5/6 p-4 h-full overflow-y-auto">
             <p>main</p>
             <slot />
         </div>
-
-        <!-- <div class="w-3/6 p-4"> -->
-            <!-- <Anthrax /> -->
-        <!-- </div> -->
-
-        <!-- <div class="w-1/6 p-4"> -->
-        <!--     <p>right</p> -->
-        <!--     <ul class="mt-8"> -->
-        <!--         <li class=""><a href="/code">code</a></li> -->
-        <!--         <li class=""><a href="/license">license</a></li> -->
-        <!--         <li><a href=""></a></li> -->
-        <!--         <li> -->
-        <!--             ΣΩ. Εἰ μὲν τῶν ἐν Κυρήνῃ μᾶλλον ἐκηδόμην, ὦ Θεόδωρε, τὰ ἐκεῖ ἄν σε καὶ περὶ ἐκείνων ἀνηρώτων, εἴ τινες αὐτόθι περὶ γεωμετρίαν ἤ τινα ἄλλην φιλοσοφίαν εἰσὶ τῶν νέων ἐπιμέλειαν ποιούμενοι· νῦν δὲ ἧττον γὰρ ἐκείνους ἢ τούσδε φιλῶ, καὶ μᾶλλον ἐπιθυμῶ εἰδέναι τίνες ἡμῖν τῶν νέων ἐπίδοξοι γενέσθαι ἐπιεικεῖς. ταῦτα δὴ αὐτός τε σκοπῶ καθ' ὅσον δύναμαι, καὶ τοὺς ἄλλους ἐρωτῶ οἷς ἂν ὁρῶ τοὺς νέους ἐθέλοντας συγγίγνεσθαι. σοὶ δὴ οὐκ ὀλίγιστοι πλησιάζουσι, e  καὶ δικαίως· ἄξιος γὰρ τά τε ἄλλα καὶ γεωμετρίας ἕνεκα. εἰ δὴ οὖν τινι ἐνέτυχες ἀξίῳ λόγου, ἡδέως ἂν πυθοίμην. -->
-        <!--         </li> -->
-        <!--     </ul> -->
-        <!-- </div> -->
 
     </main>
 </div>
