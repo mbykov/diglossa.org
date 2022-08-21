@@ -9,7 +9,7 @@
  export let chains, wf
 
  onMount(async () => {
-   console.log('_PARSE', chains)
+   //console.log('_CHAINS', chains)
  })
 
  async function handleClick(ev) {
@@ -59,10 +59,24 @@
 </div>
 
 
-<div id="popup-morph" class="hidden absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+<div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
     <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
+      <div class="main-title text-right px-2">
+        <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
+      </div>
         {#each chains as chain}
             <svelte:component this={Anthrax} {chain} {wf} />
         {/each}
     </div>
 </div>
+
+<style>
+ .esc {
+   color: maroon;
+   cursor: pointer;
+ }
+ .dict {
+   color: maroon;
+   cursor: pointer;
+ }
+</style>
