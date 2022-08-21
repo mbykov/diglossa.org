@@ -24,14 +24,12 @@
       document.body.addEventListener("click", function(e) {
         let target = e.target
         if (target.classList.contains('trns')) {
-          console.log('TRNS', target)
           target.classList.toggle('overflow-y-auto')
           target.classList.toggle('max-h-24')
         } else if (target.classList.contains('esc')) {
           closeAll()
         } else if (target.classList.contains('wf')) {
           let omorph = document.body.querySelector('#popup-morph')
-          console.log('_OMORPH', omorph)
           omorph.classList.remove('hidden')
         }
       }, false);
@@ -39,7 +37,6 @@
    function closeAll() {
      let opopups = document.querySelectorAll('.absolute')
      for (let opopup of opopups) {
-       console.log(opopup);
        opopup.classList.add('hidden')
      }
    }
