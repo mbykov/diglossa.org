@@ -24,6 +24,7 @@
       document.body.addEventListener("click", function(e) {
         let target = e.target
         if (target.classList.contains('trns')) {
+          // console.log('_XXX CLICK')
           target.classList.toggle('overflow-y-auto')
           target.classList.toggle('max-h-24')
         } else if (target.classList.contains('esc')) {

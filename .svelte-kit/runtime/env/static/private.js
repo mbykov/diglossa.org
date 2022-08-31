@@ -27,7 +27,7 @@ export const DISPLAY = ":0";
 export const HOSTNAME = "think";
 
 /** @type {import('$env/static/private').OLDPWD} */
-export const OLDPWD = "/home/michael/greek/anthrax.diglossa.org";
+export const OLDPWD = "/home/michael";
 
 /** @type {import('$env/static/private').EDITOR} */
 export const EDITOR = "vi";
@@ -114,7 +114,7 @@ export const TMP = "/tmp/.private/michael";
 export const BROWSER = "/usr/bin/xbrowser";
 
 /** @type {import('$env/static/private').SSH_AGENT_PID} */
-export const SSH_AGENT_PID = "3166";
+export const SSH_AGENT_PID = "3143";
 
 /** @type {import('$env/static/private').npm_command} */
 export const npm_command = "run-script";
@@ -204,7 +204,7 @@ export const npm_node_execpath = "/home/michael/.nvm/versions/node/v16.15.1/bin/
 export const npm_config_prefix = "/home/michael/.nvm/versions/node/v16.15.1";
 
 /** @type {import('$env/static/private').WINDOWID} */
-export const WINDOWID = "51705654";
+export const WINDOWID = "44040198";
 
 /** @type {import('$env/static/private').npm_config_local_prefix} */
 export const npm_config_local_prefix = "/home/michael/greek/anthrax.diglossa.org";
@@ -255,7 +255,7 @@ export const HISTSIZE = "50000";
 export const HISTFILESIZE = "9999";
 
 /** @type {import('$env/static/private').SESSION_MANAGER} */
-export const SESSION_MANAGER = "local/think:@/tmp/.ICE-unix/2739,unix/think:/tmp/.ICE-unix/2739";
+export const SESSION_MANAGER = "local/think:@/tmp/.ICE-unix/2714,unix/think:/tmp/.ICE-unix/2714";
 
 /** @type {import('$env/static/private').npm_package_name} */
 export const npm_package_name = "anthrax.diglossa.org";
