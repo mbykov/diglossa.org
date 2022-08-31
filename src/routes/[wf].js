@@ -17,7 +17,7 @@ export const GET = async ({ locals }) => {
     }
   };
 
-  return {
-    status: 'response.status'
-  };
+  // return {
+  //   status: 'response.status'
+  // };
 };
