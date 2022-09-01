@@ -5,26 +5,29 @@ import { anthrax } from "/home/michael/greek/anthrax"
 
 /** @type {import('@sveltejs/kit').Handle} */
 export const handle = async ({ event, resolve }) => {
-    // const cookies = cookie.parse(event.request.headers.get('cookie') || '');
-    // event.locals.userid = cookies['userid'] || crypto.randomUUID();
+  // const cookies = cookie.parse(event.request.headers.get('cookie') || '');
+  // event.locals.userid = cookies['userid'] || crypto.randomUUID();
 
-    console.log('_handle pathname', event.url.pathname)
+  console.log('_handle pathname', event.url.pathname)
 
-    let response = await resolve(event);
+  let response = await resolve(event);
+  const {params} = event
+  if (!params.wf) return response
 
-    const {params} = event
-    let wf = params?.wf
-    console.log('_params', wf)
-    if (!wf) return
+  let kuku = 'oh-kuku'
 
-    let results = await anthrax(wf)
-  // results = [{seg: wf}, {seg:2}]
+  let results = ''
+  let wf = params?.wf
+  console.log('_params', wf)
+  if (!wf) return
+  else if (wf == 'examples') results = 'examples'
+  // else
+  results = await anthrax(wf)
 
-    event.locals.data = JSON.stringify(results)
-    response = await resolve(event);
+  event.locals.data = JSON.stringify(results)
+  event.locals.wf = wf
+  response = await resolve(event);
+  console.log('_HOOKS RES', wf, results)
 
-    console.log('_RES', wf, results)
-
-
-    return response;
+  return response;
 };

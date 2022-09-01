@@ -1,23 +1,21 @@
-// console.log('_WF.JS')
 
 export const GET = async ({ locals }) => {
     // console.log('_WF.JS__ GET')
-    // console.log('____ GET.JS 200', locals)
+    console.log('____ GET.JS 200 LOCALS', locals)
 
-  let chains
+  let chains, wf
   try {
     chains = JSON.parse(locals.data)
+    wf = locals.wf
+    console.log('____ GET.JS', chains)
   } catch(err) {
     chains = {err: 'kuku'}
   }
 
   return {
     body: {
-      chains: await chains
+      chains,
+      wf
     }
   };
-
-  // return {
-  //   status: 'response.status'
-  // };
 };
