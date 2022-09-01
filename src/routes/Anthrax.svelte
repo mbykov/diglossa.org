@@ -43,7 +43,7 @@
 
 </script>
 
-<div class="">
+<!-- <div class=""> -->
   <div class="chain p-4">
 
     {#if term}
@@ -53,5 +53,4 @@
     {/if}
 
   </div>
-
-</div>
+<!-- </div> -->
