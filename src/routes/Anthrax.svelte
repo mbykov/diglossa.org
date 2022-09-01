@@ -3,30 +3,10 @@
   export let wf
 
   import Term from './widgets/Term.svelte'
-
-  $: console.log('_CHAIN', chain)
-
-  // title: wf -----------> segs: seg-seg-seg
-  // rdict --------> dname
-  // morph
-  // trns
-  $: segs = chain.map(seg=> seg.seg).join('-')
+  import Main from './widgets/Main.svelte'
+  // $: console.log('_Anthrax WF', wf)
 
   $: term = chain.find(seg=> seg.indecl)
-
-  $: mainseg = chain.find(seg=> seg.mainseg)
-  $: fls = chain.find(seg=> seg.fls)?.fls
-
-
-  $: pref = chain.find(seg=> seg.pref)
-
-  // $: rdict = mainseg?.cdict?.rdict || term?.cdict.rdict
-  // $: trns = mainseg?.cdict?.trns || term?.cdict.trns
-  // $: console.log('_TRNS', trns)
-
-  $: console.log('_MS', mainseg)
-  $: console.log('_FLS', fls)
-  $: morph = [] //mainseg ? prettyMorph(mainseg, fls) : prettyTerm(term)
 
   function prettyTerm(term) {
     let fls = term.cdict.fls
@@ -68,17 +48,9 @@
 
     {#if term}
       <svelte:component this={Term} {term} />
+    {:else}
+      <svelte:component this={Main} {wf} {chain} />
     {/if}
-
-
-<div class="rdict py-2">
-  <!-- dict: <b>{rdict}</b> -->
-  <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
-    <!-- {#each trns as trn} -->
-      <!-- {trn}<br> -->
-    <!-- {/each} -->
-  </div>
-</div>
 
   </div>
 

@@ -6,11 +6,12 @@
  // let Fly
  import Anthrax from './Anthrax.svelte'
 
- export let chains, wf
- $: console.log('_CHAINS', chains)
+ export let chains
+ export let wf
+ /* $: console.log('_CHAINS', chains) */
 
  onMount(async () => {
-   //console.log('_CHAINS', chains)
+     //console.log('_CHAINS', chains)
  })
 
  async function handleClick(ev) {
