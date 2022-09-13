@@ -1,15 +1,17 @@
 <script>
 
   import { goto } from '$app/navigation';
-  import Anthrax from './Anthrax.svelte'
-  import Examples from './Examples.svelte'
+  import Anthrax from '../Anthrax.svelte'
+  import Examples from '../Examples.svelte'
+  import Segments from './Segments.svelte'
 
-  export let chains
-  export let wf
-  $: console.log('_[WF]:', wf)
-  export let kuku
-  kuku += ' plus-kuku'
-  $: console.log('_xxKUKUxx:', kuku)
+  export let data
+  $: chains = data.chains
+  $: wf = data.wf
+  $: console.log('_[WF]:', wf, 2, chains)
+  $: segments = data.segments
+  $: console.log('_[WF-segs]:', segments)
+
 
  async function handleClick(ev) {
      let owf = ev.target
@@ -21,31 +23,26 @@
      goto(wf)
  }
 
- /* let tree = jsonview.create(res) */
- /* jsonview.render(tree, oresults) */
- /* jsonview.expand(tree) */
-
 </script>
 
 <div class="flex h-full bg-[#F7F6EE]">
   <div class="w-2/5 p-4">
-    <p>
-      сюда - ctrl-v, mouse, etc. Дернуть anthrax. Всплывающее окно. wf - pathname, reload - ssr
-    </p>
 
             <div class="overflow-y-auto">
-                <p id="clip-results" class="px-8" on:click={handleClick}>
+                <div id="clip-results" class="px-8" on:click={handleClick}>
+                <p>
                     <span class="wf">ἁγνότης</span>
                     <span class="wf">ἀγαπητός</span>
 
-                    <span class="wf">ἁγνότης</span>
-                    <span class="wf">ἁγνότης</span>
-
-                    <span class="wf">φιλοσοφίαν</span> <span class="wf">ἀνηρώτων</span>  <span class="wf">ταῦτα</span> <span class="wf">δὴ</span> <span class="wf">αὐτός</span> <span class="wf">τε</span> <span class="wf">σκοπῶ</span> <span class="wf">καθ'</span> <span class="wf">ὅσον</span> <span class="wf">δύναμαι</span>, <span class="wf">καὶ</span> <span class="wf">τοὺς</span> <span class="wf">ἄλλους</span> <span class="wf">ἐρωτῶ</span> <span class="wf">οἷς</span> <span class="wf">ἂν</span> <span class="wf">ὁρῶ</span> <span class="wf">τοὺς</span> <span class="wf">νέους</span> <span class="wf">ἐθέλοντας</span> <span class="wf">συγγίγνεσθαι</span>
-
-                ἁγνότης
-
+                <p>
+                    <span class="wf">ἀγαθοποιέω</span>; <span class="wf">βαρύτονος</span>; <span class="wf">παραγράφω</span>; <span class="wf">ἀντιπαραγράφω</span>; <span class="wf">διαγγέλλω</span>; <span class="wf">συγκαθαιρέω</span>; <span class="wf">ἀποδείκνυμι</span>; <span class="wf">χρονοκρατέω</span>; <span class="wf">προσαπαγγέλλω</span>; <span class="wf">ἐπεξήγησις</span>;
                 </p>
+
+<p>
+                    <span class="wf">φιλοσοφίαν</span> <span class="wf">ἀνηρώτων</span>  <span class="wf">ταῦτα</span> <span class="wf">δὴ</span> <span class="wf">αὐτός</span> <span class="wf">τε</span> <span class="wf">σκοπῶ</span> <span class="wf">καθ'</span> <span class="wf">ὅσον</span> <span class="wf">δύναμαι</span>, <span class="wf">καὶ</span> <span class="wf">τοὺς</span> <span class="wf">ἄλλους</span> <span class="wf">ἐρωτῶ</span> <span class="wf">οἷς</span> <span class="wf">ἂν</span> <span class="wf">ὁρῶ</span> <span class="wf">τοὺς</span> <span class="wf">νέους</span> <span class="wf">ἐθέλοντας</span> <span class="wf">συγγίγνεσθαι</span>
+                </p>
+
+                </div>
             </div>
 
             <p id="anthrax-results" class="px-8">anthrax-results</p>
@@ -64,14 +61,22 @@
   <!-- <svelte:component this={Examples} {wf} /> -->
 {:else}
     <div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
-        <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
-            <div class="main-title text-right px-2">
-                <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
-            </div>
-            {#each chains as chain}
-            <svelte:component this={Anthrax} {chain} {wf} />
-            {/each}
+      <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
+        <div class="main-title text-right px-2">
+          <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
         </div>
+
+        <div class="title flex flex-cols px-4">
+          <div class="wf w-1/2">wf: <b>{wf}</b></div>
+          <div class="segs w-1/2 text-right">
+            <svelte:component this={Segments} {segments} {wf} />
+          </div>
+        </div>
+
+        {#each chains as chain}
+          <svelte:component this={Anthrax} {chain} {wf} />
+        {/each}
+      </div>
     </div>
 {/if}
 

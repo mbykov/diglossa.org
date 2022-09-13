@@ -9,10 +9,10 @@
   $: term = chain.find(seg=> seg.indecl)
 
   function prettyTerm(term) {
-    let fls = term.cdict.fls
-    $: console.log('_TERM FLS', fls)
-    if (!fls) return 'kuku'
-    return prettyNameFLS(fls)
+      let fls = term.cdict.fls
+      console.log('_TERM FLS', fls)
+      if (!fls) return 'kuku'
+      return prettyNameFLS(fls)
   }
 
   function prettyMorph(mainseg, fls) {
