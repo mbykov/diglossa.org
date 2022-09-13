@@ -11,6 +11,15 @@
   $: console.log('_[WF]:', wf, 2, chains)
   $: segments = data.segments
   $: console.log('_[WF-segs]:', segments)
+  $: cdicts = chains[0].find(seg=> seg.mainseg).cdicts
+  $: console.log('_[CDICTS]:', cdicts)
+
+  $: cdicts = []
+  function xxxx(seg) {
+    let segment = seg.detail
+    console.log('_PARENT showDicts', segment)
+    cdicts = segment.cdicts
+  }
 
 
  async function handleClick(ev) {
@@ -74,7 +83,7 @@
             </div>
             <div class="wf w-1/3">   </div>
             <div class="segs w-1/3 text-right">
-                <svelte:component this={Segments} {segments} {wf} />
+                <svelte:component this={Segments} {segments} {wf} on:segment={xxxx} />
             </div>
         </div>
 
