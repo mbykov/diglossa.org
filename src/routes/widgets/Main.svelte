@@ -3,14 +3,17 @@
   export let chain
   import Cdict from './Cdict.svelte'
 
-  $: console.log('_MAIN wf', wf)
-  $: console.log('_MAIN chain', chain)
+ /* $: console.log('_MAIN chain', wf, chain) */
 
   let morph, pref
 
   $: segs = chain.map(seg=> seg.seg).join('-')
   $: mainseg = chain.find(seg=> seg.mainseg)
-  $: fls = chain.find(seg=> seg.fls)?.fls
+  $: fls = chain.find(seg=> seg.fls).fls
+  if (mainseg) {
+    mainseg.cdicts.forEach(cdict=> cdict.fls = fls)
+  }
+  // $: console.log('_MAIN FSL', fls)
 
 </script>
 
@@ -19,22 +22,11 @@
     <div class="wf w-1/2">wf: <b>{wf}</b></div> <div class="segs w-1/2 text-right">segments: {segs}</div>
   </div>
 
-    {#if morph}
-      <div class="morph py-2">
-        morph: {morph}
-        <!-- {#each pref.cdicts as cdict} -->
-          <!-- pref: {cdict.rdict} trns: {cdict.trns} -->
-        <!-- {/each} -->
-      </div>
-    {/if}
-
       {#if pref}
         <div class="pref py-2">
-
-        {#each pref.cdicts as cdict}
-          prefix: <b>{cdict.rdict}</b>
-        <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
-
+          {#each pref.cdicts as cdict}
+            prefix: <b>{cdict.rdict}</b>
+          <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
           {#each cdict.trns as trn}
             {trn}<br>
           {/each}

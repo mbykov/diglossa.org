@@ -1,6 +1,6 @@
 <script>
   export let term
-  $: console.log('_TERM-term', term)
+  // $: console.log('_TERM-term', term)
   import Cdict from './Cdict.svelte'
 
 </script>
@@ -11,7 +11,7 @@
     </div>
 
   {#each term.cdicts as cdict}
-    <svelte:component this={Cdict} {cdict} />
+    <svelte:component this={Cdict} {cdict}  />
   {/each}
 
 </div>

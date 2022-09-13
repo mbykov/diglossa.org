@@ -1,16 +1,16 @@
 <script>
   import "../app.css";
   import { onMount } from 'svelte'
-  import { goto } from '$app/navigation';
+  // import { goto } from '$app/navigation';
 
  onMount(async () => {
-     document.addEventListener('paste', (e) => {
-      const copiedText = e.clipboardData.getData('text/plain');
-       console.log('_CP', copiedText)
-      let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
-      let oclip = document.querySelector('#clip-results')
-      oclip.innerHTML = html
-    })
+   document.addEventListener('paste', (e) => {
+     const copiedText = e.clipboardData.getData('text/plain');
+     console.log('_CP', copiedText)
+     let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
+     let oclip = document.querySelector('#clip-results')
+     oclip.innerHTML = html
+   })
 
     document.body.addEventListener("keydown", function(e) {
        let key = e.which || e.keyCode; // keyCode detection // v = 67
@@ -25,12 +25,15 @@
 
       document.body.addEventListener("click", function(e) {
         let target = e.target
+        let selection = getSelectionText()
+        if (selection) return
         if (target.classList.contains('trns')) {
-          console.log('_XXX CLICK')
+          if (e.shiftKey) return
           target.classList.toggle('overflow-y-auto')
           target.classList.toggle('max-h-24')
         } else if (target.classList.contains('esc')) {
           closeAll()
+
         } else if (target.classList.contains('wf')) {
           let omorph = document.body.querySelector('#popup-morph')
           if (omorph) omorph.classList.remove('hidden')
@@ -54,14 +57,15 @@
     });
   }
 
-
-  // async function handleClick(ev) {
-  //   let owf = ev.target
-  //   if (!owf.classList.contains('target')) return
-  //   let wf = owf.textContent
-  //   if (!wf) return
-  //   goto(wf)
-  // }
+  function getSelectionText() {
+    var text = "";
+    if (window.getSelection) {
+      text = window.getSelection().toString();
+    } else if (document.selection && document.selection.type != "Control") {
+      text = document.selection.createRange().text;
+    }
+    return text;
+}
 
 </script>
 
@@ -72,8 +76,7 @@
             <p>anthrax</p>
             <div class="mt-24 m-4">
                 <p><a href="/">home</a></p>
-                <p><a href="/examples">examples_1</a></p>
-                <!-- <p class="target" on:click={handleClick}>examples</p> -->
+                <p><a href="/examples">examples</a></p>
             </div>
         </div>
 
