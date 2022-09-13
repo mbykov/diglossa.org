@@ -4,6 +4,7 @@
   import Anthrax from '../Anthrax.svelte'
   import Examples from '../Examples.svelte'
   import Segments from './Segments.svelte'
+  import Cdicts from './Cdicts.svelte'
 
   export let data
   $: chains = data.chains
@@ -87,9 +88,11 @@
             </div>
         </div>
 
-        {#each chains as chain}
-          <svelte:component this={Anthrax} {chain} {wf} />
-        {/each}
+        <svelte:component this={Cdicts} {cdicts} {wf} />
+
+        <!-- {#each chains as chain} -->
+        <!--   <svelte:component this={Anthrax} {chain} {wf} /> -->
+        <!-- {/each} -->
       </div>
     </div>
 {/if}
