@@ -8,6 +8,11 @@ span.wf:hover {
     cursor: pointer;
 }
 
+span.seg:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
 p {
     font-size: 1em;
     margin-top: 0.5em;
@@ -17,6 +22,7 @@ a {
   color: maroon;
   cursor: pointer;
 }
+
 
 h1 {
   color: maroon;
