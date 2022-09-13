@@ -63,14 +63,19 @@
     <div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
-          <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
+            <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
         </div>
 
+        <div class="wf px-4 text-green-600">wordform: <b>{wf}</b></div>
+
         <div class="title flex flex-cols px-4">
-          <div class="wf w-1/2">wf: <b>{wf}</b></div>
-          <div class="segs w-1/2 text-right">
-            <svelte:component this={Segments} {segments} {wf} />
-          </div>
+            <div class="wf w-1/3">
+                <svelte:component this={Segments} {segments} {wf} />
+            </div>
+            <div class="wf w-1/3">   </div>
+            <div class="segs w-1/3 text-right">
+                <svelte:component this={Segments} {segments} {wf} />
+            </div>
         </div>
 
         {#each chains as chain}
