@@ -17,18 +17,13 @@
   $: chain = chains[0]
   $: console.log('_[WF]:', wf, '[CHAIN]', chain)
 
-  $: fls = chain.find(seg=> seg.fls).fls
-
   $: segments = data.segments
-  // $: console.log('_[WF-segs]:', segments)
-  // $: cdicts = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cdicts))
   $: cdicts = chain.find(seg=> seg.mainseg).cdicts
   // $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
   $: cognates = chain.find(seg=> seg.mainseg).cognates
 
   $: console.log('_cdicts:', cdicts)
-  $: console.log('_cognates:', cognates)
-  $: console.log('_fls:', fls)
+  // $: console.log('_cognates:', cognates)
 
   $: cdicts = []
   function xxxx(seg) {
@@ -39,7 +34,6 @@
 
 
  async function handleClick(ev) {
-     log('_HC')
      let owf = ev.target
      if (!owf.classList.contains('wf')) return
      wf = owf.textContent
@@ -77,7 +71,7 @@
 
         <div class="title flex flex-cols px-4">
             <div class="wf w-1/3">
-                <svelte:component this={PrettyFLS} {fls}  />
+                <svelte:component this={PrettyFLS} {chain}  />
             </div>
             <div class="wf w-1/3">   </div>
             <div class="segs w-1/3 text-right">
