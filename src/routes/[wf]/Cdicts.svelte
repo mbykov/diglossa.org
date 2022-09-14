@@ -10,7 +10,7 @@
 
 </script>
 
-<div>
+<div class="px-4">
   CDICTS
   {#each cdicts as cdict}
     <div class="cdict">

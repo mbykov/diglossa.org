@@ -14,16 +14,18 @@
 
 <div class="bg-gray-100 px-4">
 
-  {#each Object.entries(segments) as [segs, chain]}
-      <p>
-      {#each chain as seg}
-        {#if (seg.cdicts || seg.pref)}
-          <span class="px-1 seg" on:click={showDicts(seg)}>{seg.seg}</span>
-        {:else}
-          <span class="px-1">{seg.seg}</span>
-        {/if}
-      {/each}
+  {#each Object.entries(segments) as [segs, chains]}
+      {#each chains as chain}
+    <p>
+        {#each chain as seg}
+          {#if (seg.cdicts || seg.pref)}
+            <span class="px-1 seg" on:click={showDicts(seg)}>{seg.seg}</span>
+          {:else}
+            <span class="px-1">{seg.seg}</span>
+            {/if}
+          {/each}
       </p>
-  {/each}
+        {/each}
+    {/each}
 
 </div>
