@@ -14,7 +14,9 @@
   $: segments = data.segments
   $: console.log('_[WF-segs]:', segments)
   $: cdicts = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cdicts))
+  $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
   $: console.log('_[CDICTS]:', cdicts)
+  $: console.log('_[COGNS]:', cogns)
 
   $: cdicts = []
   function xxxx(seg) {
@@ -81,7 +83,7 @@
 
         <div class="title flex flex-cols px-4">
             <div class="wf w-1/3">
-                <svelte:component this={Segments} {segments} {wf} />
+                <!-- <svelte:component this={Segments} {segments} {wf} /> -->
             </div>
             <div class="wf w-1/3">   </div>
             <div class="segs w-1/3 text-right">

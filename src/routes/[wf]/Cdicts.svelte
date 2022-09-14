@@ -2,7 +2,7 @@
   import _ from 'lodash'
 
   export let cdicts
-  $: console.log('_CDICTS', cdicts)
+  $: console.log('_component-CDICTS', cdicts)
 
   function prettyMorph(fls) {
     return _.uniq(fls.map(flex=> [flex.gend, flex.numcase].join('.'))).join('; ')
@@ -11,7 +11,6 @@
 </script>
 
 <div class="px-4">
-  CDICTS
   {#each cdicts as cdict}
     <div class="cdict">
       <div class="flex pt-4">
