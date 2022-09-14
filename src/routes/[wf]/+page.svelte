@@ -5,6 +5,7 @@
   import Examples from '../Examples.svelte'
   import Segments from './Segments.svelte'
   import Cdicts from './Cdicts.svelte'
+  import _ from 'lodash'
 
   export let data
   $: chains = data.chains
@@ -12,7 +13,7 @@
   $: console.log('_[WF]:', wf, 2, chains)
   $: segments = data.segments
   $: console.log('_[WF-segs]:', segments)
-  $: cdicts = chains[0].find(seg=> seg.mainseg).cdicts
+  $: cdicts = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cdicts))
   $: console.log('_[CDICTS]:', cdicts)
 
   $: cdicts = []
