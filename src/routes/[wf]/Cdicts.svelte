@@ -20,7 +20,7 @@
       {#if cdict.fls}
         <div class="p-2 text-green-700"> morph: {prettyMorph(cdict.fls)} </div>
       {/if}
-      <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
+      <div class="trns max-h-24 overflow-y-auto bg-gray-100 p-4">
         {#each cdict.trns as trn}
           {trn}<br>
         {/each}

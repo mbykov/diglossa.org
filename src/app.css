@@ -13,6 +13,11 @@ span.seg:hover {
   cursor: pointer;
 }
 
+p.segments:hover {
+  background-color: white;
+  cursor: pointer;
+}
+
 p {
     font-size: 1em;
     margin-top: 0.5em;

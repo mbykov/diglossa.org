@@ -1,22 +1,34 @@
 <script>
 
   import { goto } from '$app/navigation';
-  import Anthrax from '../Anthrax.svelte'
-  import Examples from '../Examples.svelte'
+  // import Anthrax from '../Anthrax.svelte'
+  // import Examples from '../Examples.svelte'
   import Segments from './Segments.svelte'
+  import PrettyFLS from './PrettyFLS.svelte'
   import Cdicts from './Cdicts.svelte'
   import _ from 'lodash'
+
+  const log = console.log
 
   export let data
   $: chains = data.chains
   $: wf = data.wf
-  $: console.log('_[WF]:', wf, 2, chains)
+
+  $: chain = chains[0]
+  $: console.log('_[WF]:', wf, '[CHAIN]', chain)
+
+  $: fls = chain.find(seg=> seg.fls).fls
+
   $: segments = data.segments
-  $: console.log('_[WF-segs]:', segments)
-  $: cdicts = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cdicts))
-  $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
-  $: console.log('_[CDICTS]:', cdicts)
-  $: console.log('_[COGNS]:', cogns)
+  // $: console.log('_[WF-segs]:', segments)
+  // $: cdicts = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cdicts))
+  $: cdicts = chain.find(seg=> seg.mainseg).cdicts
+  // $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
+  $: cognates = chain.find(seg=> seg.mainseg).cognates
+
+  $: console.log('_cdicts:', cdicts)
+  $: console.log('_cognates:', cognates)
+  $: console.log('_fls:', fls)
 
   $: cdicts = []
   function xxxx(seg) {
@@ -27,6 +39,7 @@
 
 
  async function handleClick(ev) {
+     log('_HC')
      let owf = ev.target
      if (!owf.classList.contains('wf')) return
      wf = owf.textContent
@@ -43,36 +56,17 @@
 
             <div class="overflow-y-auto">
                 <div id="clip-results" class="px-8" on:click={handleClick}>
-                <p>
-                    <span class="wf">ἁγνότης</span>
-                    <span class="wf">ἀγαπητός</span>
-
-                <p>
-                    <span class="wf">ἀγαθοποιέω</span>; <span class="wf">βαρύτονος</span>; <span class="wf">παραγράφω</span>; <span class="wf">ἀντιπαραγράφω</span>; <span class="wf">διαγγέλλω</span>; <span class="wf">συγκαθαιρέω</span>; <span class="wf">ἀποδείκνυμι</span>; <span class="wf">χρονοκρατέω</span>; <span class="wf">προσαπαγγέλλω</span>; <span class="wf">ἐπεξήγησις</span>;
-                </p>
-
-<p>
-                    <span class="wf">φιλοσοφίαν</span> <span class="wf">ἀνηρώτων</span>  <span class="wf">ταῦτα</span> <span class="wf">δὴ</span> <span class="wf">αὐτός</span> <span class="wf">τε</span> <span class="wf">σκοπῶ</span> <span class="wf">καθ'</span> <span class="wf">ὅσον</span> <span class="wf">δύναμαι</span>, <span class="wf">καὶ</span> <span class="wf">τοὺς</span> <span class="wf">ἄλλους</span> <span class="wf">ἐρωτῶ</span> <span class="wf">οἷς</span> <span class="wf">ἂν</span> <span class="wf">ὁρῶ</span> <span class="wf">τοὺς</span> <span class="wf">νέους</span> <span class="wf">ἐθέλοντας</span> <span class="wf">συγγίγνεσθαι</span>
-                </p>
-
                 </div>
             </div>
-
-            <p id="anthrax-results" class="px-8">anthrax-results</p>
         </div>
 
         <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
-            <p>RIGHT========================</p>
-            {#if wf == 'examples'}
-              <svelte:component this={Examples} {wf} />
-            {/if}
+            <!-- <p>RIGHT========================</p> -->
+            <p id="anthrax-results" class="px-8">anthrax-results</p>
         </div>
 
 </div>
 
-{#if wf == 'examples'}
-  <!-- <svelte:component this={Examples} {wf} /> -->
-{:else}
     <div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
@@ -83,11 +77,11 @@
 
         <div class="title flex flex-cols px-4">
             <div class="wf w-1/3">
-                <!-- <svelte:component this={Segments} {segments} {wf} /> -->
+                <svelte:component this={PrettyFLS} {fls}  />
             </div>
             <div class="wf w-1/3">   </div>
             <div class="segs w-1/3 text-right">
-                <svelte:component this={Segments} {segments} {wf} on:segment={xxxx} />
+                <svelte:component this={Segments} {segments} on:segment={xxxx} />
             </div>
         </div>
 
@@ -98,7 +92,6 @@
         <!-- {/each} -->
       </div>
     </div>
-{/if}
 
 <style>
  .esc {
