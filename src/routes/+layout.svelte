@@ -5,11 +5,12 @@
 
  onMount(async () => {
    document.addEventListener('paste', (e) => {
-     const copiedText = e.clipboardData.getData('text/plain');
-     console.log('_CP', copiedText)
-     let html = copiedText.replace(/([^\p{P} ]+)/ug, "<span class=\"wf\">$1</span>")
-     let oclip = document.querySelector('#clip-results')
-     oclip.innerHTML = html
+       const copiedText = e.clipboardData.getData('text/plain');
+       // console.log('_CP', copiedText)
+       let html = copiedText.replace(/([\n]+)/ug, "<br>$1")
+       html = html.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
+       let oclip = document.querySelector('#clip-results')
+       oclip.innerHTML = html
    })
 
     document.body.addEventListener("keydown", function(e) {

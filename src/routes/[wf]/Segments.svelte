@@ -16,7 +16,7 @@
 
   {#each Object.entries(segments) as [segs, chains]}
       {#each chains as chain}
-    <p>
+    <p class="segments">
         {#each chain as seg}
           {#if (seg.cdicts || seg.pref)}
             <span class="px-1 seg" on:click={showDicts(seg)}>{seg.seg}</span>
