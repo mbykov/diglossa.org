@@ -1,14 +1,10 @@
 <script>
-  // import { createEventDispatcher } from 'svelte'
-  // const dispatch = createEventDispatcher()
-  // import _ from 'lodash'
-
-  export let cdicts
-  export let cognates
-  $: if (!cdicts) cdicts = cognates
-  $: console.log('_component-CDICTS', cdicts)
+  export let probe
+  $: console.log('_FORMS-probe', probe)
+  let cdicts = []
 
 </script>
+
 
 <div class="px-4">
   {#each cdicts as cdict}

@@ -1,16 +1,29 @@
 <script>
 
+  import { onMount } from 'svelte'
   import { goto } from '$app/navigation';
   // import Anthrax from '../Anthrax.svelte'
   // import Examples from '../Examples.svelte'
   import Segments from './Segments.svelte'
   import PrettyFLS from './PrettyFLS.svelte'
   import Cdicts from './Cdicts.svelte'
+  import Forms from './Forms.svelte'
+  import ClipContent from './ClipContent.svelte'
   import _ from 'lodash'
 
   const log = console.log
+  let clipkey = false
 
   export let data
+
+  onMount(async () => {
+      let oclip = document.querySelector('#clip-results')
+      if (!oclip.textContent) {
+          log('_EMPTY CLIP')
+          oclipkey = true
+      }
+  })
+
   $: chains = data.chains
   $: wf = data.wf
 
@@ -26,6 +39,8 @@
 
   $: cognates = mainseg ? mainseg.cognates : []
   $: console.log('_cognates:', cognates)
+  $: probe = cdicts.find(cdict=> cdict.dname == 'wkt')
+  $: console.log('_PROBE', probe)
 
   // $: console.log('_cdicts:', cdicts)
 
@@ -36,6 +51,8 @@
       console.log('_PARENT showDicts', segment)
       cdicts = segment.cdicts || [segment.pref]
   }
+
+    let forms = []
 
   // function showCognates(cdict) {
   //     // let cognates = cdict.cognates
@@ -59,6 +76,9 @@
 
             <div class="overflow-y-auto">
                 <div id="clip-results" class="px-8" on:click={handleClick}>
+                  {#key clipkey}
+                  <ClipContent />
+                  {/key}
                 </div>
             </div>
         </div>
@@ -70,7 +90,7 @@
 
 </div>
 
-    <div id="popup-morph" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+    <div id="popup-morphs" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
             <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
@@ -78,7 +98,10 @@
 
         <div class="title flex px-4">
           <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div>
-          <div class="w-1/2 px-4 text-right text-green-600 clickable cognates">cognates</div>
+          <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" >
+            <span class="clickable forms px-2" title="key F">forms</span>
+            <span class="clickable cognates" title="key C">cognates</span>
+          </div>
         </div>
 
         <div class="title flex flex-cols px-4">
@@ -99,7 +122,7 @@
 
     {#key cognates}
     <div id="popup-cognates" class="hidden popup absolute w-1/3 right-4 top-4 -my-4 h-screen p-4 pr-1">
-      <div class="h-full bg-[#F5F5D6] shadow-2xl overflow-y-auto">
+      <div class="h-full bg-[#EBEBCC] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
             <span class="esc w-1/3 text-right"> [x]</span>
         </div>
@@ -111,6 +134,23 @@
       </div>
     </div>
     {/key}
+
+    {#key probe}
+    <div id="popup-forms" class="hidden popup absolute w-1/4 right-4 top-4 -my-4 h-screen p-4 pr-1">
+      <div class="h-full bg-[#E1E1C2] shadow-2xl overflow-y-auto">
+        <div class="main-title text-right px-2">
+            <span class="esc w-1/3 text-right"> [x]</span>
+        </div>
+
+        <div class="wf px-4 text-green-600">cognates: <b>{wf}</b></div>
+
+        <svelte:component this={Forms} {probe}   />
+
+      </div>
+    </div>
+    {/key}
+
+
 
 <style>
  .esc {

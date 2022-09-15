@@ -17,6 +17,12 @@
         // let key = e.which || e.keyCode; // keyCode detection // v = 67
         if (e.key == 'Escape') {
           closeAll()
+        } else if (e.key == 'c') {
+            let ocogns = document.body.querySelector('#popup-cognates')
+            if (ocogns) ocogns.classList.remove('hidden')
+        } else if (e.key == 'f') {
+            let oforms = document.body.querySelector('#popup-forms')
+            if (oforms) oforms.classList.remove('hidden')
         }
     }, false);
 
@@ -32,24 +38,43 @@
               let opopup = target.closest('.popup')
               opopup.classList.add('hidden')
           } else if (target.classList.contains('wf')) {
-              let omorph = document.body.querySelector('#popup-morph')
-              if (omorph) omorph.classList.remove('hidden')
+              let omorphs = document.body.querySelector('#popup-morphs')
+              if (omorphs) omorphs.classList.remove('hidden')
               let ocogns = document.body.querySelector('#popup-cognates')
               if (ocogns) ocogns.classList.add('hidden')
+              let oforms = document.body.querySelector('#popup-forms')
+              if (oforms) oforms.classList.add('hidden')
           } else if (target.classList.contains('cognates')) {
               let ocogns = document.body.querySelector('#popup-cognates')
               if (ocogns) ocogns.classList.remove('hidden')
           }
       }, false);
-
-   function closeAll() {
-     let opopups = document.querySelectorAll('.absolute')
-     for (let opopup of opopups) {
-       opopup.classList.add('hidden')
-     }
-   }
-
   })
+
+  function closeAll() {
+      let oforms = document.querySelector('#popup-forms')
+      if (!oforms) return
+      if (!oforms.classList.contains('hidden')) {
+          oforms.classList.add('hidden')
+          return
+      }
+      let ocogns = document.querySelector('#popup-cognates')
+      if (!ocogns) return
+      console.log('_ocogns', ocogns)
+      if (!ocogns.classList.contains('hidden')) {
+          ocogns.classList.add('hidden')
+          console.log('_ocogns return')
+          return
+      }
+      let omorphs = document.querySelector('#popup-morphs')
+      console.log('_omorphs', omorphs)
+      if (!omorphs) return
+      if (!omorphs.classList.contains('hidden')) {
+          omorphs.classList.add('hidden')
+          console.log('_omorphs return')
+          return
+      }
+  }
 
   function copyTextToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
