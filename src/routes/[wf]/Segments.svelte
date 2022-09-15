@@ -3,10 +3,10 @@
   const dispatch = createEventDispatcher()
 
   export let segments
-  $: console.log('_SGS', segments)
+  // $: console.log('_SGS', segments)
 
   function showDicts(seg) {
-    console.log('_CHILD showDicts', seg)
+    // console.log('_CHILD showDicts', seg)
     dispatch('segment', seg)
   }
 
@@ -16,14 +16,17 @@
 
   {#each Object.entries(segments) as [segs, chains]}
       {#each chains as chain}
-    <p class="segments">
-        {#each chain as seg}
+    <p class="segments together">
+        {#each chain as seg, idx}
           {#if (seg.cdicts || seg.pref)}
-            <span class="px-1 seg" on:click={showDicts(seg)}>{seg.seg}</span>
+            <span class="seg" on:click={showDicts(seg)}>{seg.seg}</span>
           {:else}
-            <span class="px-1">{seg.seg}</span>
-            {/if}
-          {/each}
+            <span class="">{seg.seg}</span>
+          {/if}
+          {#if (idx < chain.length -1)}
+            <span class="">-</span>
+          {/if}
+        {/each}
       </p>
         {/each}
     {/each}

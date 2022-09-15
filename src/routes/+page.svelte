@@ -6,7 +6,7 @@
 <div class="index flex h-full bg-[#F7F6EE] ">
   <div class="w-2/5 p-4">
 
-    <p><b>Anthrax</b> (ulcer, i.e. disease), v.2.0. It uses data from site <a href="https://en.wiktionary.org/wiki/Category:Ancient_Greek_language">wiktionary.org</a>. </p>
+    <p><b>Anthrax</b> (ulcer, i.e. disease), v.2.0 uses data from <a href="https://en.wiktionary.org/wiki/Category:Ancient_Greek_language">wiktionary.org</a>. </p>
 
     <ul class="py-8">
     <li>1. morphological analysis of the word </li>

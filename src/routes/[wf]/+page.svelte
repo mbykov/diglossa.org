@@ -15,31 +15,40 @@
   $: wf = data.wf
 
   $: chain = chains[0]
-  $: console.log('_[WF]:', wf, '[CHAIN]', chain)
+  // $: console.log('_[WF]:', wf, '[CHAIN]', chain)
 
   $: segments = data.segments
-  $: cdicts = chain.find(seg=> seg.mainseg).cdicts
+  // $: cdicts = chain.find(seg=> seg.mainseg).cdicts
+  $: cdicts = data.cdicts
   // $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
-  $: cognates = chain.find(seg=> seg.mainseg).cognates
+  $: mainseg = chain.find(seg=> seg.mainseg)
+  $: console.log('_mainseg:', mainseg)
 
-  $: console.log('_cdicts:', cdicts)
+  $: cognates = mainseg ? mainseg.cognates : []
+  $: console.log('_cognates:', cognates)
+
+  // $: console.log('_cdicts:', cdicts)
+
+  $: cdicts = data.cdicts
   // $: console.log('_cognates:', cognates)
-
-  $: cdicts = []
-  function xxxx(seg) {
-    let segment = seg.detail
-    console.log('_PARENT showDicts', segment)
-    cdicts = segment.cdicts
+  function showCdicts(seg) {
+      let segment = seg.detail
+      console.log('_PARENT showDicts', segment)
+      cdicts = segment.cdicts || [segment.pref]
   }
 
+  // function showCognates(cdict) {
+  //     // let cognates = cdict.cognates
+  //     console.log('_PARENT COGNATES', cognates)
+  // }
 
  async function handleClick(ev) {
      let owf = ev.target
      if (!owf.classList.contains('wf')) return
      wf = owf.textContent
      if (!wf) return
-     let oresults = document.querySelector('#anthrax-results')
-     oresults.innerHTML = ''
+     // let oresults = document.querySelector('#anthrax-results')
+     // oresults.innerHTML = ''
      goto(wf)
  }
 
@@ -56,18 +65,21 @@
 
         <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
             <!-- <p>RIGHT========================</p> -->
-            <p id="anthrax-results" class="px-8">anthrax-results</p>
+            <!-- <p id="anthrax-results" class="px-8">anthrax-results</p> -->
         </div>
 
 </div>
 
-    <div id="popup-morph" class="absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+    <div id="popup-morph" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
             <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
         </div>
 
-        <div class="wf px-4 text-green-600">wordform: <b>{wf}</b></div>
+        <div class="title flex px-4">
+          <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div>
+          <div class="w-1/2 px-4 text-right text-green-600 clickable cognates">cognates</div>
+        </div>
 
         <div class="title flex flex-cols px-4">
             <div class="wf w-1/3">
@@ -75,17 +87,30 @@
             </div>
             <div class="wf w-1/3">   </div>
             <div class="segs w-1/3 text-right">
-                <svelte:component this={Segments} {segments} on:segment={xxxx} />
+                <svelte:component this={Segments} {segments} on:segment={showCdicts} />
             </div>
         </div>
 
-        <svelte:component this={Cdicts} {cdicts} {wf} />
+        <!-- <svelte:component this={Cdicts} {cdicts} on:cognates={showCognates}  /> -->
+        <svelte:component this={Cdicts} {cdicts}  />
 
-        <!-- {#each chains as chain} -->
-        <!--   <svelte:component this={Anthrax} {chain} {wf} /> -->
-        <!-- {/each} -->
       </div>
     </div>
+
+    {#key cognates}
+    <div id="popup-cognates" class="hidden popup absolute w-1/3 right-4 top-4 -my-4 h-screen p-4 pr-1">
+      <div class="h-full bg-[#F5F5D6] shadow-2xl overflow-y-auto">
+        <div class="main-title text-right px-2">
+            <span class="esc w-1/3 text-right"> [x]</span>
+        </div>
+
+        <div class="wf px-4 text-green-600">cognates: <b>{wf}</b></div>
+
+        <svelte:component this={Cdicts} {cognates}   />
+
+      </div>
+    </div>
+    {/key}
 
 <style>
  .esc {

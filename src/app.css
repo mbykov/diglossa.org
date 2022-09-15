@@ -9,13 +9,13 @@ span.wf:hover {
 }
 
 span.seg:hover {
-  background-color: white;
+  background-color: #eee8aa;
   cursor: pointer;
 }
 
 p.segments:hover {
   background-color: white;
-  cursor: pointer;
+  /* cursor: pointer; */
 }
 
 p {
@@ -33,4 +33,14 @@ h1 {
   color: maroon;
   font-size: 2em;
   margin-top: 2em;
+}
+
+.together {
+  display: flex;
+  align-items: baseline;
+}
+
+.clickable:hover {
+  /* background-color: maroon; */
+  cursor: pointer;
 }
