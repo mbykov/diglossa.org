@@ -3,10 +3,10 @@
 
   export let chain
   // $: fls = chain.find(seg=> seg.fls).fls
-  $: console.log('_Pretty FLS', chain)
+  // $: console.log('_Pretty FLS', chain)
 
   $: morphs = prettyFLS(chain)
-  $: console.log('_Pretty MORPHS', morphs)
+  // $: console.log('_Pretty MORPHS', morphs)
 
   function prettyFLS(chain) {
       let mseg = chain.find(seg=> seg.mainseg)

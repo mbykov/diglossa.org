@@ -14,31 +14,32 @@
    })
 
     document.body.addEventListener("keydown", function(e) {
-       let key = e.which || e.keyCode; // keyCode detection // v = 67
-        if (e.key == 'v' && e.ctrlKey ) {
-          let owf = document.querySelector('.wf:hover')
-          if (!owf || !owf.textContent) return
-          copyTextToClipboard(owf.textContent)
-        } else if (e.key == 'Escape') {
+        // let key = e.which || e.keyCode; // keyCode detection // v = 67
+        if (e.key == 'Escape') {
           closeAll()
         }
     }, false);
 
       document.body.addEventListener("click", function(e) {
-        let target = e.target
-        let selection = getSelectionText()
-        if (selection) return
-        if (target.classList.contains('trns')) {
-          if (e.shiftKey) return
-          target.classList.toggle('overflow-y-auto')
-          target.classList.toggle('max-h-24')
-        } else if (target.classList.contains('esc')) {
-          closeAll()
-
-        } else if (target.classList.contains('wf')) {
-          let omorph = document.body.querySelector('#popup-morph')
-          if (omorph) omorph.classList.remove('hidden')
-        }
+          let target = e.target
+          // let selection = getSelectionText()
+          // if (selection) return
+          if (target.classList.contains('trns')) {
+              if (e.shiftKey) return
+              target.classList.toggle('overflow-y-auto')
+              target.classList.toggle('max-h-24')
+          } else if (target.classList.contains('esc')) {
+              let opopup = target.closest('.popup')
+              opopup.classList.add('hidden')
+          } else if (target.classList.contains('wf')) {
+              let omorph = document.body.querySelector('#popup-morph')
+              if (omorph) omorph.classList.remove('hidden')
+              let ocogns = document.body.querySelector('#popup-cognates')
+              if (ocogns) ocogns.classList.add('hidden')
+          } else if (target.classList.contains('cognates')) {
+              let ocogns = document.body.querySelector('#popup-cognates')
+              if (ocogns) ocogns.classList.remove('hidden')
+          }
       }, false);
 
    function closeAll() {
