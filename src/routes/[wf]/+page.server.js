@@ -21,6 +21,7 @@ export const load = async ({ url, params }) => {
 
     let chain = chains[0]
     let mainseg = chain.find(seg=> seg.mainseg)
+    // ================================= TODO: terms, try - catch
     console.log('_CHAIN', chain)
     let termseg =  chain.find(seg=> seg.indecl)
     let cdicts = mainseg ? mainseg.cdicts : termseg.cdicts
