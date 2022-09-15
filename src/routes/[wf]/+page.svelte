@@ -142,7 +142,7 @@
             <span class="esc w-1/3 text-right"> [x]</span>
         </div>
 
-        <div class="wf px-4 text-green-600">cognates: <b>{wf}</b></div>
+        <div class="wf px-4 text-green-600">forms: <b>{wf}</b></div>
 
         <svelte:component this={Forms} {probe}   />
 
