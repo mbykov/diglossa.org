@@ -1,7 +1,14 @@
 <script>
   import "../app.css";
   import { onMount } from 'svelte'
-  // import { goto } from '$app/navigation';
+  import Examples from './Examples.svelte'
+
+  // import { createEventDispatcher } from 'svelte'
+  // const dispatch = createEventDispatcher()
+  // function dispatchExamples() {
+  //     console.log('_dispatchExamples')
+  //     dispatch('examples')
+  // }
 
  onMount(async () => {
    document.addEventListener('paste', (e) => {
@@ -37,6 +44,11 @@
           } else if (target.classList.contains('esc')) {
               let opopup = target.closest('.popup')
               opopup.classList.add('hidden')
+          // } else if (target.classList.contains('examples')) {
+              // console.log('_LAYOUT EXAMPLE')
+              // dispatchExamples()
+              // let opopup = target.closest('.popup')
+              // opopup.classList.add('hidden')
           } else if (target.classList.contains('wf')) {
               let omorphs = document.body.querySelector('#popup-morphs')
               if (omorphs) omorphs.classList.remove('hidden')

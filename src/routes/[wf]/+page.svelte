@@ -12,15 +12,15 @@
   import _ from 'lodash'
 
   const log = console.log
-  let clipkey = false
+  let clipkey = ''
 
   export let data
 
   onMount(async () => {
       let oclip = document.querySelector('#clip-results')
       if (!oclip.textContent) {
-          log('_EMPTY CLIP')
-          oclipkey = true
+          clipkey = 'empty-click'
+          log('_EMPTY CLIP', clipkey)
       }
   })
 
@@ -75,9 +75,10 @@
   <div class="w-2/5 p-4">
 
             <div class="overflow-y-auto">
-                <div id="clip-results" class="px-8" on:click={handleClick}>
+                <div id="clip-results" class="px-8" on:click={handleClick} >
                   {#key clipkey}
-                  <ClipContent />
+                  <!-- <ClipContent {clipkey} /> -->
+                  <svelte:component this={ClipContent} {clipkey}  />
                   {/key}
                 </div>
             </div>
@@ -144,7 +145,7 @@
 
         <div class="wf px-4 text-green-600">forms: <b>{wf}</b></div>
 
-        <svelte:component this={Forms} {probe}   />
+        <!-- <svelte:component this={Forms} {probe}   /> -->
 
       </div>
     </div>

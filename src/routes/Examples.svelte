@@ -66,11 +66,9 @@
 
 <p><b>tests</b>:</p>
 <div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
-                      <span class="wf">ἁγνότης</span>
-                    <span class="wf">ἀγαπητός</span>
-
-
-                    <span class="wf">ἀγαθοποιέω</span>; <span class="wf">βαρύτονος</span>; <span class="wf">παραγράφω</span>; <span class="wf">ἀντιπαραγράφω</span>; <span class="wf">διαγγέλλω</span>; <span class="wf">συγκαθαιρέω</span>; <span class="wf">ἀποδείκνυμι</span>; <span class="wf">χρονοκρατέω</span>; <span class="wf">προσαπαγγέλλω</span>; <span class="wf">ἐπεξήγησις</span>;
+  <span class="wf">ἁγνότης</span>
+  <span class="wf">ἀγαπητός</span>
+  <span class="wf">ἀγαθοποιέω</span>; <span class="wf">βαρύτονος</span>; <span class="wf">παραγράφω</span>; <span class="wf">ἀντιπαραγράφω</span>; <span class="wf">διαγγέλλω</span>; <span class="wf">συγκαθαιρέω</span>; <span class="wf">ἀποδείκνυμι</span>; <span class="wf">χρονοκρατέω</span>; <span class="wf">προσαπαγγέλλω</span>; <span class="wf">ἐπεξήγησις</span>;
 
 </div>
 
