@@ -1,29 +1,26 @@
 <script>
   export let probe
-  $: console.log('_FORMS-probe', probe)
+  $: console.log('_FORMS-probe', probe.rdict, probe.keys)
   let cdicts = []
+  $: stem = probe.stem + '-'
+  $: aug = probe.aug ? probe.aug + '-' : ''
 
 </script>
 
 
 <div class="px-4">
-  {#each cdicts as cdict}
-    <div class="cdict">
-      <div class="flex pt-4">
-        <div class="w-1/2"> <b>dict</b>: {cdict.rdict}</div>
-        <div class="w-1/2 text-right text-green-600"> {cdict.dname} </div>
-      </div>
-      <!-- {#if cdict.fls} -->
-      <!--   <div class="p-2 text-green-700"> morph: {prettyMorph(cdict.fls)} </div> -->
-      <!-- {/if} -->
-      <div class="trns max-h-24 overflow-y-auto bg-gray-100 p-4">
-        {#each cdict.trns as trn}
-          {trn}<br>
-        {/each}
-      </div>
-    </div>
+  <div class="px-4"> <b>dict</b>: {probe.rdict} <b>stem</b>: {probe.stem} </div>
 
-  {/each}
+  <div class="px-4">
+    {#each Object.entries(probe.keys) as [gend, json]}
+      <p><b>{gend}</b>:</p>
+      <ul>
+    {#each Object.entries(JSON.parse(json)) as [morph, term]}
+      <li>{morph}: {aug}{stem}{term}</li>
+      {/each}
+      </ul>
 
+    {/each}
 
+  </div>
 </div>
