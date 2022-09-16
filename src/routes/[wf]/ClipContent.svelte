@@ -28,7 +28,7 @@
     <span class="wf">ἀγαπητός</span>
     <span class="wf">ἀγαθοποιέω</span>; <span class="wf">βαρύτονος</span>; <span class="wf">παραγράφω</span>; <span class="wf">ἀντιπαραγράφω</span>; <span class="wf">διαγγέλλω</span>; <span class="wf">συγκαθαιρέω</span>; <span class="wf">ἀποδείκνυμι</span>; <span class="wf">χρονοκρατέω</span>; <span class="wf">προσαπαγγέλλω</span>; <span class="wf">ἐπεξήγησις</span>;
  </p>
-<p> <span class="wf">ταῦτα</span> <span class="wf">δὴ</span> <span class="wf">αὐτός</span> <span class="wf">τε</span> <span class="wf">σκοπῶ</span> <span class="wf">καθ'</span> <span class="wf">ὅσον</span> <span class="wf">δύναμαι</span>, <span class="wf">καὶ</span> <span class="wf">τοὺς</span> <span class="wf">ἄλλους</span> <span class="wf">ἐρωτῶ</span> <span class="wf">οἷς</span> <span class="wf">ἂν</span> <span class="wf">ὁρῶ</span> <span class="wf">τοὺς</span> <span class="wf">νέους</span> <span class="wf">ἐθέλοντας</span> <span class="wf">συγγίγνεσθαι</span>.</p>
+<p> <span class="wf">ταῦτα</span> <span class="wf">δὴ</span> <span class="wf">αὐτός</span> <span class="wf">τε</span> <span class="wf">σκοπῶ</span> <span class="wf">καθ'</span> <span class="wf">ὅσον</span> <span class="wf">δύναμαι</span>, <span class="wf">καὶ</span> <span class="wf">τοὺς</span> <span class="wf">ἄλλους</span> <span class="wf">ἐρωτῶ</span> <span class="wf">οἷς</span> <span class="wf">ἂν</span> <span class="wf">ὁρῶ</span> <span class="wf">τοὺς</span> <span class="wf">νέους</span> <span class="wf">ἐθέλοντας</span> <span class="wf">συγγίγνεσθαι.</p>
 
 <p><b>Θεαίτητος</b>:</p>
 <div class="px-4">

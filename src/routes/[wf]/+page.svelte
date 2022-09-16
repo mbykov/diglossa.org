@@ -11,6 +11,7 @@
   import Cdicts from './Cdicts.svelte'
   import Forms from './Forms.svelte'
   import ClipContent from './ClipContent.svelte'
+  import Cognates from './Cognates.svelte'
   import _ from 'lodash'
 
   const log = console.log
@@ -18,21 +19,16 @@
 
   export let data
 
-  onMount(async () => {
-      let oclip = document.querySelector('#clip-results')
-      if (!oclip.textContent) {
-          clipkey = 'empty-click'
-          log('_EMPTY CLIP', clipkey)
-      }
-  })
+  let cognshow = false
+  let cognkey = {}
 
   $: cdicts = data.cdicts
 
-  $: chains = data.chains
   $: wf = data.wf
+  $: chains = data.chains
   $: console.log('_[WF]:', wf, '[CHAIN]', chains.length)
-
   $: chain = chains[0]
+
   $: mainseg = chain.find(seg=> seg.mainseg)
   // $: console.log('_mainseg:', mainseg)
 
@@ -40,8 +36,6 @@
   // $: console.log('_cognates:', cognates)
   $: probe = cdicts.find(cdict=> cdict.dname == 'wkt') || cdicts[0]
   // $: console.log('_PROBE', probe)
-
-
   // $: console.log('_cdicts:', cdicts)
 
   $: cdicts = data.cdicts
@@ -53,93 +47,84 @@
       cognates = segment.cognates
   }
 
-    let forms = []
+  // let forms = []
+  async function handleClick(ev) {
+      let owf = ev.target
+      if (!owf.classList.contains('wf')) return
+      wf = owf.textContent
+      if (!wf) return
+      goto(wf)
+  }
 
-  // function showCognates(cdict) {
-  //     // let cognates = cdict.cognates
-  //     console.log('_PARENT COGNATES', cognates)
-  // }
+  onMount(async () => {
+      let oclip = document.querySelector('#clip-results')
+      if (!oclip.textContent) {
+          clipkey = 'empty-clip'
+          log('_EMPTY CLIP', clipkey)
+      }
 
- async function handleClick(ev) {
-     let owf = ev.target
-     if (!owf.classList.contains('wf')) return
-     wf = owf.textContent
-     if (!wf) return
-     goto(wf)
- }
+      document.body.addEventListener("keydown", function(e) {
+          // let key = e.which || e.keyCode; // keyCode detection // v = 67
+          if (e.key == 'Escape_') {
+              closeAll()
+          } else if (e.key == 'c') {
+              if (e.ctrlKey) return
+              log('___C KEY')
+              if (!chain) return
+              cognkey = {}
+              let ocogns = document.body.querySelector('#popup-cognates')
+              if (ocogns) ocogns.classList.remove('hidden')
+              cognshow = true
+          } else if (e.key == 'f') {
+              let oforms = document.body.querySelector('#popup-forms')
+              if (oforms) oforms.classList.remove('hidden')
+          }
+      }, false);
+  })
+
+
 
 </script>
 
 <div class="flex h-full bg-[#F7F6EE]">
   <div class="w-2/5 p-4">
 
-            <div class="overflow-y-auto">
-                <div id="clip-results" class="px-8" on:click={handleClick} >
-                  {#key clipkey}
-                  <svelte:component this={ClipContent} />
-                  {/key}
-                </div>
-            </div>
-        </div>
+    <div class="overflow-y-auto">
+      <div id="clip-results" class="px-8" on:click={handleClick} >
+        {#key clipkey}
+        <svelte:component this={ClipContent} />
+        {/key}
+      </div>
+    </div>
+  </div>
 
-        <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
-            <!-- <p>RIGHT========================</p> -->
-        </div>
-
+  <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
+    <!-- <p>RIGHT========================</p> -->
+  </div>
 </div>
 
-    <div id="popup-morphs" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
-      <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
+{#if (chains[0])}
 
-        <div class="main-title text-right px-2">
-            <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
-        </div>
+<div id="popup-morphs" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+  <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
 
-        <!-- {#if (mainseg)} -->
-          <!-- on:result={() => { /* your code here */ }} -->
-          <!-- <Main {chains} {wf} on:segment={() => {showDicts}} /> -->
-          <Main {chains} {wf} on:segment={showDicts} />
-        <!-- {/if} -->
-
-        <!-- <div class="title flex px-4"> -->
-        <!--   <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div> -->
-        <!--   <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" > -->
-        <!--     <span class="clickable forms px-2" title="key F">forms</span> -->
-        <!--     <span class="clickable cognates" title="key C">cognates</span> -->
-        <!--   </div> -->
-        <!-- </div> -->
-
-        <!-- <div class="title flex flex-cols px-4"> -->
-        <!--     <div class="wf w-1/3"> -->
-        <!--         <svelte:component this={PrettyFLS} {chain}  /> -->
-        <!--     </div> -->
-        <!--     <div class="wf w-1/3">   </div> -->
-        <!--     <div class="segs w-1/3 text-right"> -->
-        <!--         <svelte:component this={Segments} {segments} on:segment={showDicts} /> -->
-        <!--     </div> -->
-        <!-- </div> -->
-
-        <svelte:component this={Cdicts} {cdicts}  />
-
-      </div>
+    <div class="main-title text-right px-2">
+      <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
     </div>
 
-    {#key cognates}
-    <div id="popup-cognates" class="hidden popup absolute w-1/3 right-4 top-4 -my-4 h-screen p-4 pr-1">
-      <div class="h-full bg-[#EBEBCC] shadow-2xl overflow-y-auto">
-        <div class="main-title text-right px-2">
-            <span class="esc w-1/3 text-right"> [x]</span>
-        </div>
+    <Main {chains} {wf} on:segment={showDicts} />
 
-        <div class="wf px-4 text-green-600">cognates: <b>{wf}</b></div>
+    <svelte:component this={Cdicts} {cdicts}  />
+  </div>
+</div>
 
-        <svelte:component this={Cdicts} {cognates}   />
+{#if cognshow}
+{#key cognkey}
+<Cognates {cognates} {wf} />
+{/key}
+{/if}
 
-      </div>
-    </div>
-    {/key}
-
-    {#key probe}
+{#key probe}
     <div id="popup-forms" class="hidden popup absolute w-1/4 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#E1E1C2] shadow-2xl overflow-y-auto">
         <div class="main-title text-right px-2">
@@ -154,7 +139,7 @@
     </div>
     {/key}
 
-
+{/if}
 
 <style>
  .esc {
