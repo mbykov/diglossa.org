@@ -4,8 +4,7 @@
 
   export let chains
 
-  function showDicts(seg) {
-    // console.log('_CHILD showDicts', seg)
+  function eventSegment(seg) {
     dispatch('segment', seg)
   }
 
@@ -17,7 +16,7 @@
     <p class="segments together">
     {#each chain as seg, idx}
       {#if (seg.cdicts || seg.pref)}
-        <span class="seg" on:click={showDicts(seg)}>{seg.seg}</span>
+        <span class="seg" on:click={eventSegment(seg)}>{seg.seg}</span>
       {:else}
         <span class="">{seg.seg}</span>
       {/if}
