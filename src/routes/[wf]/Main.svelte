@@ -5,7 +5,6 @@
   export let segments
   $: chain = chains[0]
 
-  import Segments from './Segments.svelte'
   import PrettyFLS from './PrettyFLS.svelte'
   import Schemes from './Schemes.svelte'
 
@@ -26,7 +25,6 @@
     </div>
     <div class="wf w-1/3">   </div>
     <div class="segs w-1/3 text-right">
-      <!-- <svelte:component this={Segments} {segments} on:segment={showCdicts} /> -->
       <svelte:component this={Schemes} {chains} />
     </div>
   </div>
