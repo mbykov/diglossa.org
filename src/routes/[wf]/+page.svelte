@@ -46,10 +46,11 @@
 
   $: cdicts = data.cdicts
 
-  function showCdicts(seg) {
+  function showDicts(seg) {
       let segment = seg.detail
-      console.log('_PARENT showDicts', segment)
+      // console.log('_PARENT showDicts', segment)
       cdicts = segment.cdicts || [segment.pref]
+      cognates = segment.cognates
   }
 
     let forms = []
@@ -95,7 +96,9 @@
         </div>
 
         <!-- {#if (mainseg)} -->
-          <Main {chains} {wf} />
+          <!-- on:result={() => { /* your code here */ }} -->
+          <!-- <Main {chains} {wf} on:segment={() => {showDicts}} /> -->
+          <Main {chains} {wf} on:segment={showDicts} />
         <!-- {/if} -->
 
         <!-- <div class="title flex px-4"> -->
@@ -112,7 +115,7 @@
         <!--     </div> -->
         <!--     <div class="wf w-1/3">   </div> -->
         <!--     <div class="segs w-1/3 text-right"> -->
-        <!--         <svelte:component this={Segments} {segments} on:segment={showCdicts} /> -->
+        <!--         <svelte:component this={Segments} {segments} on:segment={showDicts} /> -->
         <!--     </div> -->
         <!-- </div> -->
 
