@@ -4,7 +4,9 @@
   import { goto } from '$app/navigation';
   // import Anthrax from '../Anthrax.svelte'
   // import Examples from '../Examples.svelte'
-  import Segments from './Segments.svelte'
+  import Main from './Main.svelte'
+
+  // import Segments from './Segments.svelte'
   import PrettyFLS from './PrettyFLS.svelte'
   import Cdicts from './Cdicts.svelte'
   import Forms from './Forms.svelte'
@@ -24,28 +26,27 @@
       }
   })
 
+  // $: segments = data.segments
+  $: cdicts = data.cdicts
+
   $: chains = data.chains
   $: wf = data.wf
+  $: console.log('_[WF]:', wf, '[CHAIN]', chains.length)
 
   $: chain = chains[0]
-  // $: console.log('_[WF]:', wf, '[CHAIN]', chain)
-
-  $: segments = data.segments
-  // $: cdicts = chain.find(seg=> seg.mainseg).cdicts
-  $: cdicts = data.cdicts
-  // $: cogns = _.flatten(chains.map(chain=> chain.find(seg=> seg.mainseg).cognates))
   $: mainseg = chain.find(seg=> seg.mainseg)
   $: console.log('_mainseg:', mainseg)
 
   $: cognates = mainseg ? mainseg.cognates : []
   $: console.log('_cognates:', cognates)
-  $: probe = cdicts.find(cdict=> cdict.dname == 'wkt')
+  $: probe = cdicts.find(cdict=> cdict.dname == 'wkt') || cdicts[0]
   $: console.log('_PROBE', probe)
+
 
   // $: console.log('_cdicts:', cdicts)
 
   $: cdicts = data.cdicts
-  // $: console.log('_cognates:', cognates)
+
   function showCdicts(seg) {
       let segment = seg.detail
       console.log('_PARENT showDicts', segment)
@@ -64,8 +65,6 @@
      if (!owf.classList.contains('wf')) return
      wf = owf.textContent
      if (!wf) return
-     // let oresults = document.querySelector('#anthrax-results')
-     // oresults.innerHTML = ''
      goto(wf)
  }
 
@@ -77,8 +76,7 @@
             <div class="overflow-y-auto">
                 <div id="clip-results" class="px-8" on:click={handleClick} >
                   {#key clipkey}
-                  <!-- <ClipContent {clipkey} /> -->
-                  <svelte:component this={ClipContent} {clipkey}  />
+                  <svelte:component this={ClipContent} />
                   {/key}
                 </div>
             </div>
@@ -86,36 +84,39 @@
 
         <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
             <!-- <p>RIGHT========================</p> -->
-            <!-- <p id="anthrax-results" class="px-8">anthrax-results</p> -->
         </div>
 
 </div>
 
     <div id="popup-morphs" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
       <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
+
         <div class="main-title text-right px-2">
             <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
         </div>
 
-        <div class="title flex px-4">
-          <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div>
-          <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" >
-            <span class="clickable forms px-2" title="key F">forms</span>
-            <span class="clickable cognates" title="key C">cognates</span>
-          </div>
-        </div>
+        {#if (mainseg)}
+          <Main {chains} {wf} />
+        {/if}
 
-        <div class="title flex flex-cols px-4">
-            <div class="wf w-1/3">
-                <svelte:component this={PrettyFLS} {chain}  />
-            </div>
-            <div class="wf w-1/3">   </div>
-            <div class="segs w-1/3 text-right">
-                <svelte:component this={Segments} {segments} on:segment={showCdicts} />
-            </div>
-        </div>
+        <!-- <div class="title flex px-4"> -->
+        <!--   <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div> -->
+        <!--   <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" > -->
+        <!--     <span class="clickable forms px-2" title="key F">forms</span> -->
+        <!--     <span class="clickable cognates" title="key C">cognates</span> -->
+        <!--   </div> -->
+        <!-- </div> -->
 
-        <!-- <svelte:component this={Cdicts} {cdicts} on:cognates={showCognates}  /> -->
+        <!-- <div class="title flex flex-cols px-4"> -->
+        <!--     <div class="wf w-1/3"> -->
+        <!--         <svelte:component this={PrettyFLS} {chain}  /> -->
+        <!--     </div> -->
+        <!--     <div class="wf w-1/3">   </div> -->
+        <!--     <div class="segs w-1/3 text-right"> -->
+        <!--         <svelte:component this={Segments} {segments} on:segment={showCdicts} /> -->
+        <!--     </div> -->
+        <!-- </div> -->
+
         <svelte:component this={Cdicts} {cdicts}  />
 
       </div>
@@ -145,7 +146,7 @@
 
         <div class="wf px-4 text-green-600">forms: <b>{wf}</b></div>
 
-        <!-- <svelte:component this={Forms} {probe}   /> -->
+        <svelte:component this={Forms} {probe}   />
 
       </div>
     </div>

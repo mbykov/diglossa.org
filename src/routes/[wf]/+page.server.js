@@ -13,23 +13,16 @@ export const load = async ({ url, params }) => {
         segments[scheme].push(chain)
     }
 
-    let schemes = []
-    for (let chain of chains) {
-        let scheme = chain.map(seg=> seg.seg).join('-')
-        schemes.push(scheme)
-    }
-
     let chain = chains[0]
-    let mainseg = chain.find(seg=> seg.mainseg)
+    let mainseg = chain ? chain.find(seg=> seg.mainseg) : ''
     // ================================= TODO: terms, try - catch
     console.log('_CHAIN', chain)
-    let termseg =  chain.find(seg=> seg.indecl)
+    let termseg =  chain ? chain.find(seg=> seg.indecl) : ''
     let cdicts = mainseg ? mainseg.cdicts : termseg.cdicts
     return {
         // chain,
         cdicts,
-        schemes,
-        segments,
+        // segments,
         chains,
         wf
     }

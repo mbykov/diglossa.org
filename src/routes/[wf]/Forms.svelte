@@ -1,9 +1,10 @@
 <script>
   export let probe
-  $: console.log('_FORMS-probe', probe.rdict, probe.keys)
-  let cdicts = []
+  $: console.log('_FORMS-probe', probe.rdict, probe.keys.length)
   $: stem = probe.stem + '-'
   $: aug = probe.aug ? probe.aug + '-' : ''
+
+  $: if (!probe.keys) probe.keys = []
 
 </script>
 
