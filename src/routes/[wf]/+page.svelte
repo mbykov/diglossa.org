@@ -34,12 +34,12 @@
 
   $: chain = chains[0]
   $: mainseg = chain.find(seg=> seg.mainseg)
-  $: console.log('_mainseg:', mainseg)
+  // $: console.log('_mainseg:', mainseg)
 
   $: cognates = mainseg ? mainseg.cognates : []
-  $: console.log('_cognates:', cognates)
+  // $: console.log('_cognates:', cognates)
   $: probe = cdicts.find(cdict=> cdict.dname == 'wkt') || cdicts[0]
-  $: console.log('_PROBE', probe)
+  // $: console.log('_PROBE', probe)
 
 
   // $: console.log('_cdicts:', cdicts)
