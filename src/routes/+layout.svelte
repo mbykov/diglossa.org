@@ -22,12 +22,14 @@
 
     document.body.addEventListener("keydown", function(e) {
         // let key = e.which || e.keyCode; // keyCode detection // v = 67
-        if (e.key == 'Escape') {
+        if (e.key == 'Escape'
+           ) {
           closeAll()
-        } else if (e.key == 'c') {
+        } else if (e.key == '_c') {
+            if (e.ctrlKey) return
             let ocogns = document.body.querySelector('#popup-cognates')
             if (ocogns) ocogns.classList.remove('hidden')
-        } else if (e.key == 'f') {
+        } else if (e.key == '_f') {
             let oforms = document.body.querySelector('#popup-forms')
             if (oforms) oforms.classList.remove('hidden')
         }
@@ -72,10 +74,10 @@
       }
       let ocogns = document.querySelector('#popup-cognates')
       if (!ocogns) return
-      console.log('_ocogns', ocogns)
+      // console.log('_ocogns', ocogns)
       if (!ocogns.classList.contains('hidden')) {
           ocogns.classList.add('hidden')
-          console.log('_ocogns return')
+          // console.log('_ocogns return')
           return
       }
       let omorphs = document.querySelector('#popup-morphs')
@@ -83,7 +85,7 @@
       if (!omorphs) return
       if (!omorphs.classList.contains('hidden')) {
           omorphs.classList.add('hidden')
-          console.log('_omorphs return')
+          // console.log('_omorphs return')
           return
       }
   }
