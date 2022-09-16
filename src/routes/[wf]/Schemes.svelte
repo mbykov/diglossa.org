@@ -1,0 +1,38 @@
+<script>
+  import { createEventDispatcher } from 'svelte'
+  const dispatch = createEventDispatcher()
+
+  // export let segments
+  // $: console.log('_SGS', segments)
+
+  export let chains
+
+  // $: schemes = chains.map(chain=> chain.map(seg=> seg.seg))
+  // $: console.log('_SCHEMES', schemes)
+
+  function showDicts(seg) {
+    // console.log('_CHILD showDicts', seg)
+    dispatch('segment', seg)
+  }
+
+</script>
+
+<div class="bg-gray-100 px-4">
+
+  {#each chains as chain}
+    <p class="segments together">
+    {#each chain as seg, idx}
+      {#if (seg.cdicts || seg.pref)}
+        <span class="seg" on:click={showDicts(seg)}>{seg.seg}</span>
+      {:else}
+        <span class="">{seg.seg}</span>
+      {/if}
+      {#if (idx < chain.length -1)}
+        <span class="">-</span>
+      {/if}
+
+    {/each}
+  </p>
+  {/each}
+
+</div>
