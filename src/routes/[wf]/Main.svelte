@@ -25,7 +25,7 @@
     </div>
     <div class="wf w-1/3">   </div>
     <div class="segs w-1/3 text-right">
-      <svelte:component this={Schemes} {chains} />
+      <svelte:component this={Schemes} {chains} on:segment />
     </div>
   </div>
 

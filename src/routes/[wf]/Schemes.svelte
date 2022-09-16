@@ -2,13 +2,7 @@
   import { createEventDispatcher } from 'svelte'
   const dispatch = createEventDispatcher()
 
-  // export let segments
-  // $: console.log('_SGS', segments)
-
   export let chains
-
-  // $: schemes = chains.map(chain=> chain.map(seg=> seg.seg))
-  // $: console.log('_SCHEMES', schemes)
 
   function showDicts(seg) {
     // console.log('_CHILD showDicts', seg)
@@ -27,7 +21,7 @@
       {:else}
         <span class="">{seg.seg}</span>
       {/if}
-      {#if (idx < chain.length -1)}
+      {#if idx < chain.length-1 }
         <span class="">-</span>
       {/if}
 
