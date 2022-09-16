@@ -6,7 +6,7 @@
   export let cdicts
   export let cognates
   $: if (!cdicts) cdicts = cognates
-  $: console.log('_component-CDICTS', cdicts)
+  // $: console.log('_component-CDICTS', cdicts)
 
 </script>
 
