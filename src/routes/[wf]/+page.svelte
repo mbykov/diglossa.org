@@ -26,7 +26,6 @@
       }
   })
 
-  // $: segments = data.segments
   $: cdicts = data.cdicts
 
   $: chains = data.chains
@@ -95,9 +94,9 @@
             <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
         </div>
 
-        {#if (mainseg)}
+        <!-- {#if (mainseg)} -->
           <Main {chains} {wf} />
-        {/if}
+        <!-- {/if} -->
 
         <!-- <div class="title flex px-4"> -->
         <!--   <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div> -->
