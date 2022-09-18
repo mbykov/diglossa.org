@@ -12,7 +12,7 @@
 
 <div class="mainseg">
   <div class="title flex px-4">
-    <div class="w-1/2 px-4 text-green-600">wordform: <b>{wf}</b></div>
+    <div class="w-1/2 px-4 text-green-600">wordform: <b><span id="wordform">{wf}</span></b></div>
     <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" >
       <span class="clickable forms px-2" title="key F">forms</span>
       <span class="clickable cognates" title="key C">cognates</span>

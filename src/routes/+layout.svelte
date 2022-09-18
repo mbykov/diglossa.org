@@ -3,16 +3,9 @@
   import { onMount } from 'svelte'
   import Examples from './Examples.svelte'
 
-  // import { createEventDispatcher } from 'svelte'
-  // const dispatch = createEventDispatcher()
-  // function dispatchExamples() {
-  //     console.log('_dispatchExamples')
-  //     dispatch('examples')
-  // }
-
  onMount(async () => {
-   document.addEventListener('paste', (e) => {
-       const copiedText = e.clipboardData.getData('text/plain');
+     document.addEventListener('paste', (e) => {
+         const copiedText = e.clipboardData.getData('text/plain');
        // console.log('_CP', copiedText)
        let html = copiedText.replace(/([\n]+)/ug, "<br>$1")
        html = html.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
@@ -29,9 +22,20 @@
             if (e.ctrlKey) return
             let ocogns = document.body.querySelector('#popup-cognates')
             if (ocogns) ocogns.classList.remove('hidden')
-        } else if (e.key == '_f') {
+        } else if (e.key == 'p') {
+            let owordform = document.body.querySelector('#wordform')
+            let wf = owordform.textContent
+            let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
+            let urlTail = '&la=greek'
+            let url = [urlHead, wf, urlTail].join('')
+            window.open(url, '_blank') // .focus();
+        } else if (e.key == 'w') {
             let oforms = document.body.querySelector('#popup-forms')
-            if (oforms) oforms.classList.remove('hidden')
+            let owordform = document.body.querySelector('#wordform')
+            let wf = owordform.textContent
+            let urlHead = 'https://en.wiktionary.org/wiki/'
+            let url = [urlHead, wf].join('')
+            window.open(url, '_blank')
         }
     }, false);
 
@@ -109,6 +113,8 @@
 }
 
 </script>
+
+<!-- <a rel="external" target="_blank" href="https://tradingstrategy.ai/docs/index.html">Documentation</a> -->
 
 <div class="flex flex-col min-h-screen_ max-h-screen_ h-screen overflow-hidden bg-[#F7F6EE]">
     <main class="flex flex-grow overflow-hidden">
