@@ -21,24 +21,27 @@
 
   let cognshow = false
   let cognkey = {}
+  $: console.log('_[WF]: data', data)
 
   $: cdicts = data.cdicts
 
   $: wf = data.wf
-  $: chains = data.chains
-  $: console.log('_[WF]:', wf, '[CHAIN]', chains.length)
-  $: chain = chains[0]
+  $: chains = data.chains || []
+  $: console.log('_[WF]:', wf, '[CHAIN]', chains, '<=')
 
-  $: mainseg = chain.find(seg=> seg.mainseg)
-  // $: console.log('_mainseg:', mainseg)
+  if (data.chains?.length) {
+    let chain = data.chains[0]
+    let mainseg = chain.find(seg=> seg.mainseg)
+    // $: console.log('_mainseg:', mainseg)
+    let cognates = mainseg ? mainseg.cognates : []
+    // $: console.log('_cognates:', cognates)
+  }
 
-  $: cognates = mainseg ? mainseg.cognates : []
-  // $: console.log('_cognates:', cognates)
-  $: probe = cdicts.find(cdict=> cdict.dname == 'wkt') || cdicts[0]
+ $: probe = cdicts.find(cdict=> cdict.dname == 'wkt') || cdicts[0]
   // $: console.log('_PROBE', probe)
   // $: console.log('_cdicts:', cdicts)
 
-  $: cdicts = data.cdicts
+ /* $: cdicts = data.cdicts */
 
   function showDicts(seg) {
       let segment = seg.detail

@@ -15,13 +15,16 @@
 
     document.body.addEventListener("keydown", function(e) {
         // let key = e.which || e.keyCode; // keyCode detection // v = 67
-        if (e.key == 'Escape'
-           ) {
+        if (e.key == 'Escape' ) {
           closeAll()
-        } else if (e.key == '_c') {
-            if (e.ctrlKey) return
-            let ocogns = document.body.querySelector('#popup-cognates')
-            if (ocogns) ocogns.classList.remove('hidden')
+        } else if (e.key == 'c') {
+            if (e.ctrlKey) {
+                let hovered = document.querySelector('span.wf:hover')
+                if (hovered) copyTextToClipboard(hovered.textContent)
+            } else {
+                // let ocogns = document.body.querySelector('#popup-cognates')
+                // if (ocogns) ocogns.classList.remove('hidden')
+            }
         } else if (e.key == 'p') {
             let owordform = document.body.querySelector('#wordform')
             let wf = owordform.textContent
