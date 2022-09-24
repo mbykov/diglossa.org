@@ -12,8 +12,9 @@
 
 <div class="bg-gray-100 p-2">
 
+  <ul class="morph">
   {#each chains as chain}
-    <p class="segments together">
+    <li class="segments together">
     {#each chain as seg, idx}
       {#if (seg.cdicts || seg.pref)}
         <span class="seg" on:click={eventSegment(seg)}>{seg.seg}</span>
@@ -25,7 +26,8 @@
       {/if}
 
     {/each}
-  </p>
+  </li>
   {/each}
+  </ul>
 
 </div>
