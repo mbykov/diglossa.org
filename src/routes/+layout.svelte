@@ -1,7 +1,7 @@
 <script>
   import "../app.css";
   import { onMount } from 'svelte'
-  import Examples from './Examples.svelte'
+  // import Examples from './Examples.svelte'
 
  onMount(async () => {
      document.addEventListener('paste', (e) => {
@@ -53,11 +53,6 @@
           } else if (target.classList.contains('esc')) {
               let opopup = target.closest('.popup')
               opopup.classList.add('hidden')
-          // } else if (target.classList.contains('examples')) {
-              // console.log('_LAYOUT EXAMPLE')
-              // dispatchExamples()
-              // let opopup = target.closest('.popup')
-              // opopup.classList.add('hidden')
           } else if (target.classList.contains('wf')) {
               let omorphs = document.body.querySelector('#popup-morphs')
               if (omorphs) omorphs.classList.remove('hidden')
@@ -73,18 +68,19 @@
   })
 
   function closeAll() {
+      console.log('_ESC')
       let oforms = document.querySelector('#popup-forms')
-      if (!oforms) return
-      if (!oforms.classList.contains('hidden')) {
+      // if (!oforms) return
+      if (oforms && !oforms.classList.contains('hidden')) {
           oforms.classList.add('hidden')
+          console.log('_ESC oforms return')
           return
       }
       let ocogns = document.querySelector('#popup-cognates')
-      if (!ocogns) return
       // console.log('_ocogns', ocogns)
-      if (!ocogns.classList.contains('hidden')) {
+      if (ocogns && !ocogns.classList.contains('hidden')) {
           ocogns.classList.add('hidden')
-          // console.log('_ocogns return')
+          console.log('_ESC ocogns return')
           return
       }
       let omorphs = document.querySelector('#popup-morphs')
@@ -92,8 +88,7 @@
       if (!omorphs) return
       if (!omorphs.classList.contains('hidden')) {
           omorphs.classList.add('hidden')
-          // console.log('_omorphs return')
-          return
+          console.log('_ESC omorphs')
       }
   }
 

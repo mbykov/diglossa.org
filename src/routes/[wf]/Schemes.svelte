@@ -10,7 +10,7 @@
 
 </script>
 
-<div class="bg-gray-100 px-4">
+<div class="bg-gray-100 p-2">
 
   {#each chains as chain}
     <p class="segments together">
