@@ -2,10 +2,23 @@
 
   export let wf
   export let chains
-  $: chain = chains[0]
+  let chain, mainseg, indecl, cdicts = []
+  $: {
+      chain = chains[0]
+      mainseg = chain.find(seg=> seg.mainseg)
+      indecl = chain.find(seg=> seg.indecl)
+      console.log('_IND', indecl)
+      if (mainseg) {
+          cdicts = mainseg.cdicts
+      } else if (indecl) {
+          cdicts = indecl.cdicts
+      }
+  }
+
 
   import PrettyFLS from './PrettyFLS.svelte'
   import Schemes from './Schemes.svelte'
+  import Cdicts from './Cdicts.svelte'
 
 </script>
 
@@ -29,3 +42,5 @@
   </div>
 
 </div>
+
+      <Cdicts {cdicts}  />
