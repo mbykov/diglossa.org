@@ -15,6 +15,13 @@
       }
   }
 
+  function kuku(ev) {
+      // console.log('KU-KU', ev.detail)
+      let seg = ev.detail
+      if (ev?.detail?.cdicts) cdicts = ev.detail.cdicts
+      else if (ev?.detail?.pref) cdicts = [ev.detail.pref]
+      // console.log('_CCCC', cdicts)
+  }
 
   import PrettyFLS from './PrettyFLS.svelte'
   import Schemes from './Schemes.svelte'
@@ -37,10 +44,12 @@
     </div>
     <div class="wf w-1/3">   </div>
     <div class="segs w-1/3 text-right">
-      <Schemes {chains}  />
+      <Schemes {chains} on:segment={kuku} />
     </div>
   </div>
 
 </div>
 
-      <Cdicts {cdicts}  />
+{#key (cdicts)}
+<Cdicts {cdicts}  />
+{/key}

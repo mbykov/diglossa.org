@@ -5,7 +5,8 @@
   export let chains
 
   function eventSegment(seg) {
-    dispatch('segment', seg)
+      // console.log('_EVENT SEG', seg)
+      dispatch('segment', seg)
   }
 
 </script>
