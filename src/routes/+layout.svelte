@@ -1,7 +1,18 @@
 <script>
   import "../app.css";
   import { onMount } from 'svelte'
+
   // import Examples from './Examples.svelte'
+
+  import { createEventDispatcher } from 'svelte'
+  const dispatch = createEventDispatcher()
+
+  function eventCognates() {
+      // console.log('_EVENT SEG', seg)
+      dispatch('cognates')
+  }
+
+
 
  onMount(async () => {
      document.addEventListener('paste', (e) => {
@@ -16,14 +27,15 @@
     document.body.addEventListener("keydown", function(e) {
         // let key = e.which || e.keyCode; // keyCode detection // v = 67
         if (e.key == 'Escape' ) {
-          closeAll()
-        } else if (e.key == 'c') {
+          // closeAll()
+        } else if (e.key == 'c_') {
             if (e.ctrlKey) {
                 let hovered = document.querySelector('span.wf:hover')
                 if (hovered) copyTextToClipboard(hovered.textContent)
             } else {
-                // let ocogns = document.body.querySelector('#popup-cognates')
-                // if (ocogns) ocogns.classList.remove('hidden')
+                eventCognates()
+                let ocogns = document.body.querySelector('#popup-cognates')
+                if (ocogns) ocogns.classList.remove('hidden')
             }
         } else if (e.key == 'p') {
             let owordform = document.body.querySelector('#wordform')

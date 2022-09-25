@@ -23,7 +23,7 @@ export const load = async ({ url, params }) => {
     let termseg =  chain ? chain.find(seg=> seg.indecl) : ''
     let cdicts = mainseg ? mainseg.cdicts : termseg.cdicts
     return {
-        cdicts,
+        // cdicts,
         chains,
         wf
     }

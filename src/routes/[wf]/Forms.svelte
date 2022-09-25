@@ -1,22 +1,47 @@
 <script>
   export let probe
-  // $: console.log('_FORMS-probe', probe.rdict, probe.keys.length)
-  $: stem = probe.stem + '-'
-  $: aug = probe.aug ? probe.aug + '-' : ''
 
-  if (!probe) probe = {}
-  if (!probe.keys) probe.keys = []
-
-  // console.log('_PROBE-KEYS', probe.keys)
-  // console.log('_PROBE', probe.rdict, probe.verb)
-
-  $: keys = []
-  $: if (probe.verb) {
-      keys = probe.keys.map(key=> JSON.parse(key))
+  let keys = [], aug, stem
+  let vkeys = []
+  $: {
+      // console.log('_FORMS-keys', probe.rdict, probe.keys)
+      aug = probe.aug ? probe.aug + '-' : ''
+      stem = probe.stem + '-'
+      if (probe.verb) {
+          console.log('_VERB KEYS', probe.keys)
+          if (!probe.keys) probe.keys = {}
+          for (let tense in probe.keys) {
+              let arrterms = probe.keys[tense]
+              for (let terms of arrterms) {
+                  let vkey = {tense, terms: JSON.parse(terms)}
+                  vkeys.push(vkey)
+              }
+          }
+      }
+      // console.log('_VK', vkeys)
+      console.log('_AUG', aug)
   }
-  // console.log('_F-KEYS', keys)
+
+  // $: stem = probe.stem + '-'
+
+  // if (!probe) probe = {}
+  // if (!probe.keys) probe.keys = []
+
+  // // console.log('_PROBE-KEYS', probe.keys)
+  // // console.log('_PROBE', probe.rdict, probe.verb)
+
+  // $: keys = []
+  // $: if (probe.verb) {
+  // }
 
 </script>
+
+<div id="popup-cognates" class="popup absolute w-auto right-4 top-4 -my-4 h-screen p-4 pl-16 pr-1">
+  <div class="h-full bg-[#EBEBCC] shadow-2xl overflow-y-auto">
+    <div class="main-title text-right px-2">
+      <span class="esc w-1/3 text-right"> [x]</span>
+    </div>
+
 
 
 <div class="px-4">
@@ -24,12 +49,12 @@
   <div class="px-4">
 
     {#if (probe.verb)}
-    {#each keys as key}
-      <p><b>{key.tense}:</b></p>
-      {#if (!/inf/.test(key.tense))}
+    {#each vkeys as vkey}
+      <p><b>{vkey.tense}:</b></p>
+      {#if (!/inf/.test(vkey.tense))}
       <ul>
-        {#each Object.entries(key.terms) as [morph, term] }
-          <li>{morph}: {probe.stem}-{term}</li>
+        {#each Object.entries(vkey.terms) as [morph, term] }
+          <li>{morph}: {aug}{probe.stem}-{term}</li>
         {/each}
       </ul>
       {:else}
@@ -45,13 +70,14 @@
       <p><b>{gend}</b>:</p>
       <ul>
         {#each Object.entries(JSON.parse(json)) as [morph, term]}
-          <li>{morph}: {aug}{stem}{term}</li>
+          <li>{morph}: {probe.aug}{stem}{term}</li>
         {/each}
       </ul>
     {/each}
-
   {/if}
 
   </div>
+</div>
 
+  </div>
 </div>

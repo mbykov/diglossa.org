@@ -1,31 +1,78 @@
 <script>
 
-  export let wf
-  export let chains
-  let chain, mainseg, indecl, cdicts = []
-  $: {
-      chain = chains[0]
-      mainseg = chain.find(seg=> seg.mainseg)
-      indecl = chain.find(seg=> seg.indecl)
-      console.log('_IND', indecl)
-      if (mainseg) {
-          cdicts = mainseg.cdicts
-      } else if (indecl) {
-          cdicts = indecl.cdicts
-      }
-  }
-
-  function kuku(ev) {
-      // console.log('KU-KU', ev.detail)
-      let seg = ev.detail
-      if (ev?.detail?.cdicts) cdicts = ev.detail.cdicts
-      else if (ev?.detail?.pref) cdicts = [ev.detail.pref]
-      // console.log('_CCCC', cdicts)
-  }
+  import { onMount } from 'svelte'
 
   import PrettyFLS from './PrettyFLS.svelte'
   import Schemes from './Schemes.svelte'
   import Cdicts from './Cdicts.svelte'
+
+  import Forms from './Forms.svelte'
+  import Cognates from './Cognates.svelte'
+
+  export let wf
+  export let chains
+  let chain, mainseg, probe, indecl, cdicts = [], cognates = [], keys = {}
+
+  let cognkey
+  let formkey = {}
+  let cdictskey
+  const log = console.log
+
+  const addpops = {
+      forms: Forms,
+       cognates: Cognates
+   }
+  let addpop
+
+  $: {
+      chain = chains[0]
+      mainseg = chain.find(seg=> seg.mainseg)
+      indecl = chain.find(seg=> seg.indecl)
+      if (mainseg) {
+          cdicts = mainseg.cdicts
+          cognates = mainseg.cognates
+          cdictskey = mainseg.seg
+          probe = mainseg.cdicts.find(cdict=> cdict.dname == 'wkt') || mainseg.cdicts[0]
+      } else if (indecl) {
+          console.log('_INDECL', indecl)
+          cdicts = indecl.cdicts
+      }
+  }
+
+  function showSegment(ev) {
+      let seg = ev.detail
+      cdicts = seg.cdicts
+      cognates = seg.cognates
+      cdictskey = seg.seg
+  }
+
+  function onKeyDown(e) {
+	  switch(e.key) {
+	  case 'c':
+          cognkey = {}
+		  break;
+	  case 'f':
+          formkey = {}
+          keys = probe.keys
+          console.log('_ON_KEY_DOWN F', keys)
+		  break;
+	  case 'Escape':
+          closeAll()
+	      break;
+	  }
+  }
+
+  function closeAll() {
+      let oforms = document.querySelector('#popup-forms')
+      if (oforms && !oforms.classList.contains('hidden')) {
+          oforms.classList.add('hidden')
+      }
+
+      let ocogns = document.querySelector('#popup-cognates')
+      if (ocogns && !ocogns.classList.contains('hidden')) {
+          ocogns.classList.add('hidden')
+      }
+  }
 
 </script>
 
@@ -44,12 +91,26 @@
     </div>
     <div class="wf w-1/3">   </div>
     <div class="segs w-1/3 text-right">
-      <Schemes {chains} on:segment={kuku} />
+      <Schemes {chains} on:segment={showSegment} />
     </div>
   </div>
 
 </div>
 
-{#key (cdicts)}
+{#key cdicts}
 <Cdicts {cdicts}  />
 {/key}
+
+{#key cognkey}
+{#if (cognates.length)}
+<Cognates {cognates} {wf} />
+{/if}
+{/key}
+
+{#key formkey}
+{#if (Object.keys(keys).length)}
+<Forms {probe} {wf} />
+{/if}
+{/key}
+
+<svelte:window on:keydown={onKeyDown} />

@@ -9,7 +9,7 @@
   // $: console.log('_Pretty MORPHS', morphs)
 
   function prettyFLS(chain) {
-      console.log('_PRETTY CHAIN', chain)
+      // console.log('_PRETTY CHAIN', chain)
       let morphs = ''
       let fls = []
       let indecl = chain.find(seg=> seg.indecl)
