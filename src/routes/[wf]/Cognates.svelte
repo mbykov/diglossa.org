@@ -1,11 +1,17 @@
 <script>
   export let wf
   export let cognates
+  export let probe
   import Cdicts from './Cdicts.svelte'
-  console.log('_XXX_Cognates')
+
+  let cdicts = []
+  $: {
+      cdicts = cognates
+  }
+  console.log('_XXX_Cognates', cdicts)
 </script>
 
-<div id="popup-cognates" class="popup absolute w-1/3 right-4 top-4 -my-4 h-screen p-4 pr-1">
+<div id="popup-cognates" class="popup absolute w-auto right-4 top-4 -my-4 h-screen p-4 pl-16 pr-1">
   <div class="h-full bg-[#EBEBCC] shadow-2xl overflow-y-auto">
     <div class="main-title text-right px-2">
       <span class="esc w-1/3 text-right"> [x]</span>
@@ -13,7 +19,7 @@
 
     <div class="wf px-4 text-green-600">cognates: <b>{wf}</b></div>
 
-    <svelte:component this={Cdicts} {cognates}   />
+    <svelte:component this={Cdicts} {cdicts}   />
 
   </div>
 </div>

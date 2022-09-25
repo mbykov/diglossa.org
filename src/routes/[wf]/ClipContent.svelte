@@ -1,7 +1,7 @@
 <script>
 
   // export let clipkey
-  $: console.log('_component CLIP-KEY')
+  // $: console.log('_component CLIP-KEY')
 
   let exkey = false
   function showExamples() {
