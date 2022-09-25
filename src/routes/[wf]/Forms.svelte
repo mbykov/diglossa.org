@@ -5,6 +5,7 @@
   let vkeys = []
   $: {
       // console.log('_FORMS-keys', probe.rdict, probe.keys)
+      if (!probe.aug) probe.aug = ''
       aug = probe.aug ? probe.aug + '-' : ''
       stem = probe.stem + '-'
       if (probe.verb) {
@@ -36,7 +37,7 @@
 
 </script>
 
-<div id="popup-cognates" class="popup absolute w-auto right-4 top-4 -my-4 h-screen p-4 pl-16 pr-1">
+<div id="popup-forms" class="popup absolute w-auto right-4 top-4 -my-4 h-screen p-4 pl-16 pr-1">
   <div class="h-full bg-[#EBEBCC] shadow-2xl overflow-y-auto">
     <div class="main-title text-right px-2">
       <span class="esc w-1/3 text-right"> [x]</span>

@@ -13,6 +13,8 @@
   export let chains
   let chain, mainseg, probe, indecl, cdicts = [], cognates = [], keys = {}
 
+  let newcognates = []
+
   let cognkey
   let formkey = {}
   let cdictskey
@@ -25,15 +27,17 @@
   let addpop
 
   $: {
+      newcognates = []
       chain = chains[0]
       mainseg = chain.find(seg=> seg.mainseg)
       indecl = chain.find(seg=> seg.indecl)
       if (mainseg) {
           cdicts = mainseg.cdicts
-          cognates = mainseg.cognates
+          // cognates = mainseg.cognates
           cdictskey = mainseg.seg
           probe = mainseg.cdicts.find(cdict=> cdict.dname == 'wkt') || mainseg.cdicts[0]
       } else if (indecl) {
+          cognates = []
           console.log('_INDECL', indecl)
           cdicts = indecl.cdicts
       }
@@ -42,13 +46,18 @@
   function showSegment(ev) {
       let seg = ev.detail
       cdicts = seg.cdicts
-      cognates = seg.cognates
+      // mainseg = seg.mainseg // нельзя!
+      newcognates = seg.cognates
       cdictskey = seg.seg
   }
 
   function onKeyDown(e) {
 	  switch(e.key) {
 	  case 'c':
+          log('_NCCC', newcognates)
+          log('_M', mainseg)
+          cognates = (newcognates.length) ? newcognates : mainseg.cognates
+          log('_CCC', cognates)
           cognkey = {}
 		  break;
 	  case 'f':
