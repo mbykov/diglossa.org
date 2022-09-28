@@ -25,19 +25,7 @@
    })
 
     document.body.addEventListener("keydown", function(e) {
-        // let key = e.which || e.keyCode; // keyCode detection // v = 67
-        if (e.key == 'Escape' ) {
-          // closeAll()
-        } else if (e.key == 'c_') {
-            if (e.ctrlKey) {
-                let hovered = document.querySelector('span.wf:hover')
-                if (hovered) copyTextToClipboard(hovered.textContent)
-            } else {
-                eventCognates()
-                let ocogns = document.body.querySelector('#popup-cognates')
-                if (ocogns) ocogns.classList.remove('hidden')
-            }
-        } else if (e.key == 'p') {
+        if (e.key == 'p') {
             let owordform = document.body.querySelector('#wordform')
             let wf = owordform.textContent
             let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
