@@ -52,23 +52,22 @@
   }
 
   function onKeyDown(e) {
-	  switch(e.key) {
-	  case 'c':
-          log('_NCCC', newcognates)
-          log('_M', mainseg)
-          cognates = (newcognates.length) ? newcognates : mainseg.cognates
-          log('_CCC', cognates)
-          cognkey = {}
-		  break;
+    if (!mainseg) return
+    if (e.ctrlKey) return
+	switch(e.key) {
+	case 'c':
+      cognates = (newcognates.length) ? newcognates : mainseg.cognates
+      if (!cognates.length) return
+      cognkey = {}
+	  break;
 	  case 'f':
-          formkey = {}
-          keys = probe.keys
-          console.log('_ON_KEY_DOWN F', keys)
-		  break;
-	  case 'Escape':
-          closeAll()
-	      break;
-	  }
+      formkey = {}
+      keys = probe.keys
+	  break;
+	case 'Escape':
+      closeAll()
+	  break;
+	}
   }
 
   function closeAll() {
