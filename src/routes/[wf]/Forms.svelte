@@ -4,36 +4,25 @@
   let keys = [], aug, stem
   let vkeys = []
   $: {
-      // console.log('_FORMS-keys', probe.rdict, probe.keys)
+      console.log('_FORMS-keys', probe.rdict, probe.keys)
       if (!probe.aug) probe.aug = ''
       aug = probe.aug ? probe.aug + '-' : ''
       stem = probe.stem + '-'
       if (probe.verb) {
-          console.log('_VERB KEYS', probe.keys)
+          // console.log('_VERB KEYS', probe.keys)
           if (!probe.keys) probe.keys = {}
-          for (let tense in probe.keys) {
-              let arrterms = probe.keys[tense]
-              for (let terms of arrterms) {
-                  let vkey = {tense, terms: JSON.parse(terms)}
-                  vkeys.push(vkey)
+          for (let type in probe.keys) {
+              for (let tense in probe.keys[type]) {
+                  let arrterms = probe.keys[type][tense]
+                  for (let terms of arrterms) {
+                      let vkey = {tense, terms: JSON.parse(terms)}
+                      vkeys.push(vkey)
+                  }
               }
           }
       }
       // console.log('_VK', vkeys)
-      console.log('_AUG', aug)
   }
-
-  // $: stem = probe.stem + '-'
-
-  // if (!probe) probe = {}
-  // if (!probe.keys) probe.keys = []
-
-  // // console.log('_PROBE-KEYS', probe.keys)
-  // // console.log('_PROBE', probe.rdict, probe.verb)
-
-  // $: keys = []
-  // $: if (probe.verb) {
-  // }
 
 </script>
 

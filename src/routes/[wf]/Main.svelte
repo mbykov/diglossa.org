@@ -14,20 +14,22 @@
   let chain, mainseg, probe, indecl, cdicts = [], cognates = [], keys = {}
 
   let newcognates = []
+  let newprobe = {}
 
   let cognkey
-  let formkey = {}
+  let formkey = null
   let cdictskey
   const log = console.log
 
   const addpops = {
       forms: Forms,
-       cognates: Cognates
+      cognates: Cognates
    }
   let addpop
 
   $: {
       newcognates = []
+      newprobe = null
       chain = chains[0]
       mainseg = chain.find(seg=> seg.mainseg)
       indecl = chain.find(seg=> seg.indecl)
@@ -44,30 +46,47 @@
   }
 
   function showSegment(ev) {
+      formkey = null
       let seg = ev.detail
-      cdicts = seg.cdicts
+      if (!seg) return
+      log('_SEG', seg)
+      let pref = {}
+      if (seg.pref) {
+          pref = seg.pref
+          cdicts = [pref]
+      } else if (seg.cdicts) {
+          cdicts = seg.cdicts
+      }
+      if (!cdicts) return
       // mainseg = seg.mainseg // нельзя!
       newcognates = seg.cognates
       cdictskey = seg.seg
+      newprobe = cdicts.find(dict=> dict.dname == 'wkt') || cdicts[0]
+      log('_NEW P', probe)
   }
 
   function onKeyDown(e) {
-    if (!mainseg) return
-    if (e.ctrlKey) return
-	switch(e.key) {
-	case 'c':
-      cognates = (newcognates.length) ? newcognates : mainseg.cognates
-      if (!cognates.length) return
-      cognkey = {}
-	  break;
+      if (!mainseg) return
+      if (e.ctrlKey) return
+	  switch(e.key) {
+	  case 'c':
+          if (!newcognates) return
+          cognates = (newcognates.length) ? newcognates : mainseg.cognates
+          if (!cognates.length) return
+          cognkey = {}
+	      break;
 	  case 'f':
-      formkey = {}
-      keys = probe.keys
-	  break;
+          log('_F PROBE', probe)
+          if (!probe) return
+          if (newprobe) probe = newprobe
+          if (!probe.keys) return
+          log('_F PROBE.KEYS', probe.keys)
+          formkey = {}
+	      break;
 	case 'Escape':
-      closeAll()
-	  break;
-	}
+          closeAll()
+	      break;
+	  }
   }
 
   function closeAll() {
@@ -83,6 +102,15 @@
   }
 
 </script>
+
+<div id="popup-morphs" class="popup absolute w-1/2 right-4 top-4 -my-4 h-screen p-4 pr-1">
+  <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
+
+    <div class="main-title text-right px-2">
+      <span class="dict">wkt</span> <span class="dict">dvr</span> <span class="esc w-1/3 text-right"> [x]</span>
+    </div>
+
+
 
 <div class="mainseg">
   <div class="title flex px-4">
@@ -102,7 +130,6 @@
       <Schemes {chains} on:segment={showSegment} />
     </div>
   </div>
-
 </div>
 
 {#key cdicts}
@@ -116,9 +143,18 @@
 {/key}
 
 {#key formkey}
-{#if (Object.keys(keys).length)}
+<!-- {#if (formkey && probe && probe.keys && Object.keys(probe.keys).length)} -->
+{#if (formkey && probe && probe.keys)}
 <Forms {probe} {wf} />
 {/if}
 {/key}
+
+
+
+
+  </div>
+</div>
+
+
 
 <svelte:window on:keydown={onKeyDown} />
