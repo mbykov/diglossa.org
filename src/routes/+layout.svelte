@@ -1,27 +1,18 @@
 <script>
-  import "../app.css";
-  import { onMount } from 'svelte'
+ import "../app.css";
+ import { onMount } from 'svelte'
+  import { goto } from '$app/navigation';
 
-  // import Examples from './Examples.svelte'
-
-  import { createEventDispatcher } from 'svelte'
-  const dispatch = createEventDispatcher()
-
-  function eventCognates() {
-      // console.log('_EVENT SEG', seg)
-      dispatch('cognates')
-  }
-
+ let html = ''
 
 
  onMount(async () => {
      document.addEventListener('paste', (e) => {
          const copiedText = e.clipboardData.getData('text/plain');
-       // console.log('_CP', copiedText)
-       let html = copiedText.replace(/([\n]+)/ug, "<br>$1")
-       html = html.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
-       let oclip = document.querySelector('#clip-results')
-       oclip.innerHTML = html
+         let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
+         let html = text.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
+         let oclip = document.querySelector('#clip-results')
+         oclip.innerHTML = html
    })
 
     document.body.addEventListener("keydown", function(e) {

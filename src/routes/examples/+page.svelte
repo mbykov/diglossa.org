@@ -24,8 +24,8 @@
 
 </div>
 
+<div id="some-compounds" class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
 <p><b>some compounds</b>:</p>
-<div class="trns max-h-24 overflow-y-auto bg-gray-100 px-4">
     ἀγαθοποιέω;
     βαρύτονος;
     παραγράφω;
