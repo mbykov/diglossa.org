@@ -15,7 +15,7 @@
   import Forms from './Forms.svelte'
   import Cognates from './Cognates.svelte'
 
-  let html = ''
+  import {clip} from '$lib/store.js';
 
   const addpops = {
       forms: Forms,
@@ -41,13 +41,11 @@
 
   const bodies = {
       compounds: Compounds,
-      nores: NoResult
+      // nores: NoResult
   }
 
 
   $: {
-      // html = getContext('clippedHTM')
-      // log('_GRT HTML', html)
       chains = data.chains
       let chain = data.chains[0]
       wf = data.wf
@@ -91,9 +89,9 @@
 
     <div class="overflow-y-auto">
       <div id="clip-results" class="px-8" on:click={handleClick} >
-        <!-- {#if (html)} -->
-          <!-- {@html html} -->
-          <!-- {/if} -->
+        {#if ($clip)}
+          {@html $clip}
+        {/if}
         <!-- {#key clipkey} -->
         <!-- <\!-- <svelte:component this={ClipContent} /> -\-> -->
         <!-- {/key} -->

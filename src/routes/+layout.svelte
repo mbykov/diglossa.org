@@ -108,12 +108,18 @@
 <div class="flex flex-col min-h-screen_ max-h-screen_ h-screen overflow-hidden bg-[#F7F6EE]">
     <main class="flex flex-grow overflow-hidden">
 
-        <div class="w-1/6 p-4 bg-gray-200">
-            <p>anthrax</p>
-            <div class="mt-24 m-4">
-                <p><a href="/">home</a></p>
-                <p><a href="/examples">examples</a></p>
-            </div>
+        <div class="w-1/6 p-4 bg-gray-200 flex flex-1 flex-col justify-between">
+          <div class="mt-24 m-4">
+            <p>Anthrax v.2.0 - <b>beta</b> </p>
+            <p><a href="/">home</a></p>
+            <p><a href="/code">Code & License</a></p>
+            <p><a href="/thanks">Special thanks</a></p>
+            <p></p>
+          </div>
+
+          <hosting>
+            <p>hosting: <a href="https://www.basealt.ru/">https://www.basealt.ru</a></p>
+          </hosting>
         </div>
 
         <div class="flex flex-col w-5/6 p-4 h-full overflow-y-auto">
@@ -121,4 +127,5 @@
         </div>
 
     </main>
+<!-- </div> -->
 </div>

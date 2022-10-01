@@ -4,7 +4,7 @@
   let keys = [], aug, stem
   let vkeys = []
   $: {
-      console.log('_FORMS-keys', probe.rdict, probe.keys)
+      // console.log('_FORMS-keys', probe.rdict, probe.keys)
       if (!probe.aug) probe.aug = ''
       aug = probe.aug ? probe.aug + '-' : ''
       stem = probe.stem + '-'
@@ -13,15 +13,15 @@
           if (!probe.keys) probe.keys = {}
           for (let type in probe.keys) {
               for (let tense in probe.keys[type]) {
+                  // if (/\.inf/.test(tense)) continue
                   let arrterms = probe.keys[type][tense]
                   for (let terms of arrterms) {
-                      let vkey = {tense, terms: JSON.parse(terms)}
+                      let vkey = /\.inf/.test(tense) ? {tense, terms} : {tense, terms: JSON.parse(terms)}
                       vkeys.push(vkey)
                   }
               }
           }
       }
-      // console.log('_VK', vkeys)
   }
 
 </script>
@@ -49,7 +49,7 @@
       </ul>
       {:else}
         <ul>
-          <li>{probe.stem}-{key.terms}</li>
+          <li>{probe.stem}-{vkey.terms}</li>
         </ul>
       {/if}
     {/each}

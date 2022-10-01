@@ -2,41 +2,29 @@
 
   import { goto } from '$app/navigation';
   import Examples from './examples/+page.svelte'
-  import { onMount, setContext } from 'svelte'
+  import { onMount, setContext, getContext } from 'svelte'
+  import {writable} from 'svelte/store';
 
-  // setContext('showExamples', true)
-
-  // let wf = ''
+  import {clip} from '$lib/store.js';
 
   async function handleClick(ev) {
       let owf = ev.target
       if (!owf.classList.contains('wf')) return
-      wf = owf.textContent
+      let oclip = document.querySelector('#clip-results')
+      let html = oclip.innerHTML
+      $clip = html
+      let wf = owf.textContent
       if (!wf) return
       goto(wf)
   }
-
-  // function onKeyDown(e) {
-  //     if (!e.ctrlKey) return
-  //     switch(e.key) {
-  //     case 'c':
-  //         let oexample = document.querySelector('#simple-example')
-  //         let html = oexample.innerHTML
-  //         console.log('_COPYING', oexample, html)
-  //         // setContext('clippedHTM', html)
-  //         break;
-  //     case 'Escape':
-  //         break;
-  //     }
-  // }
-
-
 
 </script>
 
 
 <div class="flex h-full bg-[#F7F6EE]">
   <div class="w-2/5 p-4">
+
+    #= Future: γράψω, γράψομαι, γραφήσομαι
 
     <div class="overflow-y-auto">
       <div id="clip-results" class="px-8" on:click={handleClick} >
@@ -52,9 +40,18 @@
     </ul>
 
     <ul class="py-8">
+      <li>dictionaries: </li>
+      <li><b>WKT</b> - wiktionary.org </li>
+      <li><b>DVR</b> - И.Х.Дворецкий </li>
+      <li class="text-gray-300"><b>LSJ</b> - Liddell-Scott-Jones</li>
+      <li class="text-gray-300"><b>Souda</b> </li>
+    </ul>
+
+    <ul class="py-8">
       <li>short keys: </li>
+      <li><b>Esc</b> - code popups </li>
       <li><b>C</b> - cognates </li>
-      <li><b>F</b> - paradigms</li>
+      <li><b>F</b> - paradigms (only for 'wkt') </li>
       <li><b>P</b> - this word at Perseus</li>
       <li><b>W</b> - at Wiktionary</li>
     </ul>
@@ -69,7 +66,7 @@
     </div>
   </div>
 
-  <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
+  <div class="flex flex-col w-3/5 overflow-y-auto px-8">
     <img src="anthrax-01.png">
   </div>
 </div>
