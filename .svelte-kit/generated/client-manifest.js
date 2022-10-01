@@ -4,13 +4,17 @@ export { matchers } from './client-matchers.js';
 	() => import('./nodes/1'),
 	() => import('./nodes/2'),
 	() => import('./nodes/3'),
-	() => import('./nodes/4')];
+	() => import('./nodes/4'),
+	() => import('./nodes/5'),
+	() => import('./nodes/6')];
 
 			export const server_loads = [];
 
 			export const dictionary = {
 	"": [2],
-	"examples": [4],
+	"code": [4],
+	"examples": [5],
+	"thanks": [6],
 	"[wf]": [~3]
 };
 

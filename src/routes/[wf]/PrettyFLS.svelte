@@ -16,7 +16,8 @@
       if (indecl) {
           let probe = indecl.cdicts.find(cdict=> cdict.dname == 'wkt') || indecl.cdicts[0]
           fls = probe.fls || []
-          morphs = prettyName(fls)
+          if (probe.name) morphs = prettyName(fls)
+          else if (probe.verb) morphs = prettyVerb(fls)
       } else {
           let mseg = chain.find(seg=> seg.mainseg)
           fls = chain.find(seg=> seg.fls).fls
