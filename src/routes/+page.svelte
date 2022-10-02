@@ -32,14 +32,18 @@
 
     <p>Copy any ancient Greek text (utf-8) from anywhere. Paste with ctrl-V here. Click on the word</p>
 
-    <ul class="py-8">
+    <p  class="pt-8"><b>examples:</b></p>
+    <p><a href="/compounds">some compounds</p>
+    <p></p>
+
+    <ul class="py-4">
       <li>1. morphological analysis of the word </li>
       <li>2. analysis of compound words, even those that are not in dictionaries </li>
       <li>3. finding cognates words (works well, where the "roots" are longer than 2-3 characters) </li>
       <li>4. showing the word paradigm, i.e. declension / conjugation of the word</li>
     </ul>
 
-    <ul class="py-8">
+    <ul class="py-4">
       <li>dictionaries: </li>
       <li><b>WKT</b> - wiktionary.org </li>
       <li><b>DVR</b> - И.Х.Дворецкий </li>
@@ -47,7 +51,7 @@
       <li class="text-gray-300"><b>Souda</b> </li>
     </ul>
 
-    <ul class="py-8">
+    <ul class="py-4">
       <li>short keys: </li>
       <li><b>Esc</b> - code popups </li>
       <li><b>C</b> - cognates </li>
@@ -56,12 +60,9 @@
       <li><b>W</b> - at Wiktionary</li>
     </ul>
 
-    <p><b>examples:</b></p>
-    <p><a href="/compounds">some compounds</p>
     <p></p>
     <p></p>
     <p></p>
-        <p></p>
       </div>
     </div>
   </div>
