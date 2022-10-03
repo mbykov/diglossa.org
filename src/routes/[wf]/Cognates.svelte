@@ -8,7 +8,6 @@
   $: {
       cdicts = cognates
   }
-  console.log('_COMP_Cognates', cdicts)
 </script>
 
 <div id="popup-cognates" class="popup absolute min-w-full right-4 top-4 -my-4 h-screen p-4 pl-32 pr-1">

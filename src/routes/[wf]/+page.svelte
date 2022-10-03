@@ -27,7 +27,7 @@
   let clipkey = ''
 
   export let data
-  $: console.log('_[WF]: data', wf)
+  // $: console.log('_[WF]: data', wf)
   let wf = ''
   let chains = []
 
@@ -49,7 +49,6 @@
       chains = data.chains
       let chain = data.chains[0]
       wf = data.wf
-      log('_XXXXX', wf, chains)
       mainpop = (chain) ? mainpops.main : mainpops.nores
       if (wf == 'compounds') mainpop = null
       if (wf == 'compounds') body = bodies.compounds
@@ -58,7 +57,6 @@
 
   function showDicts(seg) {
       let segment = seg.detail
-      // console.log('_PARENT showDicts', segment)
       cdicts = segment.cdicts || [segment.pref]
       cognates = segment.cognates
   }
@@ -76,7 +74,6 @@
       let oclip = document.querySelector('#clip-results')
       if (!oclip.textContent) {
           clipkey = 'empty-clip'
-          log('_EMPTY CLIP', clipkey)
       }
   })
 

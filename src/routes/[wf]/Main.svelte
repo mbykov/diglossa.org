@@ -40,7 +40,6 @@
           probe = mainseg.cdicts.find(cdict=> cdict.dname == 'wkt') || mainseg.cdicts[0]
       } else if (indecl) {
           cognates = []
-          console.log('_INDECL', indecl)
           cdicts = indecl.cdicts
       }
   }
@@ -49,7 +48,6 @@
       formkey = null
       let seg = ev.detail
       if (!seg) return
-      log('_SEG', seg)
       let pref = {}
       if (seg.pref) {
           pref = seg.pref
@@ -62,7 +60,6 @@
       newcognates = seg.cognates
       cdictskey = seg.seg
       newprobe = cdicts.find(dict=> dict.dname == 'wkt') || cdicts[0]
-      log('_NEW P', probe)
   }
 
   function onKeyDown(e) {
@@ -76,11 +73,9 @@
           cognkey = {}
 	      break;
 	  case 'f':
-          log('_F PROBE', probe)
           if (!probe) return
           if (newprobe) probe = newprobe
           if (!probe.keys) return
-          log('_F PROBE.KEYS', probe.keys)
           formkey = {}
 	      break;
 	case 'Escape':

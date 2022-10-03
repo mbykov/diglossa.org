@@ -114,6 +114,7 @@ declare module '$env/static/private' {
 	export const SESSION_MANAGER: string;
 	export const npm_package_name: string;
 	export const LESSOPEN: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -231,6 +232,7 @@ declare module '$env/dynamic/private' {
 		SESSION_MANAGER: string;
 		npm_package_name: string;
 		LESSOPEN: string;
+		NODE_ENV: string;
 		[key: string]: string | undefined;
 	}
 }

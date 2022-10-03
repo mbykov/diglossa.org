@@ -3,10 +3,8 @@
   const dispatch = createEventDispatcher()
 
   export let segments
-  // $: console.log('_SGS', segments)
 
   function showDicts(seg) {
-    // console.log('_CHILD showDicts', seg)
     dispatch('segment', seg)
   }
 

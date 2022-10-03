@@ -1,13 +1,11 @@
 <script>
 
   // export let clipkey
-  // $: console.log('_component CLIP-KEY')
 
   let exkey
   function showExamples() {
       exkey = true
   }
-  // $: console.log('_component CLIP-KEY', exkey)
 
 </script>
 

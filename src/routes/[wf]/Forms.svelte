@@ -4,12 +4,10 @@
   let keys = [], aug, stem
   let vkeys = []
   $: {
-      // console.log('_FORMS-keys', probe.rdict, probe.keys)
       if (!probe.aug) probe.aug = ''
       aug = probe.aug ? probe.aug + '-' : ''
       stem = probe.stem + '-'
       if (probe.verb) {
-          // console.log('_VERB KEYS', probe.keys)
           if (!probe.keys) probe.keys = {}
           for (let type in probe.keys) {
               for (let tense in probe.keys[type]) {
