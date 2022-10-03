@@ -2,4 +2,4 @@
 
 import { writable } from "svelte/store";
 
-export const clip = writable('CLIP');
+export const clip = writable('');
