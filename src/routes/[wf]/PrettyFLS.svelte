@@ -2,14 +2,10 @@
   import _ from 'lodash'
 
   export let chain
-  // $: fls = chain.find(seg=> seg.fls).fls
-  // $: console.log('_Pretty FLS', chain)
 
   $: morphs = prettyFLS(chain)
-  // $: console.log('_Pretty MORPHS', morphs)
 
   function prettyFLS(chain) {
-      // console.log('_PRETTY CHAIN', chain)
       let morphs = ''
       let fls = []
       let indecl = chain.find(seg=> seg.indecl)

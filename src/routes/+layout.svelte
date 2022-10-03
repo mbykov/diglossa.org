@@ -59,33 +59,26 @@
   })
 
   function closeAll() {
-      console.log('_ESC')
       let oforms = document.querySelector('#popup-forms')
       // if (!oforms) return
       if (oforms && !oforms.classList.contains('hidden')) {
           oforms.classList.add('hidden')
-          console.log('_ESC oforms return')
           return
       }
       let ocogns = document.querySelector('#popup-cognates')
-      // console.log('_ocogns', ocogns)
       if (ocogns && !ocogns.classList.contains('hidden')) {
           ocogns.classList.add('hidden')
-          console.log('_ESC ocogns return')
           return
       }
       let omorphs = document.querySelector('#popup-morphs')
-      console.log('_omorphs', omorphs)
       if (!omorphs) return
       if (!omorphs.classList.contains('hidden')) {
           omorphs.classList.add('hidden')
-          console.log('_ESC omorphs')
       }
   }
 
   function copyTextToClipboard(text) {
     navigator.clipboard.writeText(text).then(function() {
-      console.log('Async: Copying!', text);
     }, function(err) {
       console.error('Async: Could not copy text: ', err);
     });
