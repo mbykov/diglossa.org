@@ -30,7 +30,7 @@
       <div id="clip-results" class="px-8" on:click={handleClick} >
     <p><b>Anthrax</b> (ulcer, i.e. disease), v.2.0 based on the data from <a href="https://en.wiktionary.org/wiki/Category:Ancient_Greek_language">wiktionary.org</a>. </p>
 
-    <p>Copy any ancient Greek text (utf-8) from anywhere. Paste with ctrl-V here. Click on the word</p>
+    <p>Copy any ancient Greek text (utf-8) from anywhere. Press ctrl-V here (as if pasting). Click on the word</p>
 
     <p  class="pt-8"><b>examples:</b></p>
     <p><a href="/compounds">some compounds</p>
@@ -53,9 +53,9 @@
 
     <ul class="py-4">
       <li>short keys: </li>
-      <li><b>Esc</b> - code popups </li>
+      <li><b>Esc</b> - close all popups </li>
       <li><b>C</b> - cognates </li>
-      <li><b>F</b> - paradigms (only for 'wkt') </li>
+      <li><b>F</b> - paradigms (only for 'wkt' dictionary) </li>
       <li><b>P</b> - this word at Perseus</li>
       <li><b>W</b> - at Wiktionary</li>
     </ul>
