@@ -1,10 +1,10 @@
 {
 	"name": "anthrax.diglossa.org",
 	"version": "1.1.1",
-    "description": "simple morphological analyzer of the ancient Greek language",
-    "author": "mbykov <m.bykov@gmail.com>",
-    "license": "GPL",
- 	"scripts": {
+	"description": "simple morphological analyzer of the ancient Greek language",
+	"author": "mbykov <m.bykov@gmail.com>",
+	"license": "GPL",
+	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
 		"preview": "vite preview",
@@ -25,6 +25,7 @@
 	},
 	"type": "module",
 	"dependencies": {
+		"@sveltejs/adapter-node": "^1.0.0-next.96",
 		"axios": "^0.27.2",
 		"lodash": "^4.17.21",
 		"orthos": "^0.7.2"
