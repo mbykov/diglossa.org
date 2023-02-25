@@ -3,16 +3,17 @@
   import { goto } from '$app/navigation';
   import Examples from './examples/+page.svelte'
   import { onMount, setContext, getContext } from 'svelte'
-  import {writable} from 'svelte/store';
+  // import {writable} from 'svelte/store';
 
   import {clip} from '$lib/store.js';
 
   async function handleClick(ev) {
       let owf = ev.target
-      if (!owf.classList.contains('wf')) return
-      let oclip = document.querySelector('#clip-results')
-      let html = oclip.innerHTML
-      $clip = html
+      // console.log('_DDDD')
+      // if (!owf.classList.contains('wf')) return
+      // let oclip = document.querySelector('#clip-results')
+      // let html = oclip.innerHTML
+      // // $clip = html
       let wf = owf.textContent
       if (!wf) return
       goto(wf)
@@ -24,7 +25,7 @@
 <div class="flex h-full bg-[#F7F6EE]">
   <div class="w-2/5 p-4">
 
-    #= Future: γράψω, γράψομαι, γραφήσομαι
+    <!-- #= Future: γράψω, γράψομαι, γραφήσομαι -->
 
     <div class="overflow-y-auto">
       <div id="clip-results" class="px-8" on:click={handleClick} >

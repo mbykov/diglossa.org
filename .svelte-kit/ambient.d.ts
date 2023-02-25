@@ -89,6 +89,7 @@ declare module '$env/static/private' {
 	export const NVM_BIN: string;
 	export const XDG_CURRENT_DESKTOP: string;
 	export const COLOR: string;
+	export const QT_FONT_DPI: string;
 	export const SHLVL: string;
 	export const XDG_SEAT: string;
 	export const G_FILENAME_ENCODING: string;
@@ -103,7 +104,6 @@ declare module '$env/static/private' {
 	export const XDG_RUNTIME_DIR: string;
 	export const XAUTHORITY: string;
 	export const XDG_SESSION_PATH: string;
-	export const QT_AUTO_SCREEN_SCALE_FACTOR: string;
 	export const PATH: string;
 	export const npm_config_engine_strict: string;
 	export const G_BROKEN_FILENAMES: string;
@@ -114,7 +114,6 @@ declare module '$env/static/private' {
 	export const SESSION_MANAGER: string;
 	export const npm_package_name: string;
 	export const LESSOPEN: string;
-	export const NODE_ENV: string;
 }
 
 /**
@@ -207,6 +206,7 @@ declare module '$env/dynamic/private' {
 		NVM_BIN: string;
 		XDG_CURRENT_DESKTOP: string;
 		COLOR: string;
+		QT_FONT_DPI: string;
 		SHLVL: string;
 		XDG_SEAT: string;
 		G_FILENAME_ENCODING: string;
@@ -221,7 +221,6 @@ declare module '$env/dynamic/private' {
 		XDG_RUNTIME_DIR: string;
 		XAUTHORITY: string;
 		XDG_SESSION_PATH: string;
-		QT_AUTO_SCREEN_SCALE_FACTOR: string;
 		PATH: string;
 		npm_config_engine_strict: string;
 		G_BROKEN_FILENAMES: string;
@@ -232,7 +231,6 @@ declare module '$env/dynamic/private' {
 		SESSION_MANAGER: string;
 		npm_package_name: string;
 		LESSOPEN: string;
-		NODE_ENV: string;
 		[key: string]: string | undefined;
 	}
 }

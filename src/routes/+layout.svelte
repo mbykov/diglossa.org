@@ -1,31 +1,38 @@
 <script>
- import "../app.css";
- import { onMount } from 'svelte'
+  import "../app.css";
+  import { onMount } from 'svelte'
   import { goto } from '$app/navigation';
+  import { clip } from '$lib/store.js';
 
- let html = ''
+  let html = ''
 
 
- onMount(async () => {
-     document.addEventListener('paste', (e) => {
-         const copiedText = e.clipboardData.getData('text/plain');
-         let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
-         let html = text.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
-         let oclip = document.querySelector('#clip-results')
-         oclip.innerHTML = html
-   })
+  onMount(async () => {
+      document.addEventListener('paste', (e) => {
+          const copiedText = e.clipboardData.getData('text/plain');
+          let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
+          // text = text.replace(/<br>+/g, ' ')
+          // text = text.replace(/[a-zA-Zа-яА-Я]/g, '')
+          let html = text.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
+          let oclip = document.querySelector('#clip-results')
+          oclip.innerHTML = html
+          console.log('_HTML')
+          $clip = html
+      })
 
-    document.body.addEventListener("keydown", function(e) {
+      document.body.addEventListener("keydown", function(e) {
         if (e.key == 'p') {
             let owordform = document.body.querySelector('#wordform')
+            if (!owordform) return
             let wf = owordform.textContent
             let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
             let urlTail = '&la=greek'
             let url = [urlHead, wf, urlTail].join('')
             window.open(url, '_blank') // .focus();
         } else if (e.key == 'w') {
-            let oforms = document.body.querySelector('#popup-forms')
+            // let oforms = document.body.querySelector('#popup-forms')
             let owordform = document.body.querySelector('#wordform')
+            if (!owordform) return
             let wf = owordform.textContent
             let urlHead = 'https://en.wiktionary.org/wiki/'
             let url = [urlHead, wf].join('')
@@ -49,7 +56,7 @@
               if (omorphs) omorphs.classList.remove('hidden')
               let ocogns = document.body.querySelector('#popup-cognates')
               if (ocogns) ocogns.classList.add('hidden')
-              let oforms = document.body.querySelector('#popup-forms')
+            let oforms = document.body.querySelector('#popup-forms')
               if (oforms) oforms.classList.add('hidden')
           } else if (target.classList.contains('cognates')) {
               let ocogns = document.body.querySelector('#popup-cognates')
