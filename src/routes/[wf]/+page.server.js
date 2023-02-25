@@ -2,7 +2,8 @@
 import { anthrax } from "../../../../anthrax"
 
 export const load = async ({ url, params }) => {
-    const wf = params.wf
+  // console.log('_load url, params', url, params)
+  const wf = params.wf
     let chains = await anthrax(wf)
 
     if (!chains.length) {

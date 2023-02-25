@@ -15,19 +15,20 @@
   import Forms from './Forms.svelte'
   import Cognates from './Cognates.svelte'
 
-  import {clip} from '$lib/store.js';
+  import { clip } from '$lib/store.js';
+
+  // const log = console.log
+  // console.log('_CLIP', $clip)
 
   const addpops = {
       forms: Forms,
       cognates: Cognates
   }
-  let addpop
 
-  const log = console.log
   let clipkey = ''
 
   export let data
-  // $: console.log('_[WF]: data', wf)
+  // $: console.log('_[WF]: data', data)
   let wf = ''
   let chains = []
 
@@ -92,7 +93,8 @@
         <!-- {#key clipkey} -->
         <!-- <\!-- <svelte:component this={ClipContent} /> -\-> -->
         <!-- {/key} -->
-          <svelte:component this={body} {wf}/>
+
+          <!-- <svelte:component this={body} {wf}/> -->
 
       </div>
     </div>

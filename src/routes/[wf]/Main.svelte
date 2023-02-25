@@ -65,23 +65,33 @@
   function onKeyDown(e) {
       if (!mainseg) return
       if (e.ctrlKey) return
-	  switch(e.key) {
-	  case 'c':
+      switch(e.key) {
+      case 'c':
           if (!newcognates) return
           cognates = (newcognates.length) ? newcognates : mainseg.cognates
           if (!cognates.length) return
           cognkey = {}
-	      break;
-	  case 'f':
+          break;
+      case 'f':
           if (!probe) return
           if (newprobe) probe = newprobe
           if (!probe.keys) return
           formkey = {}
-	      break;
-	case 'Escape':
+          break;
+    case 'Escape':
           closeAll()
-	      break;
-	  }
+          break;
+      }
+  }
+
+  async function showCognates(ev) {
+      let owf = ev.target
+      if (!ev.target.classList.contains('cognates')) return
+      console.log('_CLICK COGN XXXXXXXXXXXXXXXXXXXXXXXXxxx')
+      if (!newcognates) return
+      cognates = (newcognates.length) ? newcognates : mainseg.cognates
+      if (!cognates.length) return
+      cognkey = {}
   }
 
   function closeAll() {
@@ -112,7 +122,7 @@
       <div class="w-1/2 px-4 text-green-600 px-4">wordform: <b><span id="wordform">{wf}</span></b></div>
       <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" >
           <span class="clickable forms px-2_" title="key F">forms</span>
-          <span class="clickable cognates" title="key C">cognates</span>
+          <span class="clickable cognates" title="key C" on:click={showCognates}>cognates</span>
       </div>
   </div>
 
