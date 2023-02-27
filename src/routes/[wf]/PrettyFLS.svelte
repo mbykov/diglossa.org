@@ -10,10 +10,11 @@
       let fls = []
       let indecl = chain.find(seg=> seg.indecl)
       if (indecl) {
-          let probe = indecl.cdicts.find(cdict=> cdict.dname == 'wkt' && cdict.fls)
+          let probe = indecl.cdicts.find(cdict=> cdict.dname == 'wkt' && cdict.morphs)
+          // console.log('_dddddddddddddddddd', probe.morphs)
           if (!probe) return []
           if (probe.name) morphs = prettyName(probe.fls)
-          else if (probe.verb) morphs = prettyVerb(probe.fls)
+          else if (probe.verb) morphs = probe.morphs // prettyVerb(probe.morphs)
           else morphs = prettyName(probe.fls)
       } else {
           let mseg = chain.find(seg=> seg.mainseg)

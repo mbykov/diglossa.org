@@ -28,7 +28,8 @@
   let clipkey = ''
 
   export let data
-  // $: console.log('_[WF]: data', data)
+  $: console.log('_[WF]: data', data)
+
   let wf = ''
   let chains = []
 

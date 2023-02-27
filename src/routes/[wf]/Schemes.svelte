@@ -3,7 +3,7 @@
   const dispatch = createEventDispatcher()
 
   export let chains
-  console.log(chains)
+  // console.log(chains)
 
   function eventSegment(seg) {
       dispatch('segment', seg)
