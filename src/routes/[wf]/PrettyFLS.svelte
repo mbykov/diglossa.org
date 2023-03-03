@@ -10,11 +10,11 @@
       let fls = []
       let indecl = chain.find(seg=> seg.indecl)
       if (indecl) {
-          let probe = indecl.cdicts.find(cdict=> cdict.dname == 'wkt' && cdict.morphs)
+          let probe = indecl.cdicts.find(cdict=> cdict.dname == 'wkt' && cdict.fls)
           // console.log('_dddddddddddddddddd', probe.morphs)
           if (!probe) return []
           if (probe.name) morphs = prettyName(probe.fls)
-          else if (probe.verb) morphs = probe.morphs // prettyVerb(probe.morphs)
+          else if (probe.verb) morphs = prettyVerb(probe.fls)
           else morphs = prettyName(probe.fls)
       } else {
           let mseg = chain.find(seg=> seg.mainseg)
@@ -30,8 +30,8 @@
       let morphs = fls.map(flex=> {
           let str
           // if (flex.part) str =[ [flex.tense, flex.numper].join('.'),  [flex.gend, 'sg.nom'].join('.') ].join(', ')
-          if (flex.part) str = [flex.tense,  [flex.gend, flex.numcase].join('.') ].join(', ')
-          else str =[flex.tense, flex.numper].join(' ')
+          if (flex.part) str = 'participle etc'
+          else str = [[flex.time, flex.voice, flex.mood].join('.'),  [flex.number, flex.person].join('.') ].join(', ')
           return str
       })
       return _.uniq(morphs).sort()
