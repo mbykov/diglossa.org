@@ -41,10 +41,10 @@
       nores: NoResult
   }
 
-  const bodies = {
-      compounds: Compounds,
-      // nores: NoResult
-  }
+  // const bodies = {
+  //     compounds: Compounds,
+  //     // nores: NoResult
+  // }
 
 
   $: {
@@ -53,11 +53,11 @@
       wf = data.wf
       mainpop = (chain) ? mainpops.main : mainpops.nores
       if (wf == 'compounds') mainpop = null
-      if (wf == 'compounds') body = bodies.compounds
+      // if (wf == 'compounds') body = bodies.compounds
   }
 
 
-  function showDicts(seg) {
+  function showDicts_(seg) {
       let segment = seg.detail
       cdicts = segment.cdicts || [segment.pref]
       cognates = segment.cognates

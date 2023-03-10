@@ -1,6 +1,7 @@
 <script>
 
   import { onMount } from 'svelte'
+  import _ from 'lodash'
 
   import PrettyFLS from './PrettyFLS.svelte'
   import Schemes from './Schemes.svelte'
@@ -21,27 +22,28 @@
   let cdictskey
   const log = console.log
 
-  const addpops = {
-      forms: Forms,
-      cognates: Cognates
-   }
-  let addpop
+
 
   $: {
-      newcognates = []
-      newprobe = null
-      chain = chains[0]
-      mainseg = chain.find(seg=> seg.mainseg)
-      indecl = chain.find(seg=> seg.indecl)
-      if (mainseg) {
-          cdicts = mainseg.cdicts
-          // cognates = mainseg.cognates
-          cdictskey = mainseg.seg
-          probe = mainseg.cdicts.find(cdict=> cdict.dname == 'wkt') || mainseg.cdicts[0]
-      } else if (indecl) {
-          cognates = []
-          cdicts = indecl.cdicts
-      }
+    chains.map(chain=> {
+      let main = chain.find(seg=> seg.mainseg)
+      cdicts.push(...main.cdicts)
+    })
+    chain = _.last(chains)
+    // newcognates = []
+    // newprobe = null
+    // chain = chains[0]
+    // mainseg = chain.find(seg=> seg.mainseg)
+    //   indecl = chain.find(seg=> seg.indecl)
+    //   if (mainseg) {
+    //       cdicts = mainseg.cdicts
+    //       // cognates = mainseg.cognates
+    //       cdictskey = mainseg.seg
+    //       probe = mainseg.cdicts.find(cdict=> cdict.dname == 'wkt') || mainseg.cdicts[0]
+    //   } else if (indecl) {
+    //       cognates = []
+    //       cdicts = indecl.cdicts
+    //   }
   }
 
   function showSegment(ev) {
