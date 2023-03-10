@@ -27,14 +27,15 @@
   }
 
   function prettyVerb(fls) {
-      let morphs = fls.map(flex=> {
-          let str
-          // if (flex.part) str =[ [flex.tense, flex.numper].join('.'),  [flex.gend, 'sg.nom'].join('.') ].join(', ')
-          if (flex.part) str = 'participle etc'
-          else str = [[flex.time, flex.voice, flex.mood].join('.'),  [flex.number, flex.person].join('.') ].join(', ')
-          return str
+    let morphs = fls.map(flex=> {
+      let str
+      // if (flex.part) str =[ [flex.tense, flex.numper].join('.'),  [flex.gend, 'sg.nom'].join('.') ].join(', ')
+      if (flex.part) str = 'participle etc'
+      // else str = [[flex.time, flex.voice, flex.mood].join('.'),  [flex.num, flex.per].join('.') ].join(', ')
+      else str = [[flex.time, flex.voice, flex.mood].join('.'),  flex.numper ].join(', ')
+      return str
       })
-      return _.uniq(morphs).sort()
+    return _.uniq(morphs).sort()
   }
 
   function prettyName(fls) {
