@@ -3,17 +3,9 @@
   import { goto } from '$app/navigation';
   import Examples from './examples/+page.svelte'
   import { onMount, setContext, getContext } from 'svelte'
-  // import {writable} from 'svelte/store';
-
-  import {clip} from '$lib/store.js';
 
   async function handleClick(ev) {
       let owf = ev.target
-      // console.log('_DDDD')
-      // if (!owf.classList.contains('wf')) return
-      // let oclip = document.querySelector('#clip-results')
-      // let html = oclip.innerHTML
-      // // $clip = html
       let wf = owf.textContent
       if (!wf) return
       goto(wf)

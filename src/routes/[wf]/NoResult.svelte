@@ -9,7 +9,7 @@
   <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto">
 
     <div class="main-title m-16">
-      No result for {wf}
+      No result for <span class="wordform">{wf}<span>
     </div>
 
 
