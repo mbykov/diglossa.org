@@ -20,7 +20,7 @@
     let cdicts = []
 
     let unique = {}
-    let chain, mainseg
+    let chain
     // let cognates = []
 
     $: {
@@ -30,7 +30,7 @@
         let indecl = chain.find(seg=> seg.indecl)
         if (indecl) cdicts  = indecl.cdicts
         else {
-            cdicts = chain.find(seg=> seg.mainseg).cdicts
+            cdicts = chain.find(seg=> seg.main).cdicts
         }
     }
 
@@ -42,9 +42,6 @@
         if (e.ctrlKey) return
         switch(e.key) {
         case 'c':
-            // if (!newcognates) return
-            // cognates = (newcognates.length) ? newcognates : mainseg.cognates
-            // if (!cognates.length) return
             // cognkey = {}
             break;
         case 'f':
@@ -57,13 +54,7 @@
     }
 
   async function showCognates(ev) {
-      // let owf = ev.target
-      // if (!ev.target.classList.contains('cognates')) return
-      // console.log('_CLICK COGN XXXXXXXXXXXXXXXXXXXXXXXXxxx')
-      // if (!newcognates) return
-      // cognates = (newcognates.length) ? newcognates : mainseg.cognates
-      // if (!cognates.length) return
-      // cognkey = {}
+      //
   }
 
   function closeAll() {
