@@ -17,7 +17,7 @@
           else if (probe.verb) morphs = prettyVerb(probe.fls)
           else morphs = prettyName(probe.fls)
       } else {
-          let mseg = chain.find(seg=> seg.mainseg)
+          let mseg = chain.find(seg=> seg.main)
           fls = chain.find(seg=> seg.fls).fls
           if (mseg.name) morphs = prettyName(fls)
           else if (mseg.verb) morphs = prettyVerb(fls)

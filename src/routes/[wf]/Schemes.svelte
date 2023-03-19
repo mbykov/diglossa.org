@@ -17,13 +17,13 @@
   {#each chains as chain, idy}
     <li class="segments together">
     {#each chain as seg, idx}
-      {#if (seg.pref && !seg.mainseg)}
+      {#if (seg.pref && !seg.main)}
         <span class="seg" on:click={eventSegment(seg)}>{seg.pref} -</span>
         {#if (seg.conn)}
           <!-- -<span class="seg" on:click={eventSegment(seg)}>{seg.conn}</span> -->
         {/if}
       {/if}
-      {#if (seg.mainseg)}
+      {#if (seg.main)}
         <span class="seg" on:click={eventSegment(seg)}>{seg.cdicts[0].rdict}</span>
       {:else if (seg.fls)}
         <!-- <span class="">{seg.seg}</span> -->
