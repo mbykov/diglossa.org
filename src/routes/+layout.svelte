@@ -2,12 +2,12 @@
   import "../app.css";
   import { onMount } from 'svelte'
   import { goto } from '$app/navigation';
-  import { clip } from '$lib/store.js';
+  import { clip, textChunk } from '$lib/store.js';
 
   let html = ''
 
-
   onMount(async () => {
+      // document.addEventListener('paste', handlePaste);
       document.addEventListener('paste', (e) => {
           const copiedText = e.clipboardData.getData('text/plain');
           let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
@@ -16,53 +16,58 @@
           let html = text.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
           let oclip = document.querySelector('#clip-results')
           oclip.innerHTML = html
-          console.log('_HTML')
-          $clip = html
+          textChunk.update(text => {
+              text = html
+              return text
+          });
+
+          console.log('_HTML', html)
       })
 
       document.body.addEventListener("keydown", function(e) {
-        if (e.key == 'p') {
-            let owordform = document.body.querySelector('#wordform')
-            if (!owordform) return
-            let wf = owordform.textContent
-            let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
-            let urlTail = '&la=greek'
-            let url = [urlHead, wf, urlTail].join('')
-            window.open(url, '_blank') // .focus();
-        } else if (e.key == 'w') {
-            // let oforms = document.body.querySelector('#popup-forms')
-            let owordform = document.body.querySelector('#wordform')
-            if (!owordform) return
-            let wf = owordform.textContent
-            let urlHead = 'https://en.wiktionary.org/wiki/'
-            let url = [urlHead, wf].join('')
-            window.open(url, '_blank')
-        }
-    }, false);
-
-      document.body.addEventListener("click", function(e) {
-          let target = e.target
-          // let selection = getSelectionText()
-          // if (selection) return
-          if (target.classList.contains('trns')) {
-              if (e.shiftKey) return
-              target.classList.toggle('overflow-y-auto')
-              target.classList.toggle('max-h-24')
-          } else if (target.classList.contains('esc')) {
-              let opopup = target.closest('.popup')
-              opopup.classList.add('hidden')
-          } else if (target.classList.contains('wf')) {
-              let omorphs = document.body.querySelector('#popup-morphs')
-              if (omorphs) omorphs.classList.remove('hidden')
-              let ocogns = document.body.querySelector('#popup-cognates')
-              if (ocogns) ocogns.classList.add('hidden')
-            let oforms = document.body.querySelector('#popup-forms')
-              if (oforms) oforms.classList.add('hidden')
-          } else if (target.classList.contains('cognates')) {
-              let ocogns = document.body.querySelector('#popup-cognates')
-              if (ocogns) ocogns.classList.remove('hidden')
+          if (!e.ctrlKey) return
+          let owordform = document.body.querySelector('.wordform')
+          if (!owordform) return
+          let wf = owordform.textContent
+          if (e.key == 'p') {
+              let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
+              let urlTail = '&la=greek'
+              let url = [urlHead, wf, urlTail].join('')
+              window.open(url, '_blank') // .focus();
+          } else if (e.key == 'w') {
+              let urlHead = 'https://en.wiktionary.org/wiki/'
+              let url = [urlHead, wf].join('')
+              window.open(url, '_blank')
+          } else if (e.key == 'v') {
+              // saveClip(e)
+          } else if (e.key == 'c') {
+              // copyTextToClipboard(wf)
           }
       }, false);
+
+      document.body.addEventListener("click", function(e) {
+      let target = e.target
+      // let selection = getSelectionText()
+      // if (selection) return
+      if (target.classList.contains('trns')) {
+        if (e.shiftKey) return
+        target.classList.toggle('overflow-y-auto')
+        target.classList.toggle('max-h-24')
+      } else if (target.classList.contains('esc')) {
+        let opopup = target.closest('.popup')
+        opopup.classList.add('hidden')
+      } else if (target.classList.contains('wf')) {
+        let omorphs = document.body.querySelector('#popup-morphs')
+        if (omorphs) omorphs.classList.remove('hidden')
+        let ocogns = document.body.querySelector('#popup-cognates')
+        if (ocogns) ocogns.classList.add('hidden')
+        let oforms = document.body.querySelector('#popup-forms')
+        if (oforms) oforms.classList.add('hidden')
+      } else if (target.classList.contains('cognates')) {
+        let ocogns = document.body.querySelector('#popup-cognates')
+        if (ocogns) ocogns.classList.remove('hidden')
+      }
+    }, false);
   })
 
   function closeAll() {
@@ -89,6 +94,14 @@
     }, function(err) {
       console.error('Async: Could not copy text: ', err);
     });
+  }
+
+  function copyTextFromClipboard(text) {
+      navigator.clipboard
+          .readText()
+          .then(
+              (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+          )
   }
 
   function getSelectionText() {

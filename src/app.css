@@ -58,4 +58,12 @@ h1 {
 .dict {
   color: maroon;
   cursor: pointer;
+  padding-right: 2px;
+  padding-left: 2px;
+}
+.cdict {
+  color: grey;
+  cursor: pointer;
+  padding-right: 2px;
+  padding-left: 2px;
 }
