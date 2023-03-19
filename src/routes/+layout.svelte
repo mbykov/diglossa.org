@@ -20,8 +20,6 @@
               text = html
               return text
           });
-
-          console.log('_HTML', html)
       })
 
       document.body.addEventListener("keydown", function(e) {
