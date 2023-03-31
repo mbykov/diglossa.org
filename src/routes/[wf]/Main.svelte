@@ -24,6 +24,10 @@
     // let cognates = []
 
     $: {
+
+        // TODO: cdicts нужно по-другому. Если разные схему в глаголах, компаундах, то показать первый cdicts в схеме, тут верно
+        // а если noun / adjective, то можно их показать сразу ζωὴν => ζωή ; ζωός
+        // или всегда сразу все ?
         // console.log('_dbs:', dbs)
         console.log('_cdicts:', cdicts)
         chain = _.first(chains)
