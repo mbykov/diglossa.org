@@ -31,7 +31,7 @@
   $: console.log('_[WF]: data', data)
 
   let wf = ''
-  let chains = [], cdicts = []
+  let chains = [] //, cdicts = []
 
   let mainpop
   let body
@@ -49,11 +49,11 @@
       console.log('_DBS', $dbs)
 
       // это вообще не нужно, только пока посмотреть
-      cdicts = []
-      chains.map(chain=> {
-      let main = chain.find(seg=> seg.cdicts)
-      cdicts.push(...main.cdicts)
-    })
+      // cdicts = []
+      // chains.map(chain=> {
+      // let main = chain.find(seg=> seg.cdicts)
+      // cdicts.push(...main.cdicts)
+     // })
 
 
     mainpop = (chain) ? mainpops.main : mainpops.nores
@@ -110,7 +110,7 @@
 </div>
 
 
-<svelte:component this={mainpop} {wf} {cdicts} {chains} />
+<svelte:component this={mainpop} {wf}  {chains} />
 
 
 <style>
