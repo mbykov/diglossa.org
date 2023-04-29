@@ -18,11 +18,13 @@
           else morphs = prettyName(probe.fls)
       } else {
           let mseg = chain.find(seg=> seg.main)
+          console.log('_mseg', mseg)
           fls = chain.find(seg=> seg.fls).fls
           if (mseg.name) morphs = prettyName(fls)
           else if (mseg.verb) morphs = prettyVerb(fls)
-          else morphs = prettyVerb(fls)
+          // else morphs = prettyVerb(fls)
       }
+      console.log('_morphs', morphs)
       return morphs
   }
 
@@ -38,21 +40,22 @@
     return _.uniq(morphs).sort()
   }
 
-  function prettyName(fls) {
-      let morphs = fls.map(flex=> {
-          let numcase = flex.numcase || [flex.num, flex.case].join('.')
-          return  [flex.gend, numcase].join('.')
-      })
-      return _.uniq(morphs).sort()
-  }
+    function prettyName(fls) {
+        console.log('_FLS', fls)
+        let morphs = fls.map(flex=> {
+            let numcase = [flex.num, flex.case].join('.')
+            return  [flex.gend, numcase].join('.')
+        })
+        console.log('_morphs', morphs)
+        return _.uniq(morphs).sort()
+    }
 
 </script>
 
 <div class="bg-gray-100 p-2">
-
   <ul class="morph">
   {#each morphs as morph}
-    <li class=""> {morph}</li>
+    <li class=""> {morph} </li>
   {/each}
   </ul>
 
