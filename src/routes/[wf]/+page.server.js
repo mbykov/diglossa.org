@@ -5,7 +5,7 @@ export const load = async ({ url, params }) => {
     // console.log('_server load url, params', url, params)
     const wf = params.wf
     let chains = await anthrax(wf)
-    console.log('_NEW CHAINS', chains.length)
+    // console.log('_NEW CHAINS', chains.length)
 
     if (!chains.length) {
         // console.log('_no_chains')

@@ -3,7 +3,7 @@
     const dispatch = createEventDispatcher()
 
     export let chains
-    console.log('_SCHEMES', chains)
+    // console.log('_SCHEMES', chains)
 
     function eventSegment(seg) {
         dispatch('segment', seg)
@@ -11,12 +11,17 @@
 
 </script>
 
+<!-- <span class="seg" on:click={eventSegment(seg)}>{seg.pref} -</span> -->
+
 <div class="bg-gray-100 p-2">
 
     <ul class="morph">
         {#each chains as chain, idy}
             <li class="segments together">
                 {#each chain as seg, idx}
+                    {#if (seg.aug)}
+                        <span class="" >{seg.seg}</span>.
+                    {/if}
                     {#if (seg.pref && !seg.main)}
                         <span class="seg" on:click={eventSegment(seg)}>{seg.pref} -</span>
                         {#if (seg.conn)}
@@ -24,12 +29,12 @@
                         {/if}
                     {/if}
                     {#if (seg.main)}
-                        <span class="seg" on:click={eventSegment(seg)}>{seg.cdicts[0].rdict}</span>
+                        <span class="seg" on:click={eventSegment(seg)}>{seg.cdicts[0].stem}</span>.
                     {:else if (seg.fls)}
-                        <!-- <span class="">{seg.seg}</span> -->
+                        <span class="">{seg.seg}</span>
                     {/if}
                     {#if idx < chain.length-1 }
-                        <span class=""> &nbsp;</span>
+                        <!-- <span class=""> &nbsp;</span> -->
                     {/if}
 
                 {/each}
