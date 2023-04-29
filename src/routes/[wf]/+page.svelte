@@ -28,7 +28,7 @@
   let clipkey = ''
 
   export let data
-  $: console.log('_[WF]: data', data)
+  // $: console.log('_[WF]: data', data)
 
   let wf = ''
   let chains = [] //, cdicts = []
@@ -46,14 +46,7 @@
       let chain = data.chains[0]
       wf = data.wf
 
-      console.log('_DBS', $dbs)
-
-      // это вообще не нужно, только пока посмотреть
-      // cdicts = []
-      // chains.map(chain=> {
-      // let main = chain.find(seg=> seg.cdicts)
-      // cdicts.push(...main.cdicts)
-     // })
+      // console.log('_DBS +page.svelte', $dbs)
 
 
     mainpop = (chain) ? mainpops.main : mainpops.nores
