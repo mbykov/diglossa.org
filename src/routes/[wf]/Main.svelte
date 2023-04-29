@@ -24,12 +24,13 @@
     // let cognates = []
 
     $: {
-
         // TODO: cdicts нужно по-другому. Если разные схему в глаголах, компаундах, то показать первый cdicts в схеме, тут верно
         // а если noun / adjective, то можно их показать сразу ζωὴν => ζωή ; ζωός
         // или всегда сразу все ?
+
         // console.log('_dbs:', dbs)
-        console.log('_cdicts:', cdicts)
+        // console.log('_cdicts:', cdicts)
+
         chain = _.first(chains)
         let indecl = chain.find(seg=> seg.indecl)
         if (indecl) cdicts  = indecl.cdicts
@@ -45,8 +46,8 @@
     function onKeyDown(e) {
         if (e.ctrlKey) return
         switch(e.key) {
-        case 'c':
-            // cognkey = {}
+        case 'r':
+            showRels()
             break;
         case 'f':
             // forms
@@ -57,8 +58,8 @@
         }
     }
 
-  async function showCognates(ev) {
-      //
+  async function showRels(ev) {
+      console.log('_showRels', cdicts)
   }
 
   function closeAll() {
@@ -97,7 +98,7 @@
             <div class="w-1/2 px-4 text-green-600 px-4">wordform: <b><span class="wordform">{wf}</span></b></div>
             <div class="w-1/2 px-4 text-right text-green-600 clickable cognates" >
                 <span class="clickable forms px-2_" title="key F">forms</span>
-                <span class="clickable cognates" title="key C" on:click={showCognates}>cognates</span>
+                <span class="clickable cognates" title="key R" on:click={showRels}>relatives</span>
             </div>
         </div>
 
