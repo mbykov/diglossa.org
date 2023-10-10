@@ -1,142 +1,103 @@
 <script>
   import "../app.css";
-  import { onMount } from 'svelte'
-  import { goto } from '$app/navigation';
-  import { clip, textChunk } from '$lib/store.js';
+  let isOpen = false;
+  let show = true
 
-  let html = ''
-
-  onMount(async () => {
-      // document.addEventListener('paste', handlePaste);
-      document.addEventListener('paste', (e) => {
-          const copiedText = e.clipboardData.getData('text/plain');
-          let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
-          // text = text.replace(/<br>+/g, ' ')
-          // text = text.replace(/[a-zA-Zа-яА-Я]/g, '')
-          let html = text.replace(/([^\p{P} \n]+)/ug, "<span class=\"wf\">$1</span>")
-          let oclip = document.querySelector('#clip-results')
-          oclip.innerHTML = html
-          textChunk.update(text => {
-              text = html
-              return text
-          });
-      })
-
-      document.body.addEventListener("keydown", function(e) {
-          if (!e.ctrlKey) return
-          let owordform = document.body.querySelector('.wordform')
-          if (!owordform) return
-          let wf = owordform.textContent
-          if (e.key == 'p') {
-              let urlHead = 'https://www.perseus.tufts.edu/hopper/morph?l='
-              let urlTail = '&la=greek'
-              let url = [urlHead, wf, urlTail].join('')
-              window.open(url, '_blank') // .focus();
-          } else if (e.key == 'w') {
-              let urlHead = 'https://en.wiktionary.org/wiki/'
-              let url = [urlHead, wf].join('')
-              window.open(url, '_blank')
-          } else if (e.key == 'v') {
-              // saveClip(e)
-          } else if (e.key == 'c') {
-              // copyTextToClipboard(wf)
-          }
-      }, false);
-
-      document.body.addEventListener("click", function(e) {
-      let target = e.target
-      // let selection = getSelectionText()
-      // if (selection) return
-      if (target.classList.contains('trns')) {
-        if (e.shiftKey) return
-        target.classList.toggle('overflow-y-auto')
-        target.classList.toggle('max-h-24')
-      } else if (target.classList.contains('esc')) {
-        let opopup = target.closest('.popup')
-        opopup.classList.add('hidden')
-      } else if (target.classList.contains('wf')) {
-        let omorphs = document.body.querySelector('#popup-morphs')
-        if (omorphs) omorphs.classList.remove('hidden')
-        let ocogns = document.body.querySelector('#popup-cognates')
-        if (ocogns) ocogns.classList.add('hidden')
-        let oforms = document.body.querySelector('#popup-forms')
-        if (oforms) oforms.classList.add('hidden')
-      } else if (target.classList.contains('cognates')) {
-        let ocogns = document.body.querySelector('#popup-cognates')
-        if (ocogns) ocogns.classList.remove('hidden')
-      }
-    }, false);
-  })
-
-  function closeAll() {
-      let oforms = document.querySelector('#popup-forms')
-      // if (!oforms) return
-      if (oforms && !oforms.classList.contains('hidden')) {
-          oforms.classList.add('hidden')
-          return
-      }
-      let ocogns = document.querySelector('#popup-cognates')
-      if (ocogns && !ocogns.classList.contains('hidden')) {
-          ocogns.classList.add('hidden')
-          return
-      }
-      let omorphs = document.querySelector('#popup-morphs')
-      if (!omorphs) return
-      if (!omorphs.classList.contains('hidden')) {
-          omorphs.classList.add('hidden')
-      }
+  function toggleShow() {
+    console.log('_SHOW', show)
+	show = !show
   }
-
-  function copyTextToClipboard(text) {
-    navigator.clipboard.writeText(text).then(function() {
-    }, function(err) {
-      console.error('Async: Could not copy text: ', err);
-    });
-  }
-
-  function copyTextFromClipboard(text) {
-      navigator.clipboard
-          .readText()
-          .then(
-              (clipText) => (document.querySelector(".cliptext").innerText = clipText)
-          )
-  }
-
-  function getSelectionText() {
-    var text = "";
-    if (window.getSelection) {
-      text = window.getSelection().toString();
-    } else if (document.selection && document.selection.type != "Control") {
-      text = document.selection.createRange().text;
-    }
-    return text;
-}
 
 </script>
 
-<!-- <a rel="external" target="_blank" href="https://tradingstrategy.ai/docs/index.html">Documentation</a> -->
+<div class="relative w-full flex flex-col h-screen overflow-y-hidden">
+        <!-- Desktop Header -->
+        <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
+          <div class="w-1/2"></div>
+            <div class="relative w-1/2 flex justify-end">
+              <div class="p-4">
+                anthrax v.1.1.1
+              </div>
+                <button on:click={toggleShow} class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                  <!-- <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" alt="kuku"> -->
+                </button>
 
-<div class="flex flex-col min-h-screen_ max-h-screen_ h-screen overflow-hidden bg-[#F7F6EE]">
-    <main class="flex flex-grow overflow-hidden">
+                <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16" class:hidden={show}>
+                    <a href="/" class="block px-4 py-2 account-link hover:text-white">Home</a>
+                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Account</a>
+                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Support</a>
+                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+                </div>
+            </div>
+        </header>
 
-        <div class="w-1/6 p-4 bg-gray-200 flex flex-1 flex-col justify-between">
-          <div class="mt-24 m-4">
-            <p>Anthrax v.2.0 - <b>beta</b> </p>
-            <p><a href="/">home</a></p>
-            <p><a href="/code">Code & License</a></p>
-            <p><a href="/thanks">Special thanks</a></p>
-            <p></p>
-          </div>
+       <!-- Mobile Header & Nav -->
+        <header class="w-full bg-sidebar py-5 px-6 sm:hidden">
+            <div class="flex items-center justify-between">
+                <a href="index.html" class="text-white text-3xl font-semibold uppercase hover:text-gray-300">Admin</a>
+                <button on:click={toggleShow} class="text-white text-3xl focus:outline-none">
+                    <i x-show="!isOpen" class="fas fa-bars " class:hidden={!show}></i>
+                    <i x-show="isOpen" class="fas fa-times" class:hidden={show}></i>
+                </button>
+            </div>
 
-          <hosting>
-            <p>hosting: <a href="https://www.basealt.ru/">https://www.basealt.ru</a></p>
-          </hosting>
+
+                <!-- Dropdown Nav -->
+              <nav class="flex flex-col pt-4 " class:hidden={show}>
+                <a href="index.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-tachometer-alt mr-3"></i>
+                    Dashboard
+                </a>
+                <a href="blank.html" class="flex items-center active-nav-link text-white py-2 pl-4 nav-item">
+                    <i class="fas fa-sticky-note mr-3"></i>
+                    Blank Page===
+
+                </a>
+                <a href="tables.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-table mr-3"></i>
+                    Tables
+                </a>
+                <a href="forms.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-align-left mr-3"></i>
+                    Forms
+                </a>
+                <a href="tabs.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-tablet-alt mr-3"></i>
+                    Tabbed Content
+                </a>
+                <a href="calendar.html" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-calendar mr-3"></i>
+                    Calendar
+                </a>
+                <a href="/ss" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-cogs mr-3"></i>
+                    Support
+                </a>
+                <a href="/ss" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-user mr-3"></i>
+                    My Account
+                </a>
+                <a href="/ss" class="flex items-center text-white opacity-75 hover:opacity-100 py-2 pl-4 nav-item">
+                    <i class="fas fa-sign-out-alt mr-3"></i>
+                    Sign Out
+                </a>
+                <button class="w-full bg-white cta-btn font-semibold py-2 mt-3 rounded-lg shadow-lg hover:shadow-xl hover:bg-gray-300 flex items-center justify-center">
+                    <i class="fas fa-arrow-circle-up mr-3"></i> Upgrade to Pro!
+                </button>
+            </nav>
+        </header>
+
+        <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
+            <main class="w-full flex-grow p-6">
+                <!-- <h1 class="text-3xl text-black pb-6">Blank Page</h1> -->
+
+                <slot />
+
+            </main>
+
+            <footer class="w-full bg-white text-right p-4">
+                hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a>
+            </footer>
         </div>
 
-        <div class="flex flex-col w-5/6 p-4 h-full overflow-y-auto">
-            <slot />
-        </div>
-
-    </main>
-<!-- </div> -->
-</div>
+  </div>

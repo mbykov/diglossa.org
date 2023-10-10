@@ -1,69 +1,16 @@
-/* Write your global styles here, in PostCSS syntax */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+span.wf {
+  cursor: pointer;
+}
 
 span.wf:hover {
     background-color: #eee8aa;
     cursor: pointer;
 }
 
-span.seg:hover {
-  background-color: #eee8aa;
-  cursor: pointer;
-}
-
-p.segments:hover {
-  background-color: white;
-  /* cursor: pointer; */
-}
-
-p {
-    font-size: 1em;
-    margin-top: 0.5em;
-}
-
-a {
-  color: maroon;
-  cursor: pointer;
-}
-
-
-h1 {
-  color: maroon;
-  font-size: 2em;
-  margin-top: 2em;
-}
-
-.together {
-  display: flex;
-  align-items: baseline;
-}
-
-.clickable:hover {
-  /* background-color: maroon; */
-  cursor: pointer;
-}
-
-.clickable {
-  color: maroon;
-  cursor: pointer;
-}
-
-.esc {
-  color: maroon;
-  cursor: pointer;
-}
-
-.dict {
-  color: maroon;
-  cursor: pointer;
-  padding-right: 2px;
-  padding-left: 2px;
-}
-.cdict {
-  color: grey;
-  cursor: pointer;
-  padding-right: 2px;
-  padding-left: 2px;
+.container p {
+  padding-bottom: 5px;
 }

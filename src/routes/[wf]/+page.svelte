@@ -1,110 +1,96 @@
 <script>
 
-  import { onMount, setContext, getContext } from 'svelte'
-  import { goto } from '$app/navigation';
-  import _ from 'lodash'
+    import { onMount } from 'svelte'
+    import { goto } from '$app/navigation'
+    import { textChunk } from '$lib/store.js'
+    import Anthrax from './lib/Anthrax.svelte'
 
-  // import ClipContent from './ClipContent.svelte'
-  import Compounds from '../examples/Compounds.svelte'
-  import { browser } from "$app/environment";
+    export let data
+
+    let wf = ''
+    let chains = [] //, cdicts = []
 
 
-  import Main from './Main.svelte'
-  import NoResult from './NoResult.svelte'
 
-  import Forms from './Forms.svelte'
-  import Cognates from './Cognates.svelte'
+     $: {
+         chains = data.chains
+         wf = data.wf
+     }
 
-  import { clip, dbs, textChunk } from '$lib/store.js';
+    async function handleClick(ev) {
+        let owf = ev.target
+        if (!owf.classList.contains('wf')) return
 
-  // const log = console.log
-  // console.log('_CLIP', $clip)
+        let wf = owf.textContent
+        if (!wf) return
+        goto(wf)
+    }
 
-  const addpops = {
-      forms: Forms,
-      cognates: Cognates
+    onMount(async () => {
+        let oclip = document.querySelector('#clip-results')
+        if (!oclip) return
+        oclip.innerHTML = $textChunk
+    })
+
+
+    function onKeyDown(e) {
+        // if (e.ctrlKey) return
+        let owf = document.querySelector('.wordform')
+        if (!owf) return
+        let wf = owf.textContent
+        switch(e.key) {
+            case 'c':
+                copyTextToClipboard(wf)
+            break;
+            case 'r':
+                // showRels()
+            break;
+            case 'f':
+                // forms
+                break;
+            case 'w':
+                let wiki_host = 'https://en.wiktionary.org/wiki/'
+                let wiki_url = [wiki_host, wf].join('')
+                window.open(wiki_url, '_blank')
+                break;
+            case 'p':
+                let pers_host = 'https://www.perseus.tufts.edu/hopper/morph?l='
+                let tail = '&la=greek'
+                let pers_url = [pers_host, wf, tail].join('')
+                window.open(pers_url, '_blank') // .focus();
+                break;
+            case 'Escape':
+                closeAll()
+                break;
+        }
+    }
+
+    function copyTextToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+        }, function(err) {
+            console.error('Async: Could not copy text: ', err);
+        });
+    }
+
+  function copyTextFromClipboard(text) {
+      navigator.clipboard
+          .readText()
+          .then(
+              (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+          )
   }
-
-  let clipkey = ''
-
-  export let data
-  // $: console.log('_[WF]: data', data)
-
-  let wf = ''
-  let chains = [] //, cdicts = []
-
-  let mainpop
-  let body
-
-  const mainpops = {
-      main: Main,
-      nores: NoResult
-  }
-
-  $: {
-      chains = data.chains
-      let chain = data.chains[0]
-      wf = data.wf
-
-      // console.log('_DBS +page.svelte', $dbs)
-
-
-    mainpop = (chain) ? mainpops.main : mainpops.nores
-    if (wf == 'compounds') mainpop = null
-      // if (wf == 'compounds') body = bodies.compounds
-  }
-
-
-  // function showDicts_(seg) {
-  //     let segment = seg.detail
-  //     cdicts = segment.cdicts || [segment.pref]
-  //     cognates = segment.cognates
-  // }
-
-  async function handleClick(ev) {
-      let owf = ev.target
-      if (!owf.classList.contains('wf')) return
-
-      wf = owf.textContent
-      if (!wf) return
-      goto(wf)
-  }
-
-  onMount(async () => {
-      let oclip = document.querySelector('#clip-results')
-      if (!oclip) return
-      oclip.innerHTML = $textChunk
-  })
-
-
 
 </script>
 
+<svelte:window on:keydown={onKeyDown} />
 
-<div class="flex h-full bg-[#F7F6EE]">
-  <div class="w-2/5 p-4">
+<div class="h-full overflow-x-hidden flex w-full" on:click={handleClick}>
+    <div id="clip-results" class="container p-4 ">
 
-      <div id="clip-results" class="px-8" on:click={handleClick} >
-        {#if ($clip)}
-          {@html $clip}
-        {/if}
-        <!-- {#key clipkey} -->
-        <!-- <\!-- <svelte:component this={ClipContent} /> -\-> -->
-        <!-- {/key} -->
+    </div>
+    <div class="container p-4">
 
-          <!-- <svelte:component this={body} {wf}/> -->
+        <Anthrax {chains} {wf} />
 
-      </div>
-  </div>
-
-  <div class="flex flex-col w-3/5 overflow-y-auto px-8 ">
-    <!-- <p>RIGHT========================</p> -->
-  </div>
+    </div>
 </div>
-
-
-<svelte:component this={mainpop} {wf}  {chains} />
-
-
-<style>
-</style>
