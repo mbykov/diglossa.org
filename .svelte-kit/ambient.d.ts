@@ -26,6 +26,7 @@
  * ```
  */
 declare module '$env/static/private' {
+	export const QTINC: string;
 	export const NVM_DIR: string;
 	export const LS_COLORS: string;
 	export const npm_config_node_gyp: string;
@@ -36,6 +37,7 @@ declare module '$env/static/private' {
 	export const DISPLAY: string;
 	export const HOSTNAME: string;
 	export const OLDPWD: string;
+	export const QTDIR: string;
 	export const EDITOR: string;
 	export const GPG_TTY: string;
 	export const GTK_OVERLAY_SCROLLING: string;
@@ -79,19 +81,20 @@ declare module '$env/static/private' {
 	export const MAIL: string;
 	export const HELP_BROWSER: string;
 	export const npm_lifecycle_script: string;
+	export const QTLIB: string;
 	export const LESSKEY: string;
 	export const INIT_CWD: string;
+	export const TERM: string;
 	export const SHELL: string;
 	export const VTE_VERSION: string;
-	export const TERM: string;
 	export const XDG_SESSION_CLASS: string;
 	export const XDG_SEAT_PATH: string;
 	export const NVM_BIN: string;
 	export const XDG_CURRENT_DESKTOP: string;
 	export const COLOR: string;
 	export const QT_FONT_DPI: string;
-	export const SHLVL: string;
 	export const XDG_SEAT: string;
+	export const SHLVL: string;
 	export const G_FILENAME_ENCODING: string;
 	export const npm_node_execpath: string;
 	export const npm_config_prefix: string;
@@ -145,6 +148,7 @@ declare module '$env/static/public' {
  */
 declare module '$env/dynamic/private' {
 	export const env: {
+		QTINC: string;
 		NVM_DIR: string;
 		LS_COLORS: string;
 		npm_config_node_gyp: string;
@@ -155,6 +159,7 @@ declare module '$env/dynamic/private' {
 		DISPLAY: string;
 		HOSTNAME: string;
 		OLDPWD: string;
+		QTDIR: string;
 		EDITOR: string;
 		GPG_TTY: string;
 		GTK_OVERLAY_SCROLLING: string;
@@ -198,19 +203,20 @@ declare module '$env/dynamic/private' {
 		MAIL: string;
 		HELP_BROWSER: string;
 		npm_lifecycle_script: string;
+		QTLIB: string;
 		LESSKEY: string;
 		INIT_CWD: string;
+		TERM: string;
 		SHELL: string;
 		VTE_VERSION: string;
-		TERM: string;
 		XDG_SESSION_CLASS: string;
 		XDG_SEAT_PATH: string;
 		NVM_BIN: string;
 		XDG_CURRENT_DESKTOP: string;
 		COLOR: string;
 		QT_FONT_DPI: string;
-		SHLVL: string;
 		XDG_SEAT: string;
+		SHLVL: string;
 		G_FILENAME_ENCODING: string;
 		npm_node_execpath: string;
 		npm_config_prefix: string;

@@ -1,14 +1,94 @@
 <script>
-  import "../app.css";
-  let isOpen = false;
-  let show = true
+    import "../app.css";
+    let isOpen = false;
+    let show = true
 
-  function toggleShow() {
-    console.log('_SHOW', show)
-	show = !show
-  }
+    function toggleShow() {
+        console.log('_SHOW', show)
+	    show = !show
+    }
+
+    function onKeyDown(ev) {
+        if (ev.ctrlKey) {
+            switch(ev.key) {
+                case 'v':
+                    let oclip = document.querySelector('#clip-results')
+                    if (!oclip) return
+                    // oclip.innerHTML = $textChunk
+                    console.log('_PASTE')
+                    break;
+                case 'c':
+                    let owordform = document.body.querySelector('.wordform')
+                    if (!owordform) return
+                    let wf = owordform.textContent
+                    copyTextToClipboard(wf)
+                    break;
+                case 'f':
+                    // forms
+                    break;
+                case 'Escape':
+                    closeAll()
+                    break;
+            }
+        }
+        let owf = document.querySelector('.wordform')
+        if (!owf) return
+        let wf = owf.textContent
+        switch(ev.key) {
+            case 'c':
+                // copyTextToClipboard(wf)
+            break;
+            case 'r':
+                // showRels()
+
+                break;
+            case 'f':
+                // forms
+                break;
+            case 'w':
+                let wiki_host = 'https://en.wiktionary.org/wiki/'
+                let wiki_url = [wiki_host, wf].join('')
+                window.open(wiki_url, '_blank')
+                break;
+            case 'p':
+                let pers_host = 'https://www.perseus.tufts.edu/hopper/morph?l='
+                let tail = '&la=greek'
+                let pers_url = [pers_host, wf, tail].join('')
+                window.open(pers_url, '_blank') // .focus();
+                break;
+            case 'Escape':
+                closeAll()
+                break;
+        }
+    }
+
+    async function copyTextToClipboard(text) {
+        try {
+            await navigator.clipboard.writeText(text)
+        } catch(err) {
+            console.error('try: Could not copy text: ', err);
+        }
+        // navigator.clipboard.writeText(text).then(function() {
+        //     // console.log('_TEXT', text)
+        // }, function(err) {
+        //     console.error('Async: Could not copy text: ', err);
+        // });
+    }
+
+    function copyTextFromClipboard(text) {
+        navigator.clipboard
+            .readText()
+            .then(
+                (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+            )
+    }
+
+
+
 
 </script>
+
+<svelte:window on:keydown={onKeyDown} />
 
 <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->

@@ -7,8 +7,8 @@
     export let data
     let rows = data.example.split("\n")
 
-    
-  onMount(async () => {
+
+    onMount(async () => {
       let oclip = document.querySelector('#clip-results')
       // oclip.innerHTML = html
       for (let row of rows) {
@@ -22,7 +22,11 @@
           return text
       });
 
-  })
+        function onPaste() {
+	        console.log('_PASTE')
+        }
+
+    })
 
   // let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
 
