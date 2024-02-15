@@ -1,21 +1,63 @@
+
 <script>
     import "../app.css";
+    import { onMount } from 'svelte'
+    import { textChunk } from '$lib/store.js';
+    import { goto } from '$app/navigation';
+
+    // import { page } from '$app/stores';
+    // console.log('_LAY ROWS', $page.data)
+
+    export let data
+    let rows = data.example.split("\n")
+    console.log('_LAY rows', rows)
+
+    onMount(async () => {
+        let oclip = document.querySelector('#clip-results')
+
+        for (let row of rows) {
+            let opar = document.createElement('p')
+            opar.innerHTML = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
+            oclip.appendChild(opar)
+        }
+
+        let html = oclip.innerHTML
+        textChunk.update(text => {
+            text = html
+            return text
+        });
+    })
+
     let isOpen = false;
     let show = true
 
     function toggleShow() {
-        console.log('_SHOW', show)
+        // console.log('_SHOW', show)
 	    show = !show
     }
+
+    function onPaste(ev) {
+        const copiedText = ev.clipboardData.getData('text/plain');
+        console.log('_PASTE', copiedText)
+        let savedText = $textChunk
+        // console.log('_T', savedText)
+
+        goto('/')
+    }
+
 
     function onKeyDown(ev) {
         if (ev.ctrlKey) {
             switch(ev.key) {
-                case 'v':
+                case '_v':
                     let oclip = document.querySelector('#clip-results')
                     if (!oclip) return
+                    // let text = $textChunk
+                    // console.log('_T', text)
                     // oclip.innerHTML = $textChunk
-                    console.log('_PASTE')
+
+                    // copyTextFromClipboard()
+                    // console.log('_PASTE')
                     break;
                 case 'c':
                     let owordform = document.body.querySelector('.wordform')
@@ -35,8 +77,8 @@
         if (!owf) return
         let wf = owf.textContent
         switch(ev.key) {
-            case 'c':
-                // copyTextToClipboard(wf)
+            case '_c':
+                //
             break;
             case 'r':
                 // showRels()
@@ -62,24 +104,22 @@
         }
     }
 
-    async function copyTextToClipboard(text) {
-        try {
-            await navigator.clipboard.writeText(text)
-        } catch(err) {
-            console.error('try: Could not copy text: ', err);
-        }
-        // navigator.clipboard.writeText(text).then(function() {
-        //     // console.log('_TEXT', text)
-        // }, function(err) {
-        //     console.error('Async: Could not copy text: ', err);
-        // });
+    function copyTextToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            //console.log('_TEXT', text)
+        }, function(err) {
+            // console.error('Async: Could not copy text: ', err);
+        });
     }
 
     function copyTextFromClipboard(text) {
         navigator.clipboard
             .readText()
             .then(
-                (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+                // (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+                (clipText) => {
+                    console.log('_CLIP', clipText)
+                }
             )
     }
 
@@ -88,7 +128,7 @@
 
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
+<svelte:window on:keydown={onKeyDown}  on:paste={onPaste} />
 
 <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->

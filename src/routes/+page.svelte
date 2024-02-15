@@ -2,45 +2,55 @@
 
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation';
-    import { clip, textChunk } from '$lib/store.js';
+    // import { clip, textChunk } from '$lib/store.js';
+    // import { textChunk } from '$lib/store.js';
 
-    export let data
-    let rows = data.example.split("\n")
+    // export let data
+    // let rows = data.example.split("\n")
 
 
-    onMount(async () => {
-      let oclip = document.querySelector('#clip-results')
-      // oclip.innerHTML = html
-      for (let row of rows) {
-          let opar = document.createElement('p')
-          opar.innerHTML = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
-          oclip.appendChild(opar)
-      }
-      let html = oclip.innerHTML
-      textChunk.update(text => {
-          text = html
-          return text
-      });
+    // onMount(async () => {
+    //     return
+    //     let oclip = document.querySelector('#clip-results')
 
-        function onPaste() {
-	        console.log('_PASTE')
-        }
+    //     for (let row of rows) {
+    //         let opar = document.createElement('p')
+    //         opar.innerHTML = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
+    //         oclip.appendChild(opar)
+    //     }
 
-    })
+    //     let html = oclip.innerHTML
+    //     textChunk.update(text => {
+    //         text = html
+    //         return text
+    //     });
+
+    // })
 
   // let text = copiedText.replace(/([\n]+)/ug, "<br>$1")
 
 
- async function handleClick(ev) {
-     let owf = ev.target
-     if (!owf.classList.contains('wf')) return
+    async function handleClick(ev) {
+        let owf = ev.target
+        if (!owf.classList.contains('wf')) return
 
-     let wf = owf.textContent
-     if (!wf) return
-     goto(wf)
- }
+        let wf = owf.textContent
+        if (!wf) return
+        goto(wf)
+    }
+
+    // function onPaste(ev) {
+    //     const copiedText = ev.clipboardData.getData('text/plain');
+    //     console.log('_PASTE', copiedText)
+
+    //     goto('/')
+    // }
+
+
 
 </script>
+
+<!-- <svelte:window on:paste={onPaste} /> -->
 
 <div class="h-full overflow-x-hidden flex w-full" on:click={handleClick}>
   <div id="clip-results" class="container p-4 ">
