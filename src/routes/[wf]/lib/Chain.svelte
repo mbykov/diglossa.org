@@ -4,13 +4,12 @@
 
     import Cdict from './Cdict.svelte'
     // import PrettyFLS from './PrettyFLS.svelte'
-    import { prettyName, prettyVerb } from './pretty.js'
+    import { prettyFLS } from './pretty.js'
 
     let hidemore = true
     let cdicts = []
     let rels = []
     let fls = []
-    let morph = {}
     let morphs = []
     let more = []
     let scheme = ''
@@ -21,25 +20,20 @@
         let indecl = chain.find(segment=> segment.indecl)
         if (main) {
             cdicts = main.cdicts, rels = main.rels, fls = chain.find(segment=> segment.fls).fls
+            // console.log('_cdicts', cdicts)
             let probe = cdicts[0]
             // console.log('_PROBE', probe)
             pos = (probe.verb) ? 'verb' : 'name'
-            if (pos == 'name') morph = prettyName(fls)
-            else if (pos == 'verb') morph = prettyVerb(fls)
-            else morph = {}
+            morphs = prettyFLS(pos, fls)
         } else if (indecl) {
             pos = ''
             cdicts = indecl.cdicts
             let probe = indecl.cdicts[0]
             // console.log('_INDECL', probe)
             let fls = probe.fls
-            if (fls) morph = prettyName(fls)
-            else morph = {}
-            // console.log('_INDECL-MORPH', morph)
+            if (fls) morphs = prettyFLS('name', fls)
+            // console.log('_INDECL-MORPHS', morphs)
         }
-        if (!morph.morphs) morph.morphs = []
-        if (!morph.more) morph.more = []
-
     }
 
     function toggleTRNS(ev) {
@@ -60,25 +54,25 @@
 <div class="chain ">
     <div class="py-2 flex w-full justify-between">
         <div class="morphs">
-            {#if morph.morphs.length}
+            {#if morphs.length}
                 <div class="bg-white p-2 px-8" on:click={toggleMore}>
                 <ul class="morph">
-                    {#each morph.morphs as morph}
+                    {#each morphs as morph}
                         <li class=""> {morph} </li>
                     {/each}
                 </ul>
-                {#if morph.more.length}
+                {#if more.length}
                     <ul class="morph" class:hidden={!hidemore}>
                         ...
                     </ul>
                 {/if}
                 <ul class="morph" class:hidden={hidemore}>
-                    {#each morph.more as morph}
+                    {#each more as morph}
                         <li class=""> {morph} </li>
                     {/each}
                 </ul>
             </div>
-        {/if}
+          {/if}
     </div>
 
         <div class="scheme ">
