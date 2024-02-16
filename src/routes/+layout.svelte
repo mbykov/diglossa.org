@@ -286,11 +286,11 @@
                 </div>
 
             </main>
-            <p class="w-full bg-white text-right p-4"> ==== footer ===== </p>
+            <!-- <p class="w-full bg-white text-right p-4"> ==== footer ===== </p> -->
 
-            <!-- <footer class="w-full bg-white text-right p-4"> -->
-            <!--     hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a> -->
-            <!-- </footer> -->
+            <footer class="w-full bg-white text-right p-4">
+                hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a>
+            </footer>
         </div>
 
   </div>

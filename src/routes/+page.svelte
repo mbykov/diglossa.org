@@ -15,33 +15,13 @@
 
 </script>
 
-<!-- <div class="h-full overflow-x-hidden flex w-full" on:click={handleClick}> -->
-<!--   <div id="clip-results" class="container p-4 "> -->
+<div class="attention p-4 m-4 bg-white">
+    <p>copy ctrl-C any Ancient Greek text (UTF-8) anywhere,</p>
+    <p>then ctrl-V here, as if you pasting it</p>
+    <p>then click a greek word</p>
+    <p></p>
+</div>
 
-<!--   </div> -->
-<!--   <div class="container p-4"> -->
-<!--       <div class="attettion p-4 m-4 bg-white"> -->
-<!--           <p>copy ctrl-C any Ancient Greek text (UTF-8) anywhere,</p> -->
-<!--           <p>then ctrl-V here, as if you pasting it</p> -->
-<!--           <p>then click a word</p> -->
-<!--           <p></p> -->
-<!--     </div> -->
-
-<!--       =================PPPPPPPPPPPPPPP -->
-<!--       <SavedChunks /> -->
-
-<!--   </div> -->
-<!-- </div> -->
-
-  <!-- <div class="container p-4"> -->
-      <div class="attention p-4 m-4 bg-white">
-          <p>copy ctrl-C any Ancient Greek text (UTF-8) anywhere,</p>
-          <p>then ctrl-V here, as if you pasting it</p>
-          <p>then click a word</p>
-          <p></p>
-    </div>
-
-      =================PPPPPPPPPPPPPPP
-      <SavedChunks />
+<SavedChunks />
 
   <!-- </div> -->
