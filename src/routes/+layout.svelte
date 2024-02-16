@@ -4,43 +4,100 @@
     import { onMount } from 'svelte'
     import { textChunk } from '$lib/store.js';
     import { goto } from '$app/navigation';
-
+    // import { invalidateAll } from '$app/navigation';
+    import { invalidate } from "$app/navigation";
     // import { page } from '$app/stores';
     // console.log('_LAY ROWS', $page.data)
 
     export let data
-    let rows = data.example.split("\n")
-    console.log('_LAY rows', rows)
-
-    onMount(async () => {
-        let oclip = document.querySelector('#clip-results')
-
-        for (let row of rows) {
-            let opar = document.createElement('p')
-            opar.innerHTML = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
-            oclip.appendChild(opar)
-        }
-
-        let html = oclip.innerHTML
-        textChunk.update(text => {
-            text = html
-            return text
-        });
-    })
 
     let isOpen = false;
     let show = true
-
     function toggleShow() {
         // console.log('_SHOW', show)
 	    show = !show
     }
 
+    async function handleClick(ev) {
+        let owf = ev.target
+        if (!owf.classList.contains('wf')) return
+
+        let wf = owf.textContent
+        if (!wf) return
+        goto(wf)
+    }
+
+
+    function createLastChunk(rows) {
+        // console.log('_create chunk for rows', rows)
+        let ochunk = document.createElement('div')
+        // let rows = str.split("\n")
+        for (let row of rows) {
+            let html = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
+            let opar = document.createElement('p')
+            opar.innerHTML = html
+            ochunk.appendChild(opar)
+        }
+        return ochunk
+    }
+
+    onMount(async () => {
+        let oclip = document.querySelector('#clip-results')
+        let savedTexts = []
+        try {
+            savedTexts = JSON.parse($textChunk)
+        } catch(err) {
+            console.log('_can_not_parse savedTexts')
+        }
+
+        let lastChunkRows = savedTexts[savedTexts.length-1]
+        console.log('_MOUNT savedTexts', savedTexts, savedTexts.length)
+        console.log('_MOUNT lastChunk', lastChunkRows)
+
+        if (!lastChunkRows) {
+            console.log('_MOUNT data.example', data.example)
+            let lastChunk = data.example.trim()
+            lastChunkRows = lastChunk.split('\n')
+            textChunk.update(text => {
+                text = JSON.stringify([lastChunkRows])
+                console.log('_MOUNT TO SAVE == NEW EXAMPLE ==', text)
+                return text
+            });
+        }
+
+        let ochunk = createLastChunk(lastChunkRows)
+        // console.log('_MOUNT ochunk', ochunk.textContent)
+        // console.log('_новый $textChunk', $textChunk)
+
+        oclip.appendChild(ochunk)
+    })
+
     function onPaste(ev) {
         const copiedText = ev.clipboardData.getData('text/plain');
         console.log('_PASTE', copiedText)
-        let savedText = $textChunk
-        // console.log('_T', savedText)
+        let newchunk = copiedText.split('\n')
+        // console.log('_newchunk', newchunk)
+
+        let savedTexts = []
+        try {
+            savedTexts = JSON.parse($textChunk)
+        } catch(err) {
+            console.log('_can_not_parse savedTexts')
+        }
+        // console.log('_PASTE', savedTexts)
+        savedTexts.push(newchunk)
+        // console.log('_T_2', savedTexts.length)
+
+        textChunk.update(text => {
+            text = JSON.stringify(savedTexts)
+            // text = ''
+            return text
+        });
+        let lastChunkRows = savedTexts[savedTexts.length-1]
+
+        let oclip = document.querySelector('#clip-results')
+        let ochunk = createLastChunk(lastChunkRows)
+        oclip.replaceChildren(ochunk)
 
         goto('/')
     }
@@ -68,26 +125,24 @@
                 case 'f':
                     // forms
                     break;
-                case 'Escape':
-                    closeAll()
-                    break;
             }
         }
-        let owf = document.querySelector('.wordform')
-        if (!owf) return
-        let wf = owf.textContent
         switch(ev.key) {
-            case '_c':
-                //
+            case 'h':
+                goto('/')
             break;
             case 'r':
                 // showRels()
 
                 break;
-            case 'f':
-                // forms
+            case 'Escape':
+                console.log('_ESCAPE')
+                closeAll()
                 break;
             case 'w':
+                let owf = document.querySelector('.wordform')
+                if (!owf) break;
+                let wf = owf.textContent
                 let wiki_host = 'https://en.wiktionary.org/wiki/'
                 let wiki_url = [wiki_host, wf].join('')
                 window.open(wiki_url, '_blank')
@@ -98,8 +153,7 @@
                 let pers_url = [pers_host, wf, tail].join('')
                 window.open(pers_url, '_blank') // .focus();
                 break;
-            case 'Escape':
-                closeAll()
+            case '_x':
                 break;
         }
     }
@@ -123,6 +177,13 @@
             )
     }
 
+    function closeAll() {
+        let oforms = document.querySelector('#popup-forms')
+        // if (oforms && !oforms.classList.contains('hidden')) {
+            // oforms.classList.add('hidden')
+        // }
+        console.log('_CLOSED')
+    }
 
 
 
@@ -208,16 +269,28 @@
         </header>
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
-            <main class="w-full flex-grow p-6">
+            <main class="w-full flex-grow p-6 " >
                 <!-- <h1 class="text-3xl text-black pb-6">Blank Page</h1> -->
 
-                <slot />
+                <!-- <slot /> -->
+
+                <div class="h-full overflow-x-hidden overflow-y-auto flex w-full" on:click={handleClick}>
+                    <!-- <div class="h-full overflow-x-hidden flex w-full" > -->
+                    <div id="clip-results" class="container p-4 ">
+                    </div>
+
+                    <div class="container p-4 border-4">
+                        <slot />
+                    </div>
+
+                </div>
 
             </main>
+            <p class="w-full bg-white text-right p-4"> ==== footer ===== </p>
 
-            <footer class="w-full bg-white text-right p-4">
-                hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a>
-            </footer>
+            <!-- <footer class="w-full bg-white text-right p-4"> -->
+            <!--     hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a> -->
+            <!-- </footer> -->
         </div>
 
   </div>
