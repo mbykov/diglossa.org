@@ -8,7 +8,7 @@
 </script>
 
 <div class="attention p-4 m-4 bg-white">
-    <p>copy ctrl-C any Ancient Greek text (UTF-8) anywhere,</p>
+    <p>select and copy ctrl-C any Ancient Greek text (UTF-8) anywhere,</p>
     <p>then ctrl-V here, as if you pasting it</p>
     <p>then click a greek word</p>
     <p></p>
