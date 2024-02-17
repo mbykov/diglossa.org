@@ -4,12 +4,15 @@
     import { onMount } from 'svelte'
     import { textChunk } from '$lib/store.js';
     import { goto } from '$app/navigation';
-    // import { invalidateAll } from '$app/navigation';
-    import { invalidate } from "$app/navigation";
+    // import { invalidate } from '$app/navigation';
+    import { invalidateAll } from "$app/navigation";
+    import { browser } from '$app/environment';
     // import { page } from '$app/stores';
     // console.log('_LAY ROWS', $page.data)
 
     export let data
+
+    // $: console.log('_LOAD DATA', data)
 
     let isOpen = false;
     let show = true
@@ -17,6 +20,47 @@
         // console.log('_SHOW', show)
 	    show = !show
     }
+
+    $: if (data && browser) {
+        // console.log('_KUKU showChunk start')
+        showChunk(data)
+    }
+    // let ochunk = showChunk(data)
+
+    function showChunk(data) {
+        // console.log('_after_goto')
+        // console.log('_showChunk Example', data)
+        if (!document) return
+        let oclip = document.querySelector('#clip-results')
+        // console.log('_after_goto_2', oclip)
+        if (!oclip) return
+
+        let currentRows = []
+        if (!$textChunk) {
+            // console.log('_NO TEXT CHUNK, let example')
+            let lastChunk = data.example.trim()
+            currentRows = lastChunk.split('\n')
+            textChunk.update(text => {
+                text = JSON.stringify([currentRows])
+                return text
+            });
+        } else {
+            // console.log('_YES TEXT CHUNK')
+            try {
+                // console.log('_BEFORE PARSE_2 ', $textChunk)
+                let savedTexts = JSON.parse($textChunk)
+                currentRows = savedTexts[0]
+            } catch(err) {
+                console.log('_can_not_parse savedTexts')
+                return
+            }
+        }
+
+        let ochunk = createChunkEl(currentRows)
+        oclip.appendChild(ochunk)
+        return ochunk
+    }
+
 
     async function handleClick(ev) {
         let owf = ev.target
@@ -27,8 +71,7 @@
         goto(wf)
     }
 
-
-    function createLastChunk(rows) {
+    function createChunkEl(rows) {
         // console.log('_create chunk for rows', rows)
         let ochunk = document.createElement('div')
         // let rows = str.split("\n")
@@ -42,39 +85,13 @@
     }
 
     onMount(async () => {
-        let oclip = document.querySelector('#clip-results')
-        let savedTexts = []
-        try {
-            savedTexts = JSON.parse($textChunk)
-        } catch(err) {
-            console.log('_can_not_parse savedTexts')
-        }
-
-        let lastChunkRows = savedTexts[savedTexts.length-1]
-        console.log('_MOUNT savedTexts', savedTexts, savedTexts.length)
-        console.log('_MOUNT lastChunk', lastChunkRows)
-
-        if (!lastChunkRows) {
-            console.log('_MOUNT data.example', data.example)
-            let lastChunk = data.example.trim()
-            lastChunkRows = lastChunk.split('\n')
-            textChunk.update(text => {
-                text = JSON.stringify([lastChunkRows])
-                console.log('_MOUNT TO SAVE == NEW EXAMPLE ==', text)
-                return text
-            });
-        }
-
-        let ochunk = createLastChunk(lastChunkRows)
-        // console.log('_MOUNT ochunk', ochunk.textContent)
-        // console.log('_новый $textChunk', $textChunk)
-
-        oclip.appendChild(ochunk)
+        console.log('_ON_MOUNT_LAYOUT ')
+        // showChunk(data)
     })
 
     function onPaste(ev) {
         const copiedText = ev.clipboardData.getData('text/plain');
-        console.log('_PASTE', copiedText)
+        // console.log('_PASTE', copiedText)
         let newchunk = copiedText.split('\n')
         // console.log('_newchunk', newchunk)
 
@@ -85,21 +102,16 @@
             console.log('_can_not_parse savedTexts')
         }
         // console.log('_PASTE', savedTexts)
-        savedTexts.push(newchunk)
-        // console.log('_T_2', savedTexts.length)
-
+        savedTexts.unshift(newchunk)
         textChunk.update(text => {
             text = JSON.stringify(savedTexts)
-            // text = ''
             return text
         });
-        let lastChunkRows = savedTexts[savedTexts.length-1]
-
+        // let currentRows = savedTexts[0] // [savedTexts.length-1]
         let oclip = document.querySelector('#clip-results')
-        let ochunk = createLastChunk(lastChunkRows)
-        oclip.replaceChildren(ochunk)
-
-        goto('/')
+        // let ochunk = createChunkEl(currentRows)
+        oclip.replaceChildren()
+        invalidateAll('/')
     }
 
 
@@ -182,7 +194,7 @@
         // if (oforms && !oforms.classList.contains('hidden')) {
             // oforms.classList.add('hidden')
         // }
-        console.log('_CLOSED')
+        console.log('_CLOSED ALL')
     }
 
 
@@ -270,23 +282,17 @@
 
         <div class="w-full h-screen overflow-x-hidden border-t flex flex-col">
             <main class="w-full flex-grow p-6 " >
-                <!-- <h1 class="text-3xl text-black pb-6">Blank Page</h1> -->
-
-                <!-- <slot /> -->
-
                 <div class="h-full overflow-x-hidden overflow-y-auto flex w-full" on:click={handleClick}>
-                    <!-- <div class="h-full overflow-x-hidden flex w-full" > -->
                     <div id="clip-results" class="container p-4 ">
                     </div>
 
-                    <div class="container p-4 border-4">
+                    <div class="container px-4_ border-4">
                         <slot />
                     </div>
 
                 </div>
 
             </main>
-            <!-- <p class="w-full bg-white text-right p-4"> ==== footer ===== </p> -->
 
             <footer class="w-full bg-white text-right p-4">
                 hosting: <a target="_blank" href="https://basealt.ru" class="underline">basealt.ru</a>

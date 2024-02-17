@@ -7,7 +7,6 @@ export const clip = writable('');
 
 //string
 export const textChunk = writable(
-    (browser && localStorage.getItem("textChunk")) || "ἀντιπαραγράφω"
+    (browser && localStorage.getItem("textChunk")) || '[["ἀντιπαραγράφω"]]'
 );
 textChunk.subscribe((val) => browser && (localStorage.textChunk = val));
-

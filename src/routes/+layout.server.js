@@ -3,7 +3,7 @@ export const load = async ({ url, params }) => {
     // console.log('_server load url, params', url, params)
 
     return {
-        example
+        example: example.trim()
     }
 }
 
