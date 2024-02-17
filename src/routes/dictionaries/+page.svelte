@@ -2,8 +2,11 @@
 
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation';
-    import SavedChunks from './lib/SavedChunks.svelte'
+    // import SavedChunks from './lib/SavedChunks.svelte'
+    // import { Dictionaries } from "../../../../anthrax/lib/config.js"
+    import { Dictionaries } from "@mbykov/anthrax/config"
 
+    console.log('_D', Dictionaries)
 
 </script>
 
@@ -14,6 +17,8 @@
     <p></p>
 </div>
 
-<SavedChunks />
+<!-- <SavedChunks /> -->
 
   <!-- </div> -->
+
+<p> ======================== DICTS ====================</p>
