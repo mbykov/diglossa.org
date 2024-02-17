@@ -3,7 +3,6 @@
     export let wf
 
     import Cdict from './Cdict.svelte'
-    // import PrettyFLS from './PrettyFLS.svelte'
     import { prettyFLS } from './pretty.js'
 
     let hidemore = true
@@ -22,7 +21,7 @@
             cdicts = main.cdicts, rels = main.rels, fls = chain.find(segment=> segment.fls).fls
             // console.log('_cdicts', cdicts)
             let probe = cdicts[0]
-            // console.log('_PROBE', probe)
+            // console.log('_PROBE', cdicts.length)
             pos = (probe.verb) ? 'verb' : 'name'
             morphs = prettyFLS(pos, fls)
         } else if (indecl) {
