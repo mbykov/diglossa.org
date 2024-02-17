@@ -1,6 +1,7 @@
 //
 
-import { anthrax } from "../../../../anthrax"
+// import { anthrax } from "../../../../anthrax"
+import { anthrax } from "@mbykov/anthrax"
 
 export const load = async ({ url, params }) => {
     const wf = params.wf

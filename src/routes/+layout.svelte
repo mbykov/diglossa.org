@@ -207,19 +207,19 @@
         <!-- Desktop Header -->
         <header class="w-full items-center bg-white py-2 px-6 hidden sm:flex">
           <div class="w-1/2"></div>
-            <div class="relative w-1/2 flex justify-end">
+            <div class="relative w-1/2 flex justify-end" on:click={toggleShow} >
               <div class="p-4">
                 anthrax v.1.1.1
               </div>
-                <button on:click={toggleShow} class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
+                <button class="realtive z-10 w-12 h-12 rounded-full overflow-hidden border-4 border-gray-400 hover:border-gray-300 focus:border-gray-300 focus:outline-none">
                   <!-- <img src="https://source.unsplash.com/uJ8LNVCBjFQ/400x400" alt="kuku"> -->
                 </button>
 
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16" class:hidden={show}>
                     <a href="/" class="block px-4 py-2 account-link hover:text-white">Home</a>
-                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Account</a>
-                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Support</a>
-                    <a href="/ss" class="block px-4 py-2 account-link hover:text-white">Sign Out</a>
+                    <a href="/about" class="block px-4 py-2 account-link hover:text-white">About</a>
+                    <a href="/dictionaries" class="block px-4 py-2 account-link hover:text-white">Dictionaries</a>
+                    <a href="/code" class="block px-4 py-2 account-link hover:text-white">Licence & code</a>
                 </div>
             </div>
         </header>
@@ -286,7 +286,7 @@
                     <div id="clip-results" class="container p-4 ">
                     </div>
 
-                    <div class="container px-4_ border-4">
+                    <div class="container px-4_ border-4_">
                         <slot />
                     </div>
 
