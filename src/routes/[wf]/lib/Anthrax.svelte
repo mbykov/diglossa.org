@@ -7,7 +7,7 @@
 
 <!-- =============== ANTHRAX ========== -->
 
-<div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto p-4">
+<div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto px-4">
     <div class=" p-2 my-4 bg-white  flex justify-between ">
         <div class="">
             <span class="wordform font-bold text-amber-700">{wf}</span>
