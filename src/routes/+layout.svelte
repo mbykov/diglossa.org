@@ -218,6 +218,8 @@
                 <div x-show="isOpen" class="absolute w-32 bg-white rounded-lg shadow-lg py-2 mt-16" class:hidden={show}>
                     <a href="/" class="block px-4 py-2 account-link hover:text-white">Home</a>
                     <a href="/about" class="block px-4 py-2 account-link hover:text-white">About</a>
+                    <a href="/examples" class="block px-4 py-2 account-link hover:text-white">Examples</a>
+                    <a href="/hotkeys" class="block px-4 py-2 account-link hover:text-white">Hot keys</a>
                     <a href="/dictionaries" class="block px-4 py-2 account-link hover:text-white">Dictionaries</a>
                     <a href="/code" class="block px-4 py-2 account-link hover:text-white">Licence & code</a>
                 </div>
