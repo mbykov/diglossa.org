@@ -7,20 +7,22 @@
 
     console.log('_examples', examples)
 
+    function handleChunk(ev) {
+        console.log('_E')
+    }
+
 </script>
 
-
-
-<p> ======================== EXAMPLES ====================</p>
-
 <div class="pt-12 font-bold text-pink-700">
-    keys with control
+    Examples:
 </div>
-<div id="controlKeys" class=" px-8" >
-    <!-- {#each savedTexts as chunk, index} -->
-      <!-- <div class="chunk " on:click={handleChunk}> -->
-        <p class="" > - ctrl-c - copy wordform under consideration, do not select </p>
-        <p class="" > - ctrl-v - as if you paste some text here  </p>
-        <!-- </div> -->
-      <!-- {/each} -->
+<div id="examples" class=" px-8" >
+    {#each examples as example, index}
+      <div class="chunk index: {index} " on:click={handleChunk}>
+          <p class="font-bold  text-pink-700" > {example.name} </p>
+          {#each example.text.trim().split('\n').slice(0,3) as row}
+            <p class="" > - {row} </p>
+          {/each}
+      </div>
+    {/each}
 </div>
