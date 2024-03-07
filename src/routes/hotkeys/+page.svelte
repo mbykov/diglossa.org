@@ -20,7 +20,6 @@
 </div>
 <div id="controlKeys" class=" px-8" >
     <!-- {#each savedTexts as chunk, index} -->
-      <!-- <div class="chunk " on:click={handleChunk}> -->
         <p class="" > - ctrl-c - copy wordform under consideration, do not select </p>
         <p class="" > - ctrl-v - as if you paste some text here  </p>
         <!-- </div> -->

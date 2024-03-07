@@ -2,8 +2,6 @@
 
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation';
-    // import SavedChunks from './lib/SavedChunks.svelte'
-    // import { Dictionaries } from "../../../../anthrax/lib/config.js"
     import { Dictionaries } from "@mbykov/anthrax/config"
 
     console.log('_D', Dictionaries)
@@ -16,8 +14,6 @@
     <p>then click a greek word</p>
     <p></p>
 </div>
-
-<!-- <SavedChunks /> -->
 
   <!-- </div> -->
 

@@ -2,7 +2,7 @@
 <script>
     import "../app.css";
     import { onMount } from 'svelte'
-    import { textChunk } from '$lib/store.js';
+    import { textChunk, chunkIdx } from '$lib/store.js';
     import { goto } from '$app/navigation';
     // import { invalidate } from '$app/navigation';
     import { invalidateAll } from "$app/navigation";
@@ -25,15 +25,15 @@
         // console.log('_KUKU showChunk start')
         showChunk(data)
     }
-    // let ochunk = showChunk(data)
 
     function showChunk(data) {
         // console.log('_after_goto')
-        // console.log('_showChunk Example', data)
+        // console.log('_show_Chunk Example', data)
         if (!document) return
         let oclip = document.querySelector('#clip-results')
         // console.log('_after_goto_2', oclip)
         if (!oclip) return
+        oclip.replaceChildren()
 
         let currentRows = []
         if (!$textChunk) {
@@ -49,7 +49,7 @@
             try {
                 // console.log('_BEFORE PARSE_2 ', $textChunk)
                 let savedTexts = JSON.parse($textChunk)
-                currentRows = savedTexts[0]
+                currentRows = savedTexts[$chunkIdx]
             } catch(err) {
                 console.log('_can_not_parse savedTexts')
                 return
@@ -86,7 +86,7 @@
 
     onMount(async () => {
         console.log('_ON_MOUNT_LAYOUT ')
-        // showChunk(data)
+        // show_Chunk(data)
     })
 
     function onPaste(ev) {
