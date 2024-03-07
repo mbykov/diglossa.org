@@ -30,18 +30,14 @@ declare module '$env/static/private' {
 	export const NVM_DIR: string;
 	export const LS_COLORS: string;
 	export const npm_config_node_gyp: string;
-	export const npm_package_dev: string;
-	export const npm_package_peer: string;
 	export const npm_execpath: string;
 	export const _: string;
 	export const LANG: string;
-	export const npm_package_resolved: string;
 	export const LESS: string;
 	export const DISPLAY: string;
 	export const HOSTNAME: string;
 	export const OLDPWD: string;
 	export const QTDIR: string;
-	export const npm_package_integrity: string;
 	export const EDITOR: string;
 	export const GPG_TTY: string;
 	export const GTK_OVERLAY_SCROLLING: string;
@@ -64,7 +60,6 @@ declare module '$env/static/private' {
 	export const DESKTOP_SESSION: string;
 	export const npm_config_userconfig: string;
 	export const npm_lifecycle_event: string;
-	export const npm_package_dev_optional: string;
 	export const PWD: string;
 	export const SSH_ASKPASS: string;
 	export const HOME: string;
@@ -92,14 +87,12 @@ declare module '$env/static/private' {
 	export const TERM: string;
 	export const SHELL: string;
 	export const VTE_VERSION: string;
-	export const npm_package_optional: string;
 	export const XDG_SESSION_CLASS: string;
 	export const XDG_SEAT_PATH: string;
 	export const NVM_BIN: string;
 	export const XDG_CURRENT_DESKTOP: string;
 	export const COLOR: string;
 	export const QT_FONT_DPI: string;
-	export const npm_package_engines_node: string;
 	export const XDG_SEAT: string;
 	export const SHLVL: string;
 	export const G_FILENAME_ENCODING: string;
@@ -125,6 +118,7 @@ declare module '$env/static/private' {
 	export const npm_package_name: string;
 	export const npm_config_resolution_mode: string;
 	export const LESSOPEN: string;
+	export const NODE_ENV: string;
 }
 
 /**
@@ -158,18 +152,14 @@ declare module '$env/dynamic/private' {
 		NVM_DIR: string;
 		LS_COLORS: string;
 		npm_config_node_gyp: string;
-		npm_package_dev: string;
-		npm_package_peer: string;
 		npm_execpath: string;
 		_: string;
 		LANG: string;
-		npm_package_resolved: string;
 		LESS: string;
 		DISPLAY: string;
 		HOSTNAME: string;
 		OLDPWD: string;
 		QTDIR: string;
-		npm_package_integrity: string;
 		EDITOR: string;
 		GPG_TTY: string;
 		GTK_OVERLAY_SCROLLING: string;
@@ -192,7 +182,6 @@ declare module '$env/dynamic/private' {
 		DESKTOP_SESSION: string;
 		npm_config_userconfig: string;
 		npm_lifecycle_event: string;
-		npm_package_dev_optional: string;
 		PWD: string;
 		SSH_ASKPASS: string;
 		HOME: string;
@@ -220,14 +209,12 @@ declare module '$env/dynamic/private' {
 		TERM: string;
 		SHELL: string;
 		VTE_VERSION: string;
-		npm_package_optional: string;
 		XDG_SESSION_CLASS: string;
 		XDG_SEAT_PATH: string;
 		NVM_BIN: string;
 		XDG_CURRENT_DESKTOP: string;
 		COLOR: string;
 		QT_FONT_DPI: string;
-		npm_package_engines_node: string;
 		XDG_SEAT: string;
 		SHLVL: string;
 		G_FILENAME_ENCODING: string;
@@ -253,6 +240,7 @@ declare module '$env/dynamic/private' {
 		npm_package_name: string;
 		npm_config_resolution_mode: string;
 		LESSOPEN: string;
+		NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}

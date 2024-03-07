@@ -1,9 +1,11 @@
 <script>
     import { onMount } from 'svelte'
-    import { textChunk } from '$lib/store.js';
+    import { textChunk, chunkIdx } from '$lib/store.js';
     // import { goto } from '$app/navigation';
     import { invalidateAll } from "$app/navigation";
 
+
+    let selected
 
     $: if (textChunk) {
         // console.log('_textChunk CHANGED', textChunk)
@@ -15,6 +17,11 @@
             console.log('_can_not_parse savedTexts')
         }
     }
+
+    $: chunkIdx
+        selected = $chunkIdx
+
+    $: chunkIdx, console.log('_chunkIdx', chunkIdx)
 
     let savedTexts = []
 
@@ -40,29 +47,50 @@
         oclip.replaceChildren()
         invalidateAll('/')
     }
+
     function handleChunk(ev) {
         let oclip = document.querySelector('#clip-results')
+        if (!oclip) return
         let index = ev.target.getAttribute('index')
         // console.log('_CLICK INDEX', index)
         if (index < 0) return
+        selected = index
 
-        let currentRows = savedTexts[index]
-        savedTexts.splice(index, 1)
-        savedTexts.unshift(currentRows)
-        textChunk.update(text => {
-            text = JSON.stringify(savedTexts)
-            return text
+        chunkIdx.update(idx => {
+            idx = index
+            return idx
         });
-        savedTexts = savedTexts
-        oclip.replaceChildren()
+
+        // let currentRows = savedTexts[index]
+        // savedTexts.splice(index, 1)
+        // savedTexts.unshift(currentRows)
+        // textChunk.update(text => {
+        //     text = JSON.stringify(savedTexts)
+        //     return text
+        // });
+        // savedTexts = savedTexts
+        // oclip.replaceChildren()
         invalidateAll('/')
     }
+
+    function removeChunk(ev) {
+        let oclip = document.querySelector('#clip-results')
+        if (!oclip) return
+        let index = ev.target.getAttribute('index')
+        console.log('_REMOVE INDEX', index)
+        if (index < 0) return
+
+        let currentRows = savedTexts[index]
+        console.log('_currentRows', currentRows)
+    }
+
+
 
 
 </script>
 
-<div id="savedTexts" class="savedTexts pt-12 px-8" >
-    <div class="flex justify-between ">
+<div id="savedTexts" class="savedTexts pt-12 px-8 " >
+    <div class="flex justify-between pb-4">
         <div class="left font-bold text-pink-700">
             early pasted texts:
         </div>
@@ -72,8 +100,11 @@
         </div>
     </div>
     {#each savedTexts as chunk, index}
-      <div class="chunk " on:click={handleChunk}>
-          <p class="cursor-pointer" index: {index}> - {chunk[0].slice(0,25)} ...</p>
-        </div>
-      {/each}
+      <div class="chunk flex justify-between {(index == selected) ? "bg-slate-200": ""}" >
+          <p class="cursor-pointer" index: {index} on:click={handleChunk}> - {chunk[0].slice(0,25)} ...</p>
+          <p class="cursor-pointer remove text-pink-700 pr-2" index: {index} on:click={removeChunk}> [x]</p>
+      </div>
+    {/each}
+
+
 </div>
