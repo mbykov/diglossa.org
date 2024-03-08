@@ -11,6 +11,15 @@ span.wf:hover {
     cursor: pointer;
 }
 
+span.seg {
+  cursor: pointer;
+}
+
+span.seg:hover {
+    background-color: #eee8aa;
+    cursor: pointer;
+}
+
 .container p {
   padding-bottom: 5px;
 }

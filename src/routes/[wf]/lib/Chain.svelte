@@ -14,6 +14,7 @@
     let scheme = ''
     let pos = ''
     $: {
+        // console.log('_$:CHAIN.svelte', chain)
         scheme = chain.map(segment=> segment.seg).join('-')
         let main = chain.find(segment=> segment.main)
         let indecl = chain.find(segment=> segment.indecl)

@@ -11,7 +11,7 @@
 
      $: {
          chains = data.chains
-         // console.log('_CHS', chains)
+         // console.log('_$: CHS', chains)
          wf = data.wf
      }
 
