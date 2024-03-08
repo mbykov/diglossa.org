@@ -80,8 +80,19 @@
         console.log('_REMOVE INDEX', index)
         if (index < 0) return
 
+        // let currentRows = savedTexts[index]
+        // if (!currentRows) return
+        // console.log('_currentRows', currentRows)
         let currentRows = savedTexts[index]
-        console.log('_currentRows', currentRows)
+        savedTexts.splice(index, 1)
+        // savedTexts.unshift(currentRows)
+        textChunk.update(text => {
+            text = JSON.stringify(savedTexts)
+            return text
+        });
+        savedTexts = savedTexts
+        oclip.replaceChildren()
+        invalidateAll('/')
     }
 
 
