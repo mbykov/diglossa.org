@@ -8,6 +8,7 @@
     import { onMount } from 'svelte'
 
     let cdicts = []
+    let rels = []
     let chain = []
     let urel = false
     // let pos = 'name'
@@ -22,7 +23,7 @@
             cdicts = []
             console.log('_no_chain', wf)
         }
-        if (chain) console.log('_new_cdicts ', cdicts)
+        // if (chain) console.log('_new_cdicts ', cdicts)
     }
 
 
@@ -30,7 +31,7 @@
         chain = chains[0]
         if (chain) cdicts = parseCdicts(chain)
         else console.log('_no_chain', wf)
-        if (chain) console.log('_mount_cdicts ', cdicts)
+        // if (chain) console.log('_mount_cdicts ', cdicts)
     })
 
 
@@ -40,7 +41,7 @@
         if (!parent) return
         lidx = parent.getAttribute('lidx')
         sidx = ev.target.getAttribute('sidx')
-        console.log('_seg', ev.target.textContent, lidx, sidx)
+        // console.log('_seg', ev.target.textContent, lidx, sidx)
         // chain = chains[lidx]
         // cdicts = parseCdicts(chain)
         // console.log('_cdicts', cdicts)
@@ -49,12 +50,13 @@
     function parseCdicts(chain) {
         let cdicts = []
         let main = chain.find(segment=> segment.main) || {}
-        console.log('_MAIN', !!main)
+        // console.log('_MAIN', !!main)
 
         let indecl = chain.find(segment=> segment.indecl)
         if (main) {
             cdicts = main.cdicts || [] // , rels = main.rels, fls = chain.find(segment=> segment.fls).fls
-            console.log('_main.cdicts', cdicts)
+            rels = main.rels || []
+            // console.log('_main.cdicts', cdicts)
             // let probe = cdicts[0]
             // console.log('_cdicts_2', lidx, cdicts)
             // console.log('_PROBE', probe.rdict)
@@ -91,7 +93,7 @@
     }
 
     function showRelatives(cdicts){
-        let probe = cdicts[0]
+        // let probe = cdicts[0]
         console.log('_showRelatives_cdicts', cdicts.length)
         urel = !urel
     }
@@ -134,8 +136,7 @@
 {#if urel}
     <!-- <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto px-4"> -->
     <div class="absolute inset-y-0 right-0 m-20 max-w-full_ overflow-y-auto p-4 p-20 bg-gray-200 w-1/3">
-        rrrrrrrrrrrrrrrrrrrrr
-        <!-- <Relatives {cdict} /> -->
+        <Relatives {rels} />
     </div>
 {/if}
 {/key}
