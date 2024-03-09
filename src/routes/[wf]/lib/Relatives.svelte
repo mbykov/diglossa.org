@@ -1,16 +1,18 @@
 <script>
-    // import Cdict from './Cdict.svelte'
+    import Cdict from './Cdict.svelte'
+    export let rels
 
-    // export let cdict
+    let stem = rels[0].stem
+    // console.log('REL', rels)
 
 </script>
 
 <div>
-    === Relatives ===
-    <!-- <div class="cdicts"> -->
-    <!--     {#each cdict.cdicts as cdict} -->
-    <!--         <Cdict {cdict} /> -->
-    <!--     {/each} -->
-    <!-- </div> -->
+    <div class="text-xl font-semibold "><span class="text-amber-700">Relatives</span>, stem: <span>{stem}</span> </div>
+    <div class="cdicts">
+        {#each rels as cdict}
+            <Cdict {cdict} />
+        {/each}
+    </div>
 
 </div>
