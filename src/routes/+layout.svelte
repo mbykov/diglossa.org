@@ -145,10 +145,8 @@
             break;
             case 'r':
                 // showRels()
-
                 break;
             case 'Escape':
-                console.log('_ESCAPE')
                 closeAll()
                 break;
             case 'w':

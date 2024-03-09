@@ -1,8 +1,9 @@
 <script>
     export let toggle = () => {}
     export let cdict
-    export let pos
+    // export let pos
 
+    let pos = 'kuku'
 </script>
 
 <div class="cdict pb-4">
