@@ -71,7 +71,7 @@
             // let probe = indecl.cdicts[0]
             // let fls = probe.fls
             // if (fls) morphs = prettyFLS('name', fls)
-            console.log('_INDECL-MORPHS', cdicts)
+            console.log('_INDECL-cdicts', cdicts)
         }
 
         return cdicts
