@@ -114,6 +114,14 @@
         invalidateAll('/')
     }
 
+    function onWinClick(ev) {
+        let target = ev.target
+        if (target.classList.contains('trns')) {
+            target.classList.toggle('overflow-y-auto')
+            target.classList.toggle('max-h-24')
+        }
+    }
+
 
     function onKeyDown(ev) {
         if (ev.ctrlKey) {
@@ -199,7 +207,7 @@
 
 </script>
 
-<svelte:window on:keydown={onKeyDown}  on:paste={onPaste} />
+<svelte:window on:keydown={onKeyDown} on:paste={onPaste} on:click={onWinClick} />
 
 <div class="relative w-full flex flex-col h-screen overflow-y-hidden">
         <!-- Desktop Header -->

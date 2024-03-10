@@ -23,6 +23,7 @@
             cdicts = []
             console.log('_no_chain', wf)
         }
+        urel = false
         // if (chain) console.log('_new_cdicts ', cdicts)
     }
 
@@ -41,6 +42,8 @@
         if (!parent) return
         lidx = parent.getAttribute('lidx')
         sidx = ev.target.getAttribute('sidx')
+        urel = !urel
+
         // console.log('_seg', ev.target.textContent, lidx, sidx)
         // chain = chains[lidx]
         // cdicts = parseCdicts(chain)
@@ -49,10 +52,10 @@
 
     function parseCdicts(chain) {
         let cdicts = []
-        let main = chain.find(segment=> segment.main) || {}
-        // console.log('_MAIN', !!main)
-
+        console.log('_MAIN', chain)
+        let main = chain.find(segment=> segment.main) // || {} здесь нельзя, indecl
         let indecl = chain.find(segment=> segment.indecl)
+        console.log('_indecl', indecl)
         if (main) {
             cdicts = main.cdicts || [] // , rels = main.rels, fls = chain.find(segment=> segment.fls).fls
             rels = main.rels || []
@@ -63,12 +66,12 @@
             // pos = (probe.verb) ? 'verb' : 'name'
             // morphs = prettyFLS(pos, fls)
         } else if (indecl) {
-            pos = ''
+            // pos = ''
             cdicts = indecl.cdicts
             // let probe = indecl.cdicts[0]
             // let fls = probe.fls
             // if (fls) morphs = prettyFLS('name', fls)
-            // console.log('_INDECL-MORPHS', morphs)
+            console.log('_INDECL-MORPHS', cdicts)
         }
 
         return cdicts
