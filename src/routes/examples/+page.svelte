@@ -2,7 +2,6 @@
 
     import { onMount } from 'svelte'
     import { goto } from '$app/navigation';
-    // import { Dictionaries } from "@mbykov/anthrax/config"
     import { examples } from "$lib/examples"
 
     console.log('_examples', examples)
