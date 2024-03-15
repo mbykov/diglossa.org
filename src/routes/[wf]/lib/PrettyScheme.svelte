@@ -13,13 +13,8 @@
     }
 
     $: {
-        // console.log('_$:pretty_morph', chains)
+        // console.log('_$:pretty_schemes', chains)
     }
-
-    function showSegment_(ev) {
-        console.log('_seg', ev.target.textContent)
-    }
-
 
 </script>
 

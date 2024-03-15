@@ -85,7 +85,7 @@
     }
 
     onMount(async () => {
-        console.log('_ON_MOUNT_LAYOUT ')
+        // console.log('_ON_MOUNT_LAYOUT ')
         // show_Chunk(data)
     })
 
@@ -147,6 +147,7 @@
                     break;
             }
         }
+        if (ev.ctrlKey) return
         switch(ev.key) {
             case 'h':
                 goto('/')
