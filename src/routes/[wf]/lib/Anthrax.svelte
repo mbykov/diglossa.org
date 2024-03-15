@@ -52,25 +52,17 @@
 
     function parseCdicts(chain) {
         let cdicts = []
-        console.log('_MAIN', chain)
+        // console.log('_MAIN', chain)
         let main = chain.find(segment=> segment.main) // || {} здесь нельзя, indecl
         let indecl = chain.find(segment=> segment.indecl)
-        console.log('_indecl', indecl)
         if (main) {
             cdicts = main.cdicts || [] // , rels = main.rels, fls = chain.find(segment=> segment.fls).fls
             rels = main.rels || []
             // console.log('_main.cdicts', cdicts)
             // let probe = cdicts[0]
-            // console.log('_cdicts_2', lidx, cdicts)
-            // console.log('_PROBE', probe.rdict)
-            // pos = (probe.verb) ? 'verb' : 'name'
-            // morphs = prettyFLS(pos, fls)
         } else if (indecl) {
-            // pos = ''
+            console.log('_indecl', indecl)
             cdicts = indecl.cdicts
-            // let probe = indecl.cdicts[0]
-            // let fls = probe.fls
-            // if (fls) morphs = prettyFLS('name', fls)
             console.log('_INDECL-cdicts', cdicts)
         }
 
