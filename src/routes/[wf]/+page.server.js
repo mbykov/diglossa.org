@@ -5,7 +5,7 @@ import { anthrax } from "@mbykov/anthrax"
 export const load = async ({ url, params }) => {
     const wf = params.wf
     let chains = await anthrax(wf)
-    console.log('_WF_SERVER_CHAINS', chains.length)
+    // console.log('_WF_SERVER_CHAINS', chains.length)
     return {
         chains,
         wf

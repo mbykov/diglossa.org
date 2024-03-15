@@ -7,13 +7,13 @@
     if (cdict.gend) pos = [pos, cdict.gend].join('; ')
     // console.log('_CDICT', cdict)
 
+    $: trns = cdict.trns || []
+
     let greekUnicode = /[\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]/u
-    $: trns = cdict.trns.map(trn=> {
+    $: trns = trns.map(trn=> {
         if (!trn) return ''
-        // trn.map(str=> {
-        //     let wfs = str.split(' ')
-        // })
-        return trn.replace(/([^\p{P} \n]+)[\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]/ug, " <span class=\"wf\">$1</span>")
+        // return trn.replace(/([^\p{P} \n]+)[\u{0370}-\u{03FF}\u{1F00}-\u{1FFF} ]/ug, " <span class=\"wf\">$1</span>")
+        return trn.replace(/([\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]+)/ug, "<span class=\"wf\">$1</span>")
     })
 
 </script>
