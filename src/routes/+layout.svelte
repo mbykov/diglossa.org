@@ -148,6 +148,11 @@
             }
         }
         if (ev.ctrlKey) return
+
+        let owf = document.querySelector('.wordform')
+        if (!owf) return
+        let wf = owf.textContent
+
         switch(ev.key) {
             case 'h':
                 goto('/')
@@ -159,14 +164,14 @@
                 closeAll()
                 break;
             case 'w':
-                let owf = document.querySelector('.wordform')
-                if (!owf) break;
-                let wf = owf.textContent
                 let wiki_host = 'https://en.wiktionary.org/wiki/'
                 let wiki_url = [wiki_host, wf].join('')
                 window.open(wiki_url, '_blank')
                 break;
             case 'p':
+                // let owf = document.querySelector('.wordform')
+                // if (!owf) break;
+                // wf = owf.textContent
                 let pers_host = 'https://www.perseus.tufts.edu/hopper/morph?l='
                 let tail = '&la=greek'
                 let pers_url = [pers_host, wf, tail].join('')
