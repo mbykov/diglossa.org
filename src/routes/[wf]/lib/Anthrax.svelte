@@ -5,13 +5,13 @@
     import Cdict from './Cdict.svelte'
     import Relatives from './Relatives.svelte'
     import PrettyScheme from './PrettyScheme.svelte'
+    import PrettyMorph from './PrettyMorph.svelte'
     import { onMount } from 'svelte'
 
     let cdicts = []
     let rels = []
     let chain = []
     let urel = false
-    // let pos = 'name'
 
     let lidx = 0
     let sidx = 0
@@ -56,14 +56,14 @@
         let main = chain.find(segment=> segment.main) // || {} здесь нельзя, indecl
         let indecl = chain.find(segment=> segment.indecl)
         if (main) {
-            cdicts = main.cdicts || [] // , rels = main.rels, fls = chain.find(segment=> segment.fls).fls
+            cdicts = main.cdicts || [] // , rels = main.rels,
             rels = main.rels || []
             // console.log('_main.cdicts', cdicts)
             // let probe = cdicts[0]
         } else if (indecl) {
-            console.log('_indecl', indecl)
+            // console.log('_indecl', indecl)
             cdicts = indecl.cdicts
-            console.log('_INDECL-cdicts', cdicts)
+            // console.log('_INDECL-cdicts', cdicts)
         }
 
         return cdicts
@@ -71,9 +71,9 @@
 
     // let oclip = document.querySelector('#clip-results')
     function onKeyDown(ev) {
+        if (ev.ctrlKey) return
         switch(ev.key) {
             case 'r':
-                console.log('_R')
                 showRelatives(cdicts)
                 break;
             case 'f':
@@ -111,7 +111,7 @@
 
     <div class="flex justify-between py-4">
         <div class="pretty-morphs bg-white p-4">
-            pretty-morphs
+            <PrettyMorph {chain} />
         </div>
         <div class="pretty-scheme bg-white p-4">
             <PrettyScheme {chains} on:click={showSegment}/>
