@@ -4,6 +4,7 @@
     // import Chain from './Chain.svelte'
     import Cdict from './Cdict.svelte'
     import Relatives from './Relatives.svelte'
+    import Dictionaries from './Dictionaries.svelte'
     import PrettyScheme from './PrettyScheme.svelte'
     import PrettyMorph from './PrettyMorph.svelte'
     import { onMount } from 'svelte'
@@ -12,6 +13,7 @@
     let rels = []
     let chain = []
     let urel = false
+    let udict = false
 
     let lidx = 0
     let sidx = 0
@@ -24,6 +26,7 @@
             console.log('_no_chain', wf)
         }
         urel = false
+        udict = false
         // if (chain) console.log('_new_cdicts ', cdicts)
     }
 
@@ -76,10 +79,14 @@
             case 'r':
                 showRelatives(cdicts)
                 break;
+            case 'd':
+                showDicts(cdicts)
+                break;
             case 'f':
                 break;
             case 'Escape':
                 urel = false
+                udict = false
                 break;
             case 'f':
                 // forms
@@ -92,6 +99,14 @@
         console.log('_showRelatives_cdicts', cdicts.length)
         urel = !urel
     }
+
+    function showDicts(cdicts){
+        // let probe = cdicts[0]
+        console.log('_showDicts')
+        udict = !udict
+    }
+
+
 
 </script>
 
@@ -106,6 +121,15 @@
         </div>
         <div class="">
             dictionaries
+            {#key udict}
+            {#if udict}
+                <!-- <div class="h-full bg-[#FAFAD2] shadow-2xl overflow-y-auto px-4"> -->
+                <div class="absolute inset-y-0 right-0 m-20 max-w-full_ overflow-y-auto p-4 p-20 bg-gray-200 w-1/3">
+                    <Dictionaries  />
+                </div>
+            {/if}
+            {/key}
+
         </div>
     </div>
 
