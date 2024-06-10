@@ -76,7 +76,7 @@ declare module '$env/static/private' {
 	export const QT_SCALE_FACTOR: string;
 	export const TMPDIR: string;
 	export const SYSTEMD_PAGER: string;
-	export const npm_config_metrics_registry: string;
+	export const npm_config_npm_version: string;
 	export const npm_config_globalconfig: string;
 	export const MAIL: string;
 	export const HELP_BROWSER: string;
@@ -198,7 +198,7 @@ declare module '$env/dynamic/private' {
 		QT_SCALE_FACTOR: string;
 		TMPDIR: string;
 		SYSTEMD_PAGER: string;
-		npm_config_metrics_registry: string;
+		npm_config_npm_version: string;
 		npm_config_globalconfig: string;
 		MAIL: string;
 		HELP_BROWSER: string;

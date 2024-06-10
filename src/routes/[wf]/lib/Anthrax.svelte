@@ -56,16 +56,14 @@
     function parseCdicts(chain) {
         let cdicts = []
         // console.log('_MAIN', chain)
-        let main = chain.find(segment=> segment.main) // || {} здесь нельзя, indecl
-        let indecl = chain.find(segment=> segment.indecl)
-        if (main) {
-            cdicts = main.cdicts || [] // , rels = main.rels,
-            rels = main.rels || []
+        if (chain.cdicts) {
+            cdicts = chain.cdicts || [] // , rels = main.rels,
+            rels = chain.rels || []
             // console.log('_main.cdicts', cdicts)
             // let probe = cdicts[0]
-        } else if (indecl) {
+        } else if (chain.indecl) {
             // console.log('_indecl', indecl)
-            cdicts = indecl.cdicts
+            cdicts = chain.cdicts
             // console.log('_INDECL-cdicts', cdicts)
         }
 
@@ -134,9 +132,11 @@
     </div>
 
     <div class="flex justify-between py-4">
-        <div class="pretty-morphs bg-white p-4">
-            <PrettyMorph {chain} />
-        </div>
+        {#if chain}
+          <div class="pretty-morphs bg-white_ p-4_">
+              <PrettyMorph {chain} />
+          </div>
+        {/if}
         <div class="pretty-scheme bg-white p-4">
             <PrettyScheme {chains} on:click={showSegment}/>
         </div>
