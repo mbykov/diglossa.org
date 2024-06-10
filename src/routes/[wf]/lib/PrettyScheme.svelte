@@ -4,12 +4,7 @@
     let schemes = []
 
     $: {
-        schemes = chains.map(chain=> {
-            return chain.map((segment, sidx)=> {
-                if (segment.seg.conn) return segment.seg
-                else return '<span class="seg" sidx=' + sidx + '>' + segment.seg + '</span>'
-            }).join('-')
-        })
+        schemes = chains.map(chain=> chain.schstr || '')
     }
 
     $: {

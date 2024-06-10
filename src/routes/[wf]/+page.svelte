@@ -11,7 +11,7 @@
 
      $: {
          chains = data.chains
-         // console.log('_$: CHS', chains)
+         console.log('_$: CHS', chains)
          wf = data.wf
      }
 
@@ -25,4 +25,4 @@
 </script>
 
 
-        <Anthrax {chains} {wf} />
+<Anthrax {chains} {wf} />
