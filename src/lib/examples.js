@@ -17,10 +17,6 @@ export const examples = [
 2:13 - καὶ ἐξαίφνης ἐγένετο σὺν τῷ ἀγγέλῳ πλῆθος στρατιᾶς οὐρανίου αἰνούντων τὸν θεὸν καὶ λεγόντων`
     },
     {
-        name: 'Aristotle, xxx',
-        text: ``
-    },
-    {
         name: 'verbs with prefixes',
         text: `ἄγγελμα (ángelma),
     ἀγγέλτειρα (angélteira),
