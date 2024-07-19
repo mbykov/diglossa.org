@@ -1,4 +1,3 @@
-//
 
 import { writable } from "svelte/store";
 import { browser } from "$app/environment";
@@ -19,3 +18,4 @@ export const chunkIdx = writable(
 );
 
 chunkIdx.subscribe((val) => browser && (localStorage.chunkIdx = val));
+
