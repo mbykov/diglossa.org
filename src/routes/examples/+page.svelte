@@ -17,23 +17,21 @@
 </script>
 
 
-<div class="border-2 border-red-500 h-fit_ flex w-full justify-between gap-2 relative">
+<div class="h-fit_ flex w-full justify-between gap-2 relative">
 
-  <div class="p-4 border-2 md:w-1/2 overflow-auto">
+  <div class="p-4 md:w-1/2 overflow-auto">
     <Clip {example} />
   </div>
 
 
-  <div class="md:w-1/2 w-full border-green-500_ absolute top-0 right-0 bg-white ">
+  <div class="md:w-1/2 w-full absolute_ top-0_ right-0 p-8">
 
-    ==== EXAMPLES ====
-    <div class="pt-12 font-bold text-pink-700">
-      Examples:
-    </div>
+    <h3 class="pl-4 text-xl font-medium text-gray-900 dark:text-white">Examples</h3>
+
     <div id="examples" class=" px-8" >
       {#each examples as example, index}
         <div class="chunk " index: {index} on:click={handleChunk}>
-          <p class="font-bold  text-pink-700" > {example.name} </p>
+          <p class="font-bold text-pink-700 cursor-pointer" > {example.name} </p>
           {#each example.text.trim().split('\n').slice(0,3) as row}
             <p class="" > - {row} </p>
           {/each}
