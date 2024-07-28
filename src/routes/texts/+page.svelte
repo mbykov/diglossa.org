@@ -10,6 +10,7 @@
 
   const log = console.log
 
+  let uniq = {}
   let textindex = 0
   let rows = []
   let savedTexts = []
@@ -17,7 +18,6 @@
   function getText(ev) {
     try {
       savedTexts = JSON.parse($textChunk)
-      log('_______________________________savedTexts', savedTexts)
     } catch(err) {
       console.log('_can_not_parse savedTexts')
     }
@@ -31,40 +31,57 @@
 
   let headers = savedTexts.map(rows=> rows[0].slice(0, 50))
 
-  log('_______________________________HEADERS', headers)
-
   function deleteText(ev) {
-    console.log('_DEL', ev)
+    let oclip = document.querySelector('#clip-results')
+    let target = ev.target.closest('.texthead')
+    let index = target.getAttribute('index')
+    console.log('_REMOVE ev.target', target)
+    console.log('_REMOVE INDEX', index)
+    if (index < 0) return
+
+    uniq = {}
+    let currentRows = savedTexts[index]
+    savedTexts.splice(index, 1)
+    textChunk.update(text => {
+      text = JSON.stringify(savedTexts)
+      return text
+    });
+    savedTexts = JSON.parse($textChunk)
+    headers = savedTexts.map(rows=> rows[0].slice(0, 50))
+
+    // oclip.replaceChildren()
+    // invalidateAll('/')
+
   }
 
   function showText(ev) {
     textindex = ev.target.getAttribute('index')
     console.log('_texts GO TO textindex', textindex)
-    invalidateAll('/')
+    // invalidateAll('/')
   }
 
 
 </script>
 
-<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} on:click={onWinClick} /> -->
-<!-- <svelte:window on:paste={onPaste} /> -->
+<div class="h-fit_ flex w-full justify-between gap-2 relative">
 
-
-<div class="border-2 border-red-500 h-fit_ flex w-full justify-between gap-2 relative">
-
-  <div class="p-4 border-2 md:w-1/2 overflow-auto">
+  <div class="p-4 md:w-1/2 overflow-auto">
+    <!-- {#key textindex} -->
     <Clip {textindex} />
+    <!-- {/key} -->
   </div>
 
 
-  <div class="md:w-1/2 w-full border-green-500_ absolute top-0 right-0 bg-white p-8">
+  <div class="md:w-1/2 w-full absolute top-0 right-0 p-8">
 
-    <h3 class="p-1 text-xl font-medium text-gray-900 dark:text-white">My texts</h3>
+    <h3 class="pl-4 text-xl font-medium text-gray-900 dark:text-white">Saved texts</h3>
+
+    {#key textindex}
 
     {#each headers as header, index}
       <Button outline={true} class="!p-2 w-full m-2 hover:bg-sky-100 hover:text-slate-900"  size="lg">
 
-        <div class="flex w-full justify-between text-base w-full">
+        <div {index} class="texthead flex w-full justify-between text-base w-full">
           <div {index} on:click={showText}>
             {header}
           </div>
@@ -72,11 +89,10 @@
             <TrashBinSolid class="w-6 h-6 ms-1 me-2 text-red-600"  />
           </div>
         </div>
-
       </Button>
 
     {/each}
+    {/key}
 
   </div>
-
 </div>

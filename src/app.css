@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+pan.wf {
+  cursor: pointer;
+}
+
+span.wf:hover {
+    background-color: #eee8aa;
+    cursor: pointer;
+}
+
+span.seg {
+  cursor: pointer;
+}
+
+span.seg:hover {
+    background-color: #eee8aa;
+    cursor: pointer;
+}
+
+.container p {
+  padding-bottom: 5px;
+}
