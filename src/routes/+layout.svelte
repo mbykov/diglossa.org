@@ -14,10 +14,9 @@
 
   function onPaste(ev) {
       const copiedText = ev.clipboardData.getData('text/plain');
-
       let newchunk = copiedText.trim().split('\n')
-
       let savedTexts = []
+
       try {
           savedTexts = JSON.parse($textChunk)
       } catch(err) {
