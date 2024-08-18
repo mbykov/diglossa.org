@@ -1,12 +1,10 @@
 
 <script>
   import Clip from '../clip/+page.svelte';
-  import { Listgroup, ListgroupItem } from 'flowbite-svelte';
+  // import { Listgroup, ListgroupItem } from 'flowbite-svelte';
   import { TrashBinSolid } from 'flowbite-svelte-icons';
   import { textChunk, chunkIdx } from '$lib/store.js';
   import { Button } from 'flowbite-svelte';
-  import { invalidateAll } from "$app/navigation";
-
 
   const log = console.log
 
@@ -54,9 +52,17 @@
 
   }
 
-  function showText(ev) {
-    textindex = ev.target.getAttribute('index')
-    console.log('_texts GO TO textindex', textindex)
+  function selectText(ev) {
+      textindex = ev.target.getAttribute('index')
+      // console.log('_texts selectText', textindex)
+
+      chunkIdx.update(text => {
+          text = textindex + ''
+          return text
+      });
+
+
+
     // invalidateAll('/')
   }
 
@@ -66,9 +72,9 @@
 <div class="h-fit_ flex w-full justify-between gap-2 relative">
 
   <div class="p-4 md:w-1/2 overflow-auto">
-    <!-- {#key textindex} -->
+    {#key textindex}
     <Clip {textindex} />
-    <!-- {/key} -->
+    {/key}
   </div>
 
 
@@ -82,7 +88,7 @@
       <Button outline={true} class="!p-2 w-full m-2 hover:bg-sky-100 hover:text-slate-900"  size="lg">
 
         <div {index} class="texthead flex w-full justify-between text-base w-full">
-          <div {index} on:click={showText}>
+          <div {index} on:click={selectText}>
             {header}
           </div>
           <div on:click={deleteText}>

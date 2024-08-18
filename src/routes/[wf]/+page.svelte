@@ -3,8 +3,6 @@
   import Clip from '../clip/+page.svelte';
   import Anthrax from './Anthrax.svelte';
   import { onMount } from 'svelte'
-  import { goto } from '$app/navigation'
-  // import Anthrax from './lib/Anthrax.svelte'
 
   export let data
 
@@ -18,20 +16,7 @@
     // console.log('_$: WF', wf)
   }
 
-
-  onMount(async () => {
-    // console.log('_paste new chunk =====')
-  })
-
-
-  // function handleChunk(ev) {
-  //   // example = examples[exindex]
-  //   console.log('_CHAIN',)
-  // }
-
-
 </script>
-
 
 
 <!-- <div class="h-full_ md:flex flex-wrap_ w-full md:justify-between gap-2_"> -->
