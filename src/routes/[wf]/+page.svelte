@@ -20,7 +20,7 @@
 
 
 <!-- <div class="h-full_ md:flex flex-wrap_ w-full md:justify-between gap-2_"> -->
-<div class="sm:grid grid-cols-1 sm:grid-cols-2 gap-1_ h-screen overflow-hidden">
+<div class="sm:grid grid-cols-1 sm:grid-cols-2 gap-1_ h-screen overflow-hidden w-full">
 
   <!-- <div class="md:w-1/2 w-full absolute_ top-0 right-0 overflow-auto h-full_x bg-white" > -->
   <div class="p-4 md:w-1/2_ overflow-auto_ md:order-last order-first_ h-screen_">

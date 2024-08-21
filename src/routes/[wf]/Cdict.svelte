@@ -36,7 +36,7 @@
 </script>
 
 
-<div class="cdict pb-4">
+<div class="cdict pb-4 w-full">
   <!-- cdict: {cdict.rdict} - {JSON.stringify(cdict)} -->
   <div class="px-2 flex justify-between sticky_ border_ border-green-500 ">
     <div class="w-1/2_ border_ border-blue-500_">

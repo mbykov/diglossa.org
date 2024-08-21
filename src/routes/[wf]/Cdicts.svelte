@@ -6,7 +6,7 @@
 </script>
 
 
-  <div id="cdicts" class="cdicts overflow-auto h-full " >
+  <div id="cdicts" class="cdicts overflow-auto h-full w-full">
     {#each cdicts as cdict}
       <Cdict {cdict} />
       <!-- cdict: {JSON.stringify(cdict)} -->

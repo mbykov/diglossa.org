@@ -3,7 +3,7 @@
   import Clip from '../clip/+page.svelte';
   // import { Listgroup, ListgroupItem } from 'flowbite-svelte';
   import { TrashBinSolid } from 'flowbite-svelte-icons';
-  import { textChunk, chunkIdx } from '$lib/store.js';
+  import { textChunk, chunkIdx, currentClip } from '$lib/store.js';
   import { Button } from 'flowbite-svelte';
 
   const log = console.log
