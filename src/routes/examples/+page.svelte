@@ -3,18 +3,27 @@
 
   import Clip from '../clip/+page.svelte';
   import { examples } from "$lib/examples"
-  import { textChunk, chunkIdx } from '$lib/store.js';
+  import { textChunk, chunkIdx, currentClip } from '$lib/store.js';
 
   let exindex
   let example
   function handleChunk(ev) {
-    let ochunk = ev.target.closest('.chunk')
-    exindex = ochunk.getAttribute('index') // *1 + 1
-    example = examples[exindex]
-    console.log('_Example', example)
+      let ochunk = ev.target.closest('.chunk')
+      exindex = ochunk.getAttribute('index') // *1 + 1
+      example = examples[exindex]
+      // console.log('_Example INDEX', exindex, example)
+      if (!example || !example.text) return
+      let clip = example.text
+      // console.log('_Example clip', clip)
+      currentClip.update(text => {
+          text = clip
+          return text
+      });
+
+
   }
 
-  console.log('_Ex', exindex, example)
+  // console.log('_Ex', exindex, example)
 
 </script>
 
@@ -22,7 +31,9 @@
 <div class="h-fit_ flex w-full justify-between gap-2 relative">
 
   <div class="p-4 md:w-1/2 overflow-auto">
+    {#key exindex}
     <Clip {example} {exindex} />
+    {/key}
   </div>
 
 

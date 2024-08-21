@@ -3,69 +3,36 @@
   import { examples } from "$lib/examples"
   import { browser } from "$app/environment";
   import { onMount } from 'svelte'
-  import { textChunk, chunkIdx } from '$lib/store.js';
+  import { textChunk, chunkIdx, currentClip } from '$lib/store.js';
   // import { invalidateAll } from "$app/navigation";
 
 
   const log = console.log
-  // export let example
-  export let textindex
-  export let exindex
 
   // log('_CLIP example', example)
-  // $: log('_CLIP_ textindex', textindex)
-  // $: console.log('_exindex', exindex)
-
   onMount(async () => {
-      // console.log('_ON_MOUNT_LAYOUT ')
-      showStore(0)
+      console.log('_CLIP ON_MOUNT_ ')
+      showClip()
   })
 
-  $: if (exindex && browser) {
-      showExample(exindex)
-  }
+  // $: if (params && browser) {
+  // }
 
-  $: if (textindex && browser) {
-      // showStore(textindex)
-  }
-
-  function showStore(textindex) {
+  function showClip() {
       if (!document) return
       let oclip = document.querySelector('#clip-results')
       if (!oclip) return
       oclip.replaceChildren()
 
-      let rows = []
-      if (!$textChunk) return
-      let idx = $chunkIdx || 0
+      // log('_SC____', $currentClip)
 
-      try {
-          let savedTexts = JSON.parse($textChunk)
-          rows = savedTexts[idx*1]
-          if (!rows) rows = savedTexts[0] || []
-      } catch(err) {
-          console.log('_can_not_parse savedTexts')
-          return
-      }
-
-
+      if (!$currentClip) return
+      let rows = $currentClip.split("\n")
+      // log('_ROWS!', rows)
       let ochunk = createChunkEl(rows)
       oclip.replaceChildren()
       oclip.appendChild(ochunk)
   }
-
-  function showExample(exindex) {
-      if (!document) return
-      let oclip = document.querySelector('#clip-results')
-      if (!oclip) return
-      oclip.replaceChildren()
-      let example = examples[exindex]
-
-      let rows = example.text.split("\n")
-      let ochunk = createChunkEl(rows)
-      oclip.appendChild(ochunk)
-  }
-
 
   function createChunkEl(rows) {
       let ochunk = document.createElement('div')
@@ -78,7 +45,6 @@
       }
       return ochunk
   }
-
 
   </script>
 

@@ -7,7 +7,7 @@
 
   import { Spinner } from 'flowbite-svelte';
   import { textChunk, chunkIdx } from '$lib/store.js';
-  import { invalidateAll } from "$app/navigation";
+  // import { invalidateAll } from "$app/navigation";
   // import _ from 'lodash'
 
   let unique = {}
@@ -35,18 +35,16 @@
       });
       unique = {}
       goto('/')
-      // invalidateAll('/')
   }
 
   function onKeyDown(ev) {
       if (ev.ctrlKey) {
           switch(ev.key) {
               case 'c':
-                  console.log('_COPY')
                   let owordform = document.body.querySelector('.wordform')
                   if (!owordform) return
                   let wf = owordform.textContent
-                  console.log('_COPY', wf)
+                  // console.log('_COPY', wf)
                   copyTextToClipboard(wf)
                   break;
               case 'f':
@@ -130,7 +128,7 @@
 <svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
 <!-- <svelte:window on:paste={onPaste} /> -->
 
-<div class="h-screen flex flex-col" >
+<div class="h-screen flex flex-col w-full " >
 
   <Navbar rounded color="form" class="flex " >
     <NavBrand href="/">
@@ -159,7 +157,7 @@
 
   </Navbar>
 
-  <div class="flex-grow flex flex-1_ bg-gray-100 overflow-hidden" on:click={gotoWF}>
+  <div class="flex-grow flex flex-1_ bg-gray-100 overflow-hidden w-full  " on:click={gotoWF}>
 
     {#key unique}
     <slot />

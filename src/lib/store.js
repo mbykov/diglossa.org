@@ -13,9 +13,15 @@ export const textChunk = writable(
 
 textChunk.subscribe((val) => browser && (localStorage.textChunk = val));
 
+//string
+export const currentClip = writable(
+    (browser && localStorage.getItem("currentClip")) || 'παραγράφω'
+);
+
+currentClip.subscribe((val) => browser && (localStorage.currentClip = val));
+
 export const chunkIdx = writable(
     (browser && localStorage.getItem("chunkIdx")) || '0'
 );
 
 chunkIdx.subscribe((val) => browser && (localStorage.chunkIdx = val));
-
