@@ -1,6 +1,10 @@
 <script>
   export let cdict
-  let greekUnicode = /[\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]/u
+  export let verbose
+  // let greekUnicode = /[\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]/u
+
+  import { AngleDownOutline, AngleUpOutline } from 'flowbite-svelte-icons';
+  import Morphs from './Morphs.svelte'
 
   // console.log('_TRNS', cdict)
   // $: trns = cdict.trns || [] // .split('; ') || []
@@ -9,6 +13,7 @@
   // }
 
   let trns = []
+  let morphs = []
 
   function toggle(ev) {
     let target = ev.target
@@ -39,12 +44,25 @@
 <div class="cdict pb-4 w-full">
   <!-- cdict: {cdict.rdict} - {JSON.stringify(cdict)} -->
   <div class="px-2 flex justify-between sticky_ border_ border-green-500 ">
-    <div class="w-1/2_ border_ border-blue-500_">
-      <span class="text-red-500 font-bold">{cdict.rdict}</span> {cdict.pos}
+    <div class="w-1/2_ flex border_ border-blue-500_">
+      <div>
+        <span class="text-red-500 font-bold">{cdict.rdict}</span> <br>{cdict.pos}
+      </div>
+
+      <div class="w-1/2_ px-4 cursor-pointer border_ border-blue-500_" >
+        {#if verbose}
+          <Morphs {cdict} />
+        {/if}
+      </div>
+
     </div>
+
     <div class="w-1/2_ cursor-pointer border_ border-blue-500_" >
-      D P R F
+      {#if verbose}
+        D P R F
+      {/if}
     </div>
+
   </div>
 
 

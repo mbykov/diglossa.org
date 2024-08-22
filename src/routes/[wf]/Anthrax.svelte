@@ -5,6 +5,7 @@
   import Schemes from './Schemes.svelte'
   import { onMount } from 'svelte'
   import { browser } from "$app/environment"
+  import { CloseCircleOutline } from 'flowbite-svelte-icons'
 
   export let chains
   export let wf
@@ -16,7 +17,7 @@
   let showf = false
 
   let chain
-  let best
+  let best = {}
   let cdicts = []
 
   let lidx = 0
@@ -29,9 +30,7 @@
   $: {
       chain = chains[lidx] || []
       best = selectBest(chains)
-      console.log('_best', best)
       cdicts = best.cdicts || []
-      console.log('_best chains', chains)
       schemes = chains.map((chain, chidx)=> {
           if (!browser) return ''
           let scheme = []
@@ -47,18 +46,20 @@
           })
           return scheme.join('-')
       })
-      console.log('_scheeeeem', schemes)
+      showr = false
   }
 
   onMount(async () => {
       console.log('_ONM ', chains)
       best = selectBest(chains)
       cdicts = best.cdicts || []
+      showr = false
+      showf = false
 
   })
 
   function selectBest(chains) {
-      best = chains[0]
+      best = chains[0] || {}
       for (let chain of chains) {
           if (chain.scheme.length <= best.scheme.length) best = chain
       }
@@ -106,6 +107,8 @@
       if (!target) return
       let chidx = target.getAttribute('chidx')*1
       cdicts = chains[chidx].cdicts
+      showr = false
+      showf = false
   }
 
 </script>
@@ -114,28 +117,28 @@
 
 
 {#if visible}
-  <div class="m-4 p-4 shadow-md h-full h-screen w-full w-screen_ overflow-scroll_ md:block_ "  >
+  <div class="mx-4 p-4 shadow-md h-full h-screen w-full w-screen_ overflow-scroll_ md:block_ "  >
 
-    <div class="p-1 flex justify-between ">
+    <div class="p-1_ flex justify-between ">
       <div class="font-bold text-green-500">
         <span class="wordform">{wf}</span>
       </div>
       <div class="flex close-anthrax cursor-pointer " >
-        <div>
-          ===
+        <div on:click={showSegment}>
+          <Schemes {schemes} />
         </div>
-        <div>R-F   <span on:click={closeAnthrax}>[x]</span></div>
+        <div class="px-4"><span on:click={closeAnthrax}><CloseCircleOutline /></span></div>
       </div>
     </div>
 
-    <div class="p-1 flex justify-between sticky_ w-full border border-green-500 ">
-      <div class="w-1/2_ border border-blue-500">
-        +++++++
-      </div>
-      <div class="w-1/2_ cursor-pointer border_ border-blue-500" on:click={showSegment}>
-        <Schemes {schemes} />
-      </div>
-    </div>
+    <!-- <div class="p-1 flex justify-between sticky_ w-full border border-green-500 "> -->
+    <!--   <div class="w-1/2_ border border-blue-500"> -->
+    <!--     +++++++ -->
+    <!--   </div> -->
+    <!--   <div class="w-1/2_ cursor-pointer border_ border-blue-500" on:click={showSegment} > -->
+    <!--     <Schemes {schemes} /> -->
+    <!--   </div> -->
+    <!-- </div> -->
 
     {#if showr}
       ==SHOW R ======================================
@@ -143,7 +146,7 @@
   {:else if showf}
     ==SHOW F ======================================
   {:else}
-    <Cdicts {cdicts} />
+    <Cdicts {cdicts} verbose=true />
   {/if}
 
 
