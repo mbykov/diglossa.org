@@ -50,6 +50,6 @@
 
 
 <div class="border_ border-green-500_ m-2 p-4 h-full_ h-screen"  >
-  <div class="p-4 md:w-1/2_ overflow-auto" id="clip-results">
+  <div class="px-4 md:w-1/2_ overflow-auto" id="clip-results">
   </div>
 </div>
