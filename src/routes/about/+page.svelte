@@ -1,28 +1,23 @@
 <script>
 
+    // import { i18n } from "$lib/i18n";
+    import { page } from '$app/state';
+
+    // const canonicalPath = i18n.route(page.url.pathname);
+    // const localisedPath = i18n.resolveRoute(canonicalPath, newLanguage);
+
+    const log = console.log
+
+    let { data } = $props()
+    log('_AB_DATA', data)
+
 </script>
 
-<p> </p>
 
-<div class="h-fit_ flex w-full justify-between gap-2 relative">
+<p>
+    <!-- about ================= {canonicalPath} -->
+    about ================= {page.url.href}
+    <!-- ==> {data.content} -->
+   </p>
 
-  <div class="p-4 md:w-1/2 overflow-auto">
-
-    <!-- <Clip /> -->
-
-  </div>
-
-
-  <div class="md:w-1/2 w-full h-full absolute top-0 right-0  ">
-
-  <div class="attention p-4 m-4 p-4 pt-8 text-xl font-medium text-gray-900 dark:text-white">
-    <p class="p-2">copy any Ancient Greek text (UTF-8) anywhere,</p>
-    <p class="p-2">press ctrl-V here, as if you pasting it</p>
-    <p class="p-2">then click a greek word</p>
-    <p></p>
-  </div>
-
-
-  </div>
-
-</div>
+<p>{@html data.content}</p>
