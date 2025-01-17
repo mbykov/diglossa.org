@@ -1,104 +1,67 @@
-
 <script>
-  import Clip from '../clip/+page.svelte';
-  // import { Listgroup, ListgroupItem } from 'flowbite-svelte';
-  import { TrashBinSolid } from 'flowbite-svelte-icons';
-  import { textChunk, chunkIdx, currentClip } from '$lib/store.js';
-  import { Button } from 'flowbite-svelte';
+	import { i18n } from "$lib/i18n";
+    import { page } from '$app/state';
+    import { setContext, getContext } from 'svelte';
+    import { Button } from 'flowbite-svelte';
+    import _ from 'lodash'
 
-  const log = console.log
+    // import { LocalStorage } from '$lib/storage.svelte';
+    // import { persistedState } from '$lib/persisedState.ts'
+    import { persistedState } from '$lib/persistedState.svelte.ts'
+    // import { browser } from "$app/env";
+    import { onMount } from 'svelte'
 
-  let uniq = {}
-  let textindex = 0
-  let rows = []
-  let savedTexts = []
+    // let texts = new LocalStorage('texts', {
+	// 	text: 'ku-ku ku-ku ku-ku ku-ku ku-ku ',
+	// 	title: 'kuku'
+	// });
 
-  function getText(ev) {
-    try {
-      savedTexts = JSON.parse($textChunk)
-    } catch(err) {
-      console.log('_can_not_parse savedTexts')
-    }
-  }
+    onMount(async () => {
+        let savedText = persistedState('anthrax-new').value
+        log('_savedText', savedText)
 
-  getText()
+        let keytext = {
+            key: 'anthrax-new',
+		    text: 'ku-ku ku-ku ku-ku ku-ku ku-ku ',
+		    title: 'kuku'
+	    }
+        persistedState('anthrax-new', keytext)
 
-  // let headers = savedTexts.map((rows, idx)=> {
-  //   return {idx, str: rows[0].slice(0, 50)}
-  // })
 
-  let headers = savedTexts.map(rows=> rows[0].slice(0, 50))
-
-  function deleteText(ev) {
-    let oclip = document.querySelector('#clip-results')
-    let target = ev.target.closest('.texthead')
-    let index = target.getAttribute('index')
-    console.log('_REMOVE ev.target', target)
-    console.log('_REMOVE INDEX', index)
-    if (index < 0) return
-
-    uniq = {}
-    let currentRows = savedTexts[index]
-    savedTexts.splice(index, 1)
-    textChunk.update(text => {
-      text = JSON.stringify(savedTexts)
-      return text
+        let lskeys = _.keys(localStorage)
+        log('_lskeys', lskeys)
     });
-    savedTexts = JSON.parse($textChunk)
-    headers = savedTexts.map(rows=> rows[0].slice(0, 50))
 
-    // oclip.replaceChildren()
-    // invalidateAll('/')
+    // const canonicalPath = i18n.route(page.url.pathname);
 
-  }
+    const log = console.log
 
-  function selectText(ev) {
-      textindex = ev.target.getAttribute('index')
-      // console.log('_texts selectText', textindex)
+    log('_page.data', page.data)
 
-      chunkIdx.update(text => {
-          text = textindex + ''
-          return text
-      });
+    // const kuku = getContext('texts');
+    // log('_kuku', kuku)
+    // setContext('texts', () => ['kuku']);
+    // log('_saved texts', texts.current)
+    // let t = texts.current
 
 
-
-    // invalidateAll('/')
-  }
 
 
 </script>
 
-<div class="h-fit_ flex w-full justify-between gap-2 relative">
+<p>
+    <!-- about ================= {canonicalPath} -->
+    TEXTS ================= {page.url.href}
+</p>
 
-  <div class="p-4 md:w-1/2 overflow-auto">
-    {#key textindex}
-    <Clip {textindex} />
-    {/key}
-  </div>
+<Button color="green">Green</Button>
+<Button href="/">Home</Button>
 
 
-  <div class="md:w-1/2 w-full absolute top-0 right-0 p-8">
 
-    <h3 class="pl-4 text-xl font-medium text-gray-900 dark:text-white">Saved texts</h3>
-
-    {#key textindex}
-
-    {#each headers as header, index}
-      <Button outline={true} class="!p-2 w-full m-2 hover:bg-sky-100 hover:text-slate-900"  size="lg">
-
-        <div {index} class="texthead flex w-full justify-between text-base w-full">
-          <div {index} on:click={selectText}>
-            {header}
-          </div>
-          <div on:click={deleteText}>
-            <TrashBinSolid class="w-6 h-6 ms-1 me-2 text-red-600"  />
-          </div>
-        </div>
-      </Button>
-
-    {/each}
-    {/key}
-
-  </div>
+<div>
+    <!-- BOX -->
+    <!-- title: {t.title} -->
+    <!-- <br> -->
+    <!-- text: {t.text} -->
 </div>
