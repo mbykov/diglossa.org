@@ -1,6 +1,5 @@
 //
 import { json } from '@sveltejs/kit'
-import { availableLanguageTags, languageTag } from "$lib/paraglide/runtime";
 
 const log = console.log
 
@@ -12,7 +11,6 @@ export async function GET({url}) {
     log('_server href', href)
 
 
-    // let lang = languageTag()
     let clang = url.searchParams.get('clang')
     log('_clang', clang)
 

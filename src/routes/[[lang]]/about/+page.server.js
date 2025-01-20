@@ -2,17 +2,16 @@
 //
 
 import { error } from '@sveltejs/kit'
-import { availableLanguageTags, languageTag } from "$lib/paraglide/runtime";
 import fse from 'fs-extra'
 import { compile } from 'mdsvex';
 
 const log = console.log
 
 export async function load({ params, url }) {
-    log('_PAGE params', params)
-    let lang = languageTag()
-    log('_PAGE languageTag', lang)
+    log('_PAGE params', params, url)
 
+    let lang = 'ru'
+    if (!lang) lang = 'ru'
     log('_loading', `/sections/about_${lang}.md`)
     // let fname = `http://localhost/sections/about_${lang}.md`
     let fname = `./sections/about_${lang}.md`

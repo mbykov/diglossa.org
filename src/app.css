@@ -1,3 +1,24 @@
 @import 'tailwindcss/base';
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities'
+@import 'tailwindcss/utilities';
+
+
+span.wf {
+  cursor: pointer;
+}
+
+span.wf:hover {
+    background-color: #eee8aa;
+}
+
+span.seg {
+  cursor: pointer;
+}
+
+span.seg:hover {
+    background-color: #eee8aa;
+}
+
+.container p {
+  padding-bottom: 5px;
+}
