@@ -17,6 +17,11 @@ const config = {
 		adapter: adapter()
 	},
 
+    alias: {
+        'ru-about': 'about',
+        'ru-about/*': 'about/*'
+    },
+
     // preprocess: [mdsvex()],
     preprocess: [vitePreprocess(), mdsvex(mdsvexOptions)],
     extensions: [".svelte", ".svx", ".md"]
