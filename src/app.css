@@ -8,7 +8,7 @@ span.wf {
 }
 
 span.wf:hover {
-    background-color: #eee8aa;
+  background-color: #eee8aa;
 }
 
 span.seg {
@@ -16,9 +16,14 @@ span.seg {
 }
 
 span.seg:hover {
-    background-color: #eee8aa;
+  background-color: #eee8aa;
 }
 
 .container p {
   padding-bottom: 5px;
+}
+
+chunk-title {
+  background-color: #eee8aa;
+  color: red;
 }

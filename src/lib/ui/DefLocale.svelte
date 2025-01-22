@@ -5,7 +5,6 @@
     import { locale } from "$lib/shared.svelte";
 
     const log = console.log
-    // const deflocale = new LocalStorage("deflocale", 'en');
 
     /**
      */

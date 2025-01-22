@@ -1,41 +1,68 @@
 <script>
 	import '../app.css';
     import Header from "$lib/ui/Header.svelte"
+    import LeftHeader from "$lib/ui/LeftHeader.svelte"
+    import RightHeader from "$lib/ui/RightHeader.svelte"
+    import Clip from "$lib/ui/Clip.svelte"
     import { goto } from '$app/navigation';
+    import { Button } from 'flowbite-svelte';
+    import { chunks, locale } from "$lib/shared.svelte";
 
     export const prerender = true
+
     const log = console.log
-	let { children } = $props();
+
+    let rows = ''
+    let newchunk = {}
+    let uniq = {}
+    let xxx = false
+
+    let { children } = $props();
 
     function onPaste(ev) {
         const copiedText = ev.clipboardData.getData('text/plain');
-        let newchunk = copiedText.trim().split('\n')
-
-        if (!newchunk.length) return
+        rows = copiedText.trim().split('\n')
+        if (!rows.length) return
+        let title = rows[0].slice(0, 25)
+        if (!title) return
+        let now = new Date()
+        let date = now.toLocaleDateString(locale.current)
+        newchunk = {date, title, rows, new: true}
         showClip(newchunk)
     }
 
-    function showClip(rows) {
-        log('_CLIP', rows)
+    function showClip(newchunk) {
         if (!document) return
         let oclip = document.querySelector('#clip-results')
         if (!oclip) return
-        oclip.replaceChildren()
+        // oclip.replaceChildren()
+        log('_lay new chunk', newchunk)
 
-        // log('_ROWS!', rows)
-        let ochunk = createChunkEl(rows)
-        oclip.replaceChildren()
-        oclip.appendChild(ochunk)
+        // chunks.current = []
+        chunks.current.push(newchunk)
+        uniq = {}
+        xxx = true
+        log('_______XXX', xxx, chunks.current.length)
+        // goto('/texts')
+
+        // let ochunk = createChunkEl(newchunk)
+        // oclip.appendChild(ochunk)
     }
 
-    function createChunkEl(rows) {
+    function createChunkEl(newchunk) {
         let ochunk = document.createElement('div')
-        for (let row of rows) {
+        let otitle = document.createElement('div')
+        otitle.textContent = newchunk.title
+        otitle.classList.add('chunk-title')
+        ochunk.appendChild(otitle)
+        let otext = document.createElement('div')
+        for (let row of newchunk.rows) {
             let html = row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")
             let opar = document.createElement('p')
             opar.innerHTML = html
-            ochunk.appendChild(opar)
+            otext.appendChild(opar)
         }
+        ochunk.appendChild(otext)
         return ochunk
     }
 
@@ -99,37 +126,44 @@
         goto(wf)
     }
 
+    function saveCurrent(ev) {
+        log('______________________saveCurrent')
+        chunks.current.push(newchunk)
+        goto('/texts')
+    }
+
 
 
 </script>
 
-<svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
+<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
+<svelte:window on:paste={onPaste} />
 
-<div class="flex flex-col min-h-screen p-4">
+<div class="flex flex-col min-h-screen p-4_ w-full ">
+    <!-- <Header /> -->
+    <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
-    <Header />
-    <div class="flex flex-row flex-grow bg-gray-200 ">
-
-        <left class="w-1/2 p-4 bg-gray-300 hidden sm:block">
-            left, texts
-            <div id="clip-results" on:click={gotoWF}></div>
+        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" on:click={gotoWF}>
+            <LeftHeader />
+            {#key uniq}
+            <Clip />
+            {/key}
         </left>
 
-        <main class="w-1/2 p-4">
-            Content
+        <main class="right w-full md:w-1/2_ w-full p-4_ sm:hidden md:block">
+            <RightHeader />
 	        {@render children()}
         </main>
 
     </div>
 
-
     <footer class="bg-gray-100 p-1">Footer</footer>
 </div>
 
 <style>
-    span.wf:hover {
-      background-color: #eee8aa;
-      cursor: pointer;
-    }
+    /* span.wf:hover { */
+      /* background-color: #eee8aa; */
+      /* cursor: pointer; */
+    /* } */
 
 </style>
