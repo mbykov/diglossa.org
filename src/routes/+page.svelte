@@ -5,6 +5,6 @@
 
 </script>
 
-<p>
+<div class="p-4">
     HOME ================= {page.url.href}
-</p>
+</div>

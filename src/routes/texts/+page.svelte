@@ -4,17 +4,14 @@
     import { Button } from 'flowbite-svelte';
     import _ from 'lodash'
 
-    // import { LocalStorage } from '$lib/storage.svelte';
+    import { locale, chunks } from "$lib/shared.svelte";
     import { onMount } from 'svelte'
 
-
-    import { LocalStorage } from "$lib/storage.svelte";
-    const deflocale = new LocalStorage("deflocale", 'ku');
-
+    const log = console.log
 
     onMount(async () => {
-
-        // log('_TEXTS deflocale.current', deflocale.current)
+        log('_TEXTS locale.current', locale.current)
+        log('_TEXTS chunks', chunks.current)
 
         let keytext = {
             key: 'anthrax-new',
@@ -24,10 +21,12 @@
 
 
         let lskeys = _.keys(localStorage)
-        // log('_lskeys', lskeys)
-    });
 
-    const log = console.log
+        let now = new Date()
+        let date = now.toLocaleDateString(locale.current)
+
+        log('_datestr', date)
+    });
 
     // log('_page.data', page.data)
 
@@ -37,6 +36,7 @@
     // log('_saved texts', texts.current)
     // let t = texts.current
 
+    $inspect(chunks)
 
 </script>
 
@@ -46,7 +46,7 @@
 </p>
 
 <Button color="green">Green</Button>
-<Button href="/">Home</Button>
+<Button href="/" color="red">Home</Button>
 
 
 
