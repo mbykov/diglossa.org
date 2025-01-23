@@ -26,7 +26,7 @@ export async function load({ params, url }) {
         log('_LOAD page.server', post)
 
         const compiledResponse = await compile(post);
-        console.log('compiledResponse is: ', compiledResponse);
+        // log('compiledResponse is: ', compiledResponse);
 
         return { content: compiledResponse?.code };
 

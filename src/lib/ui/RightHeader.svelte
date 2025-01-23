@@ -1,25 +1,25 @@
 <script>
     import { page } from "$app/stores";
     import { goto } from '$app/navigation';
-    import { onMount } from 'svelte'
 
     import { locale } from "$lib/shared.svelte";
 
-    const log = console.log
+    import { onMount } from 'svelte'
 
     onMount(async () => {
     })
 
+    const log = console.log
+
     function goBack(ev) {
-        log('_goBack')
         let oleft = document.querySelector('.left')
         if (!oleft) return
         let oright = document.querySelector('.right')
-        oleft.classList.toggle('hidden')
-        oright.classList.toggle('hidden')
-        oleft.classList.toggle('sm:hidden')
-        oright.classList.toggle('sm:hidden')
-
+        oleft.classList.remove('hidden')
+        oright.classList.add('hidden')
+        // oleft.classList.toggle('sm:hidden')
+        // oright.classList.toggle('sm:hidden')
+        goto('/')
     }
 
 </script>
