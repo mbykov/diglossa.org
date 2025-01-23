@@ -1,32 +1,43 @@
 <script>
     import { chunks, locale } from "$lib/shared.svelte";
     import { Button } from 'flowbite-svelte';
+    import { getContext } from 'svelte';
+    import _ from 'lodash';
 
     const log = console.log
 
-    log('_CLIP chunks.current', chunks.current)
-    // const target_copy = Object.assign({}, chunks.current);
-    // log('_CLIP target_copy', target_copy[0])
+    let { cchunk } = $props()
 
-    let stexts = JSON.parse(JSON.stringify(chunks.current))
-    log('_CLIP stexts', stexts)
+    // let ctext = { ...cchunk };
+    let ctext = JSON.parse(JSON.stringify(cchunk))
+    ctext.htmls = []
 
-    // let newchunk = stexts.find(chunk=> chunk.new)
-    // log('_CHUNK NEW', newchunk)
 
     function saveCurrent(ev) {
         log('______________________saveCurrent')
-        // chunks.current.push(newchunk)
-        // goto('/texts')
     }
-
 
 
 </script>
 
+{#await cchunk then ctext}
+
+<!-- {#if ctext.title} -->
 <div class="p-4" >
     <Button color="green" class="float-right" on:click={saveCurrent}>Save</Button>
-    <div id="clip-results" >
-        CLIP clip-results stexts ===================== {stexts.length}
-    </div>
+      <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" >
+          <div class="stext-head px-2">
+              <span class="bg-green-500 rounded p-1">{ctext.date}</span> - <span class="font-bold">{ctext.title}</span>
+          </div>
+      </div>
+
+      <div class="stext-body px-2">
+          <!-- {ctext.rows} -->
+          {#each ctext.rows as row}
+            <p class="text pb-2">{@html row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")}</p>
+          {/each}
+      </div>
 </div>
+<!-- {/if} -->
+
+{/await}

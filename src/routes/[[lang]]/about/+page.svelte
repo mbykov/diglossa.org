@@ -2,18 +2,26 @@
 
     import { page } from '$app/state';
 
+    import { onMount } from 'svelte'
+
+    onMount(async () => {
+        let oleft = document.querySelector('.left')
+        if (!oleft) return
+        let oright = document.querySelector('.right')
+        oleft.classList.add('hidden')
+        oright.classList.remove('hidden')
+    })
+
     const log = console.log
 
     let { data } = $props()
-    log('_AB_DATA', data)
+    // log('_ABOUT_DATA', data)
 
 </script>
 
 
-<p>
-    <!-- about ================= {canonicalPath} -->
-    about ================= {page.url.href}
-    <!-- ==> {data.content} -->
-   </p>
 
-<p>{@html data.content}</p>
+<div class="p-4">
+    <p> about ================= {page.url.href}</p>
+    {@html data.content}
+</div>
