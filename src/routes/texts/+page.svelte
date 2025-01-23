@@ -32,20 +32,19 @@
         let ochunk = ev.target.closest('.stext')
         if (!ochunk) return
         let index = ochunk.getAttribute('index')
-        log('_texts goto index', index)
+
         for (let chunk of chunks.current) {
             chunk.current = false
         }
-        // chunks.current[index].current = true
+        chunks.current[index].current = true
+        log('_texts goto', index, chunks.current[index])
         // goto('/')
     }
 
-    // let cchunk = {}
-    // let xxx = 1
-
 </script>
 
-<div class="p-4 px-8">
+  <!-- <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" > -->
+<div class="p-4 px-8 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll">
     <h1 class="font-bold px-4"> saved texts {chunks.current.length}</h1>
 
     {#each stexts as text, index}

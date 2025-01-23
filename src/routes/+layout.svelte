@@ -7,6 +7,7 @@
     import Clip from "$lib/ui/Clip.svelte"
     import { goto } from '$app/navigation';
     import { Button } from 'flowbite-svelte';
+
     import { chunks, locale } from "$lib/shared.svelte";
     // import { page } from '$app/state';
 
@@ -33,12 +34,24 @@
 
     let cchunk = $state({})
 
-    // let unique = {}
-
     let { children } = $props();
 
     onMount(async () => {
     })
+
+    $effect(()=> {
+        let cchunk = ''
+        for (let chunk of chunks.current) {
+            let cc = JSON.parse(JSON.stringify(chunk))
+            if (cc.current) cchunk = cc
+            else continue
+            setCchunk(cchunk)
+        }
+    })
+
+    function setCchunk(param) {
+        cchunk = param
+    }
 
     function onPaste(ev) {
         const copiedText = ev.clipboardData.getData('text/plain');
@@ -73,16 +86,16 @@
 
 </script>
 
-<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
+<!-- <svelte:window onkeydown={onKeyDown} onpaste={onPaste} /> -->
 
-<svelte:window on:paste={onPaste} />
+<svelte:window onpaste={onPaste} />
 
-<div class="flex flex-col min-h-screen p-4_ w-full onclick={gotoWF}">
+<div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}>
 
     <!-- {@render children()} -->
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
-        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" on:click={gotoWF}>
+        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" onclick={gotoWF}>
             <LeftHeader />
             <!-- {#key unique} -->
             <Clip {cchunk} />
