@@ -10,21 +10,19 @@
 
     // let ctext = { ...cchunk };
     let ctext = JSON.parse(JSON.stringify(cchunk))
-    ctext.htmls = []
-
 
     function saveCurrent(ev) {
         log('______________________saveCurrent')
     }
 
-
 </script>
+
 
 {#await cchunk then ctext}
 
-<!-- {#if ctext.title} -->
-<div class="p-4" >
-    <Button color="green" class="float-right" on:click={saveCurrent}>Save</Button>
+  <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" >
+      <Button color="green" class="float-right" on:click={saveCurrent}>Save</Button>
+
       <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" >
           <div class="stext-head px-2">
               <span class="bg-green-500 rounded p-1">{ctext.date}</span> - <span class="font-bold">{ctext.title}</span>
@@ -38,6 +36,5 @@
           {/each}
       </div>
 </div>
-<!-- {/if} -->
 
 {/await}
