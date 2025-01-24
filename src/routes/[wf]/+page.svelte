@@ -5,7 +5,7 @@
     $effect(() => {
         log('__________________eff WF', data.wf)
         log('__________________chains', data.chains)
-        log('__________________KU')
+        // log('__________________KU')
     })
 
 </script>

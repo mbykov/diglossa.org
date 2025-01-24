@@ -27,3 +27,11 @@ chunk-title {
   background-color: #eee8aa;
   color: red;
 }
+
+.font-larger {
+  font-size: 1em;
+}
+
+.font-big {
+  font-size: 1.5em;
+}

@@ -1,8 +1,8 @@
 <script>
-    import { page } from "$app/stores";
+    // import { page } from "$app/stores";
     // import { base } from "$app/paths"
-    import { goto } from '$app/navigation';
-	import { get } from "svelte/store"
+    // import { goto } from '$app/navigation';
+	// import { get } from "svelte/store"
     import { onMount } from 'svelte'
 
     // import Transition from 'svelte-transition'

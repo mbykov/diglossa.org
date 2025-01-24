@@ -29,6 +29,7 @@
     {#each _.keys(labels) as langTag}
         <option
             value={langTag}
+            selected={labels[langTag] === langTag}
             >{labels[langTag]}</option>
     {/each}
 </select>
