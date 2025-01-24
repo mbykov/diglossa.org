@@ -37,8 +37,7 @@
             chunk.current = false
         }
         chunks.current[index].current = true
-        log('_texts goto', index, chunks.current[index])
-        // goto('/')
+        // log('_texts goto', index, chunks.current[index])
     }
 
 </script>

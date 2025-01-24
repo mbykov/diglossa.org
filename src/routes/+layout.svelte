@@ -63,43 +63,29 @@
         let date = now.toLocaleDateString(locale.current)
         cchunk = {date, title, rows}
         log('_lay onPaste cchunk', cchunk)
-        // unique = {}
         // showLeft()
-        // showClip(cchunk)
     }
 
     function gotoWF(ev) {
         let owf = ev.target
         if (!owf.classList.contains('wf')) return
         let wf = owf.textContent
-        // log('______________________goto WF', wf)
         if (!wf) return
         goto(wf)
     }
 
-    function saveCurrent(ev) {
-        log('______________________saveCurrent')
-        // chunks.current.push(cchunk)
-        // goto('/texts')
-    }
-
-
 </script>
 
 <!-- <svelte:window onkeydown={onKeyDown} onpaste={onPaste} /> -->
-
 <svelte:window onpaste={onPaste} />
 
 <div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}>
 
-    <!-- {@render children()} -->
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
         <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" onclick={gotoWF}>
             <LeftHeader />
-            <!-- {#key unique} -->
             <Clip {cchunk} />
-            <!-- {/key} -->
         </left>
 
         <main class="right w-full md:w-1/2_ w-full p-4_ sm:hidden_ md:block">
