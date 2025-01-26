@@ -8,14 +8,14 @@ import { compile } from 'mdsvex';
 const log = console.log
 
 export async function load({ params, url }) {
-    log('_PAGE params', params, url)
+    // log('_PAGE params', params, url)
 
     let lang = 'ru'
     if (!lang) lang = 'ru'
-    log('_loading', `/sections/about_${lang}.md`)
+    // log('_loading', `/sections/about_${lang}.md`)
     // let fname = `http://localhost/sections/about_${lang}.md`
     let fname = `./sections/about_${lang}.md`
-    log('_loading fname', fname)
+    // log('_loading fname', fname)
 
 	try {
 		// const post = await import(`/sections/about_${lang}.md`)
@@ -23,7 +23,7 @@ export async function load({ params, url }) {
         // let post = {default: 'kuku', metadata: {m: 'm'}}
         // let post = fetch(`/sections/about_${lang}.md`)
         // let post = fetch(fname)
-        log('_LOAD page.server', post)
+        // log('_LOAD page.server', post)
 
         const compiledResponse = await compile(post);
         // log('compiledResponse is: ', compiledResponse);
@@ -32,16 +32,16 @@ export async function load({ params, url }) {
 
 
 
-        log('_LOAD post.default', post.default.render)
-        log('_BEF CONT')
+        // log('_LOAD post.default', post.default.render)
+        // log('_BEF CONT')
         let content = post.default //.render//.render()
-        log('_LOAD content.render', content)
-        log('_BEF data')
+        // log('_LOAD content.render', content)
+        // log('_BEF data')
         let data = {
 			content,
 			meta: post.metadata
 		}
-        log('_LOAD page.server DATA', data)
+        // log('_LOAD page.server DATA', data)
 
 		return {
 			content: post.default,

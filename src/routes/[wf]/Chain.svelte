@@ -28,7 +28,9 @@
           </div>
           <div class="cdict-morphs">
               <!-- morphs: {cdict.morphs} -->
-              <Morphs {cdict} />
+              {#if cdict.morphs}
+                <Morphs {cdict} />
+              {/if}
           </div>
       </div>
 

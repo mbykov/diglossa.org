@@ -13,7 +13,7 @@
 
     function toggleStuff(ev) {
       showStuff = !showStuff
-      log('______________________________________STUFF', showStuff, mains, stuffs)
+      // log('______________________________________STUFF', showStuff, mains, stuffs)
     }
 
 </script>
@@ -30,14 +30,17 @@
           {/each}
         {/if}
       </div>
+
     <div>
         {#if stuffs.length}
-          {#if showStuff}
-            <AngleUpOutline />
-          {:else}
-            <AngleDownOutline />
+          <div class="cursor-pointer">
+              {#if showStuff}
+                <AngleUpOutline />
+              {:else}
+                <AngleDownOutline />
+              {/if}
+            </div>
           {/if}
-        {/if}
-      </div>
+        </div>
 </div>
 {/key}
