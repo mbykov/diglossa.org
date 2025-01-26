@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
     import { onMount } from 'svelte'
-    import Header from "$lib/ui/Header.svelte"
+    // import Header from "$lib/ui/Header.svelte"
     import LeftHeader from "$lib/ui/LeftHeader.svelte"
     import RightHeader from "$lib/ui/RightHeader.svelte"
     import Clip from "$lib/ui/Clip.svelte"

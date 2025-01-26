@@ -36,8 +36,8 @@
 
     <SetDefaultFontSize />
 
-</div>
-
     <p> settings ================= page.url.href: {page.url.href}</p>
     <p> <a href="/about"> /about </a></p>
 
+
+</div>

@@ -9,7 +9,7 @@ export const load = async ({ url, params }) => {
     // await createDBs(dnames)
 
     let chains = await anthrax(wf)
-    console.log('_WF_SERVER_CHAINS', wf, chains)
+    // console.log('_WF_SERVER_CHAINS', wf, chains)
     return {
        chains,
         wf
