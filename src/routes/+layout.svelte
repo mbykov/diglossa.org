@@ -71,7 +71,8 @@
         if (!owf.classList.contains('wf')) return
         let wf = owf.textContent
         if (!wf) return
-        goto(wf)
+        let wfurl = '/' + wf
+        goto(wfurl)
     }
 
 </script>

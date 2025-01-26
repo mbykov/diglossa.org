@@ -35,3 +35,27 @@ chunk-title {
 .font-big {
   font-size: 1.5em;
 }
+
+.section p {
+  padding-bottom: 6px;
+}
+
+.section h2 {
+  font-size: 1.5em;
+  font-weight: bold;
+  padding: 6px;
+  padding-top: 2em;
+  padding-bottom: 1em;
+}
+
+.section h4 {
+  font-size: 1em;
+  font-weight: bold;
+  padding: 6px;
+  padding-top: 1em;
+  padding-bottom: 1em;
+}
+
+.section a {
+  color: blue;
+}

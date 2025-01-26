@@ -21,7 +21,7 @@
 
 
 
-<div class="p-4">
-    <p> about ================= {page.url.href}</p>
-    {@html data.content}
-</div>
+<!-- <div class="section p-4 px-8 overflow-y-scroll"> -->
+    <div class="section p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" >
+        {@html data.content}
+    </div>
