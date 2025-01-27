@@ -5,7 +5,7 @@
     // import { Button } from 'flowbite-svelte';
     import _ from 'lodash'
 
-    import { locale, chunks } from "$lib/shared.svelte";
+    import { chunks } from "$lib/shared.svelte";
     import { onMount } from 'svelte'
 
     const log = console.log

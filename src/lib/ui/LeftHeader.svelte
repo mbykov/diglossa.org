@@ -16,18 +16,13 @@
 
     const log = console.log
 
-    let routes = []
-    onMount(async () => {
-        const menu = await import(`../i18/${locale.current}/menu.js`)
-        routes = menu.routes
-        // log('____header_mount_routes', routes);
-    })
+    // let routes = $state([])
+    // let menu = $state([])
+    let { menu } = $props()
+    // log('____HEADER MENU', menu);
+    let routes = $derived(menu[locale.current])
 
-    $effect(async () => {
-        // console.log('____________________________ooo', open)
-        const menu = await import(`../i18/${locale.current}/menu.js`)
-        routes = menu.routes
-        // log('____header_effect_routes', routes);
+    onMount(async () => {
     })
 
     function toggleNav(ev) {

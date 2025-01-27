@@ -1,7 +1,7 @@
 <script>
 	import '../app.css';
     import { onMount } from 'svelte'
-    // import Header from "$lib/ui/Header.svelte"
+
     import LeftHeader from "$lib/ui/LeftHeader.svelte"
     import RightHeader from "$lib/ui/RightHeader.svelte"
     import Clip from "$lib/ui/Clip.svelte"
@@ -9,11 +9,11 @@
     import { Button } from 'flowbite-svelte';
 
     import { chunks, locale } from "$lib/shared.svelte";
+    // import { chunks } from "$lib/shared.svelte";
     // import { page } from '$app/state';
 
-    export const prerender = true
-
     const log = console.log
+
 
     function showLeft() {
         let oleft = document.querySelector('.left')
@@ -34,7 +34,9 @@
 
     let cchunk = $state({})
 
-    let { children } = $props();
+    let { children, data } = $props();
+    // log('_lay_menu', data)
+    let menu = $derived(data.menu)
 
     onMount(async () => {
     })
@@ -62,7 +64,7 @@
         let now = new Date()
         let date = now.toLocaleDateString(locale.current)
         cchunk = {date, title, rows}
-        log('_lay onPaste cchunk', cchunk)
+        // log('_lay onPaste cchunk', cchunk)
         // showLeft()
     }
 
@@ -75,17 +77,81 @@
         goto(wfurl)
     }
 
+    function copyTextToClipboard(text) {
+        navigator.clipboard.writeText(text).then(function() {
+            //console.log('_TEXT', text)
+        }, function(err) {
+            // console.error('Async: Could not copy text: ', err);
+        });
+    }
+
+    function copyTextFromClipboard(text) {
+        navigator.clipboard
+            .readText()
+            .then(
+                // (clipText) => (document.querySelector(".cliptext").innerText = clipText)
+                (clipText) => {
+                    console.log('_CLIP', clipText)
+                }
+            )
+    }
+
+    function onKeyDown(ev) {
+        if (ev.ctrlKey) return
+        let owordform = document.body.querySelector('.wordform')
+        if (!owordform) return
+        let wf = owordform.textContent
+        switch(ev.key) {
+            case 'h':
+                goto('/')
+                break;
+            case 'r':
+                // showRels()
+                break;
+            case 'Escape':
+                closeAll()
+                break;
+            case 'c':
+                console.log('_COPY', wf)
+                copyTextToClipboard(wf)
+                break;
+            case 'w':
+                let wiki_host = 'https://en.wiktionary.org/wiki/'
+                let wiki_url = [wiki_host, wf].join('')
+                window.open(wiki_url, '_blank')
+                break;
+            case 'p':
+                let pers_host = 'https://www.perseus.tufts.edu/hopper/morph?l='
+                let tail = '&la=greek'
+                let pers_url = [pers_host, wf, tail].join('')
+                window.open(pers_url, '_blank') // .focus();
+                break;
+            case 'f':
+                // forms
+                break;
+        }
+    }
+
+    function closeAll() {
+        goto('/')
+        // let oforms = document.querySelector('#popup-forms')
+        // if (oforms && !oforms.classList.contains('hidden')) {
+        // oforms.classList.add('hidden')
+        // }
+        console.log('_CLOSED ALL')
+    }
 </script>
 
-<!-- <svelte:window onkeydown={onKeyDown} onpaste={onPaste} /> -->
-<svelte:window onpaste={onPaste} />
+<svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
+<!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
+<!-- <svelte:window onpaste={onPaste} /> -->
 
 <div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}>
 
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
         <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" onclick={gotoWF}>
-            <LeftHeader />
+            <LeftHeader {menu} />
             <Clip {cchunk} />
         </left>
 

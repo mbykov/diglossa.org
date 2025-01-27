@@ -2,13 +2,6 @@
     import { page } from "$app/stores";
     import { goto } from '$app/navigation';
 
-    import { locale } from "$lib/shared.svelte";
-
-    import { onMount } from 'svelte'
-
-    onMount(async () => {
-    })
-
     const log = console.log
 
     function goBack(ev) {
