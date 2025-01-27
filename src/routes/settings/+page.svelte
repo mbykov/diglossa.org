@@ -1,5 +1,5 @@
 <script>
-    import DefLocale from "$lib/ui/DefLocale.svelte"
+    // import DefLocale from "$lib/ui/DefLocale.svelte"
     import SetDefaultFontSize from "$lib/ui/SetDefaultFontSize.svelte"
     import SetDefaultLocale from "$lib/ui/SetDefaultLocale.svelte"
 
@@ -10,8 +10,6 @@
     import { locale } from "$lib/shared.svelte";
 
     import { Radio, Helper, RadioButton, ButtonGroup } from 'svelte-5-ui-lib';
-    let radioGroup = $state("notes");
-
 
     const log = console.log
 
@@ -28,9 +26,9 @@
 
     <h1 class="font-bold p-4"> interfase language </h1>
 
-    <div class="w-full_"><DefLocale /></div>
+    <!-- <div class="w-full_"><DefLocale /></div> -->
 
-    <!-- <SetDefaultLocale /> -->
+    <SetDefaultLocale />
 
     <h1 class="font-bold p-4"> greek font size </h1>
 

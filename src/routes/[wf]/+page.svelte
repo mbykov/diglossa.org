@@ -24,7 +24,7 @@
 
 <div class="p-4 px-8 h-screen rounded overflow-y-scroll bg-gray-100 shadow-[rgba(0,0,55,0.5)_-13px_0px_10px_0px] mr-4">
     <div class="anthrax-head flex justify-between font-bold">
-        <div class="head-wf text-green-500"> {data.wf} </div>
+        <div class="head-wf text-green-500 wordform"> {data.wf} </div>
         <div class="head-delete text-red-800"> == SCHEMES == </div>
     </div>
 

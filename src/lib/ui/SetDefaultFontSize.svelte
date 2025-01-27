@@ -1,35 +1,24 @@
 <script>
-	// import { goto } from "$app/navigation"
-    import { page } from "$app/stores";
+    // import { page } from "$app/stores";
     import _ from 'lodash'
-    import { locale } from "$lib/shared.svelte";
+    import { fontsize } from "$lib/shared.svelte";
+    import { setfontsize } from "$lib/ui/setFontSize.js";
 
     const log = console.log
 
     import { Radio, Helper } from 'svelte-5-ui-lib';
-    let fontSize = $state("base");
 
-    $effect(()=> {
-        setFontSize(fontSize)
-    })
+    let fontSize = $state(fontsize.current)
 
-    function setFontSize(fontSize) {
-        let oleft = removeTextStyles()
-        let style = 'text-' + fontSize
-        oleft.classList.add(style)
-    }
-
-    function removeTextStyles() {
-        let oleft = window.document.querySelector('.left')
-        for (let style of oleft.classList) {
-            if (/text-/.test(style)) oleft.classList.remove(style)
-        }
-        return oleft
+    function setFontSize(ev) {
+        let fontSize = ev.target.value
+        fontsize.current = fontSize
+        setfontsize()
     }
 
 </script>
 
-<div class="flex gap-3 p-4">
+<div class="flex gap-3 p-4" onchange={setFontSize}>
   <Radio bind:group={fontSize} name="inline-layout" value="sm">sm</Radio>
   <Radio bind:group={fontSize} name="inline-layout" value="base">base</Radio>
   <Radio bind:group={fontSize} name="inline-layout" value="xl">xl</Radio>

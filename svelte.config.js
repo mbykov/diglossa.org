@@ -10,10 +10,9 @@ const mdsvexOptions = {
 const config = {
     onwarn: (warning, handler) => {
         // suppress warnings on `vite dev` and `vite build`; but even without this, things still work
-        if (warning.code === "a11y-click-events-have-key-events") return;
-        if (warning.code === "a11y-no-static-element-interactions") return;
-        if (warning.code.startsWith('a11y-')) return;
-        if (/a11y-/.test(warning.code)) return;
+        if (warning.code.startsWith('a11y')) return;
+        if (/^a11y/.test(warning.code)) return;
+        // console.log('_SSS', warning.code)
         handler(warning);
     },
     kit: {

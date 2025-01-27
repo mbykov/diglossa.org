@@ -1,8 +1,10 @@
 <script>
-    import { chunks, locale } from "$lib/shared.svelte";
+    import { chunks, fontsize } from "$lib/shared.svelte";
     import { Button } from 'flowbite-svelte';
     import { getContext } from 'svelte';
     import _ from 'lodash';
+    import { onMount } from 'svelte'
+    import { setfontsize } from "$lib/ui/setFontSize.js";
 
     const log = console.log
 
@@ -10,6 +12,10 @@
 
     // let ctext = { ...cchunk };
     let ctext = JSON.parse(JSON.stringify(cchunk))
+
+    onMount(async () => {
+        setfontsize()
+    })
 
     function saveCurrent(ev) {
         log('______________________saveCurrent')
