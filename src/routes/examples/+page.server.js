@@ -4,9 +4,9 @@ const log = console.log
 
 export const load = async ({ url, params }) => {
 
-    log('_LOAD EX')
+    // log('_LOAD EX')
     const paths = import.meta.glob('/src/lib/examples/*.js', { eager: true })
-    log('_paths', paths)
+    // log('_example_paths', paths)
     for (const path in paths) {
 		const file = paths[path]
         log('_FILE', file)

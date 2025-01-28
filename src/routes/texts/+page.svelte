@@ -11,7 +11,8 @@
     const log = console.log
 
     // let { data } = $props()
-    let stexts = JSON.parse(JSON.stringify(chunks.current))
+    let stexts = $derived(chunks.current) 
+    // let stexts = JSON.parse(JSON.stringify(chunks.current))
     // log('_TEXTS_stexts_xxx', stexts)
     // log('_TEXTS_data', data)
 
