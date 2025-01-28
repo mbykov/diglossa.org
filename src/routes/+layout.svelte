@@ -142,7 +142,8 @@
     }
 </script>
 
-<svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
+<svelte:window on:keydown={onKeyDown} />
+<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window onpaste={onPaste} /> -->
 
