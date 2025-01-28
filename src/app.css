@@ -41,6 +41,7 @@ chunk-title {
 }
 
 .section h2 {
+  color: maroon;
   font-size: 1.5em;
   font-weight: bold;
   padding: 6px;
