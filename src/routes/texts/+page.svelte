@@ -10,17 +10,12 @@
 
     const log = console.log
 
-    // let { data } = $props()
-    let stexts = $derived(chunks.current) 
-    // let stexts = JSON.parse(JSON.stringify(chunks.current))
-    // log('_TEXTS_stexts_xxx', stexts)
-    // log('_TEXTS_data', data)
+    let stexts = $derived(chunks.current)
 
     function delChunk(ev) {
         if (!ev.target.classList.contains('delete')) return
         let ochunk = ev.target.closest('.stext')
         let index = ochunk.getAttribute('index')
-        // log('_Del index', index)
         chunks.current.splice(index, 1)
     }
 
@@ -33,25 +28,24 @@
             chunk.current = false
         }
         chunks.current[index].current = true
-        // log('_texts goto', index, chunks.current[index])
     }
 
 </script>
 
-  <!-- <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" > -->
 <div class="p-4 px-8 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll">
-    <h1 class="font-bold px-4"> saved texts {chunks.current.length}</h1>
+    <h2 class="font-bold px-4">saved texts</h2>
 
-    {#each stexts as text, index}
-      <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" {index} onclick={gotoChunk}>
-          <div class="stext-head px-2">
-              <span class="bg-green-500 rounded p-1">{text.date}</span> - <span class="font-bold">{text.title}</span>
-          </div>
-          <div class="float-right font-bold text-red-700 delete cursor-pointer" onclick={delChunk}> [x] </div>
-      </div>
+    {#each [...stexts].reverse() as text, index}
+      {@const reverseIndex = stexts.length - 1 - index}
+    <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" index={reverseIndex} onclick={gotoChunk}>
+        <div class="stext-head px-2">
+            <span class="bg-green-300 rounded p-1 px-2">{text.date}</span> - <span class="font-bold">{text.title}</span>
+        </div>
+        <div class="float-right font-bold text-red-700 delete cursor-pointer" onclick={delChunk}> [x] </div>
+    </div>
 
-      <div class="stext-body px-2">
-          {text.rows.slice(0,2)}
-      </div>
-    {/each}
-  </div>
+    <div class="stext-body px-2">
+        {text.rows.slice(0,2)}
+    </div>
+  {/each}
+</div>
