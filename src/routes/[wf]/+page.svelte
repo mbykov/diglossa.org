@@ -1,10 +1,14 @@
 <script>
 
     import Chain from './Chain.svelte'
+    import { odicts } from "$lib/shared.svelte";
+
     const log = console.log
+
     let { data } = $props()
 
-    // log('__________________anthrax DATA', data)
+    // log('_____ DICTS', odicts.current)
+
     // $effect(() => {
     //     log('__________________anthrax eff WF', data.wf)
     //     // log('__________________anthrax chains', data.chains)

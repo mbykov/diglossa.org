@@ -4,7 +4,7 @@ const log = console.log
 
 export const prerender = true
 
-let dnames = ['wkt', 'bbh', 'lsj'] // , 'lsj' , 'bbl'
+let dnames = ['wkt', 'bbh', 'lsj', 'dvr'] // , 'lsj' , 'bbl'
 dnames.push('nest')
 await createDBs(dnames)
 
