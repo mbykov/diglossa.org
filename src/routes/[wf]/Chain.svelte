@@ -1,10 +1,19 @@
 <script>
 
+    // import { odicts } from "$lib/shared.svelte";
     import Morphs from './Morphs.svelte'
     const log = console.log
 
     let { chain } = $props()
     // log('______CHAIN chain', chain)
+
+    let trns = []
+
+    $effect(()=> {
+        for (let cdict of chain.cdicts) {
+            log('_C', cdict.rdict, cdict.trn)
+        }
+    })
 
     function toggle(ev) {
       let target = ev.target
