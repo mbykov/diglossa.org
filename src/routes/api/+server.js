@@ -1,45 +1,54 @@
 //
+
+import { anthrax } from "@mbykov/anthrax"
+import { getTrns } from "@mbykov/anthrax/getTrns"
+import { cleanString } from "@mbykov/anthrax/cleanString"
+import _ from 'lodash'
+import { odicts } from "$lib/shared.svelte";
+
 import { json } from '@sveltejs/kit'
 
 const log = console.log
 
+// API
+
 export async function GET({url}) {
 	// const posts = await getPosts()
 	// return json(posts)
-    log('_server GET', url.searchParams)
-    let href = url.searchParams.get('href')
-    log('_server href', href)
+
+    let dnames = url.searchParams.get('dnames')
+    let wf = url.searchParams.get('wf')
+
+    log('_API server dnames', dnames)
+    log('____API ODICT dnames', dnames)
 
 
-    let clang = url.searchParams.get('clang')
-    log('_clang', clang)
+    let chains = await anthrax(wf)
 
-    let fpath = '/sections/' + [href, clang].join('_') + '.md'
-    log('_fpath', fpath)
+    let cdicts = _.flatten(chains.map(chain=> chain.cdicts))
+    // console.log('____cdicts', cdicts)
+    let trnsdicts = await getTrns(cdicts)
 
-    // let sections = import.meta.glob('/sections/*.md', { eager: true })
-	const paths = import.meta.glob('/sections/*.md', { eager: true })
-    log('_SCs', paths)
+        for (let chain of chains) {
+        for (let cdict of chain.cdicts) {
+            // let pos = posByCdict(cdict)
+            cdict.trn = {}
 
-    for (const path in paths) {
-        log('_PATH', path)
-        const slug = path.split('/').at(-1)?.replace('.md', '')
-        log('_slug', slug)
+            let tdicts = trnsdicts.filter(tdict=> tdict.dict == cdict.dict && tdict.rdict == cdict.rdict && tdict.pos == cdict.pos)
+            for (let tdict of tdicts) {
+                // log('____tdict.dname', tdict.dname)
+                cdict.trn[tdict.dname] = tdict.trns
+            }
+            // console.log('_WF_SERVER_CDICT', wf, cdict)
+            delete cdict.trns // TODO: проверить, что нет в chains
+        }
+    }
 
-		const file = paths[path]
-        log('_SF', file)
-
-		if (file && typeof file === 'object' && 'metadata' in file) {
-			const metadata = file.metadata
-            log('_metadata', metadata)
-			const post = { ...metadata, slug }
-            log('_P', post)
-			// post.published && posts.push(post)
-		}
-	}
+    log('_API_SERVER_CHAINS', wf, chains)
 
 
-    let json = JSON.stringify({ok: true})
+    let json = JSON.stringify({ok: true, wf, chains})
     let response = new Response(json)
     return response
+
 }

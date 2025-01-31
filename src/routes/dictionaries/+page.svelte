@@ -7,9 +7,9 @@
     import { onMount } from 'svelte'
     import _ from 'lodash'
 
-    import { locale, odicts } from "$lib/shared.svelte";
-    // import { Radio, Helper, Button } from 'svelte-5-ui-lib';
     // import { Checkbox } from 'svelte-5-ui-lib';
+    import { locale, odicts } from "$lib/shared.svelte";
+
 
     import {dndzone} from "svelte-dnd-action";
 
@@ -18,11 +18,32 @@
     let dictionary
     let currentCheckBox = {idx: null, checked: false}
 
+    let defaultDicts = [
+        {id: 1, key: 'wkt', lang: 'en', name: 'Wiktionary', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 2, key: 'lsj', lang: 'en', name: 'Liddell, Sckott', active: true, href: 'https://perseids-project.github.io/lsj-js/'},
+        {id: 3, key: 'dvr', lang: 'ru', name: 'И.Х.Дворецкий', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 4, key: 'bbh', lang: 'en', name: 'BibleHub', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 5, key: 'bll', lang: 'fr', name: 'xx Bailly', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 6, key: 'suda', lang: 'en', name: 'Souda', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+    ]
+
+    let items_ = [
+        {id: 1, name: "item1"},
+        {id: 2, name: "item2"},
+        {id: 3, name: "item3"},
+        {id: 4, name: "item4"}
+    ];
+
     let items = odicts.current
 
     onMount(async () => {
+        if (!odicts.current.length) odicts.current = defaultDicts
+        // odicts.current = defaultDicts
+        let dictkeys = odicts.current.map(dict=> dict.key)
+        log('_dictkeys', dictkeys)
+
         for await (let dict of odicts.current) {
-            // log('_d', dict.key, dict.active)
+            // log('_d', dict.id, dict.key, dict.active)
         }
     });
 
@@ -56,8 +77,14 @@
 
     <section use:dndzone="{{items}}" on:consider="{handleDndConsider}" on:finalize="{handleDndFinalize}">
         {#each items as item (item.id)}
-        <div class="langbox rounded bg-gray-300 my-4 w-full border_ border-black_ shadow-lg p-2 px-4" >
-            <input idx={item.id} key={item.key} type="checkbox" checked={item.active} class="checkbox" on:click={checkInput}> <span class="px-2"> {item.name} </span>
+          <div class="flex justify-between langbox rounded bg-gray-300 my-4 w-full border_ border-black_ shadow-lg p-2 px-4" >
+              <div>
+                  <input idx={item.id} key={item.key} type="checkbox" checked={item.active} class="checkbox" on:click={checkInput}>
+                  <span class="px-2"> {item.name} </span>
+              </div>
+              <div>
+                  <a href={item.href} class="cursor-pointer text-blue-500" target="_blank" >source</a>
+              </div>
         </div>
 
       {/each}

@@ -1,28 +1,55 @@
 <script>
 
+    import { page } from '$app/state';
     import Chain from './Chain.svelte'
+    import { onMount } from 'svelte'
     import { odicts } from "$lib/shared.svelte";
+    import _ from 'lodash'
 
     const log = console.log
 
     let { data } = $props()
 
-    // log('_____ DICTS', odicts.current)
+    let wf = $derived(data.wf)
+    let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
+    let fetchImage = new Promise(() => {});
 
-    // $effect(() => {
-    //     log('__________________anthrax eff WF', data.wf)
-    //     // log('__________________anthrax chains', data.chains)
-    //     for (let chain of data.chains) {
-    //         for (let cdict of chain.cdicts) {
-    //             log('__________________anth cdict', cdict)
-    //         }
-    //         // log('__________________chain', chain)
-    //     }
-    // })
+    let chains = $state([])
+    let chain = $state({})
+
+    $effect(async ()=> {
+        log('_____________________________effect dnames', dnames)
+        log('_____________________________effect wf', wf)
+		const response = await fetch('/api?dnames=' + dnames + '&wf=' + wf)
+        let json = await response.json()
+        log('_____here_response', json)
+        // fetchImage = json // await response.json()
+        chains = json.chains
+        chain = chains[0]
+        log('_____here_chain', chain.cdicts)
+    })
+
+    // let chain = $derived(chains[0])
+
+    onMount(async () => {
+        // log('_ON M wf', wf)
+        // const response = await fetch('/api?dkeys=ssss')
+        // let chains = await response.json()
+        // log('_API chains', chains)
+    })
+
+    // fetchImage = (async () => {
+    //     log('_____________________________here wf', data.wf)
+    //     log('_____________________________here dnames', dnames)
+	// 	const response = await fetch('/api?dnames=' + dnames + '&wf=' + wf)
+    //     let json = await response.json()
+    //     log('_____here_response', json)
+    //     return await response.json()
+	// })()
 
     // выбрать по клику
     // let chain = $state(data.chains[0])
-    let chain = $derived(data.chains[0])
+    // let chain = $derived(data.chains[0])
 
 </script>
 
@@ -32,8 +59,18 @@
         <div class="head-delete text-red-800"> == SCHEMES == </div>
     </div>
 
-    {#if data.chains.length}
-      <Chain {chain}  />
-    {/if}
+    <!-- {#if data.chains.length} -->
+      {#if chains.length}
+        <Chain {chain}  />
+      {/if}
 
 </div>
+
+<!-- ====fetchImage -->
+<!-- {#await fetchImage} -->
+<!-- 	<p>...waiting</p> -->
+<!--   {:then res} -->
+<!--     RES={JSON.stringify(res)} -->
+<!-- {:catch error} -->
+<!-- 	<p>An error occurred! {error}</p> -->
+<!--   {/await} -->
