@@ -24,8 +24,8 @@ export const load = async ({ url, params }) => {
                 // log('____tdict.dname', tdict.dname)
                 cdict.trn[tdict.dname] = tdict.trns
             }
-            console.log('_WF_SERVER_CDICT', wf, cdict)
-            delete cdict.trns
+            // console.log('_WF_SERVER_CDICT', wf, cdict)
+            delete cdict.trns // TODO: проверить, что нет в chains
         }
     }
 

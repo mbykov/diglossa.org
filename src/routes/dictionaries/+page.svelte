@@ -8,80 +8,59 @@
     import _ from 'lodash'
 
     import { locale, odicts } from "$lib/shared.svelte";
-    import { Radio, Helper, Button } from 'svelte-5-ui-lib';
+    // import { Radio, Helper, Button } from 'svelte-5-ui-lib';
+    // import { Checkbox } from 'svelte-5-ui-lib';
 
     import {dndzone} from "svelte-dnd-action";
 
     const log = console.log
 
-    // let dicts = $derived(odicts.current)
     let dictionary
+    let currentCheckBox = {idx: null, checked: false}
 
-    let defaultDicts = [
-        {key: 'wkt', lang: 'en', name: 'Wiktionary', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {key: 'lsj', lang: 'en', name: 'Liddell, Sckott', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {key: 'dvr', lang: 'ru', name: 'И.Х.Дворецкий', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {key: 'bbh', lang: 'en', name: 'BibleHub', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {key: 'bll', lang: 'fr', name: 'xx Bailly', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {key: 'suda', lang: 'en', name: 'Souda', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-    ]
+    let items = odicts.current
 
     onMount(async () => {
-        // odicts.current = defaultDicts
-        // log('_settings: odicts.current', odicts.current.length)
-
-        log('_settings: dicts', odicts.current.length)
         for await (let dict of odicts.current) {
-            log('_d', dict.key)
+            // log('_d', dict.key, dict.active)
         }
-
     });
 
-    function setDictionaries(ev) {
-        let btn = ev.target
-        log('_B', btn.key)
-    }
-
-      let items = [
-        {id: 1, name: "item1"},
-        {id: 2, name: "item2"},
-        {id: 3, name: "item3"},
-        {id: 4, name: "item4"}
-      ];
-
-    function handler(ev) {
+    function handleDndConsider(ev) {
         items = ev.detail.items;
-        log('_items', items)
     }
 
-    function handleDndConsider(e) {
-        items = e.detail.items;
+    function handleDndFinalize(ev) {
+        items = ev.detail.items;
+        odicts.current = items
     }
-    function handleDndFinalize(e) {
-        items = e.detail.items;
+
+    function checkInput(ev) {
+        if (!ev.target.classList.contains('checkbox')) return
+        let oinput = ev.target
+        let key = oinput.getAttribute('key')
+        let changed = items.find(item=> item.key == key)
+        // log('_____changed', changed.id, changed.key)
+        changed.active = oinput.checked
+        odicts.current = items
     }
 
 
 </script>
 
 <div class="p-4 px-8 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll">
-    <h2 class="font-bold px-4 text-2xl"> dictionaries </h2>
-
-    <!-- <div use:dndzone="{{items: odicts.current}}" on:consider="{handler}" on:finalize="{handler}"> -->
-    <!--     <\!-- <div> -\-> -->
-    <!--     {#each odicts.current as dict} -->
-    <!--       <div class="dict-button p-2"> -->
-    <!--           <Button onclick={setDictionaries} class="w-48" color="green" key={dict.key}> {dict.name} </Button> -->
-    <!--       </div> -->
-    <!--     {/each} -->
-
-    <!-- </div> -->
+    <div class="header flex p-4 pb-4">
+        <h2 class="font-bold text-2xl px-4"> dictionaries </h2>
+        <span class="text-gray-500 py-1"> draggable </span>
+    </div>
 
     <section use:dndzone="{{items}}" on:consider="{handleDndConsider}" on:finalize="{handleDndFinalize}">
-        {#each items as item(item.id)}
-          <div >{item.name}</div>
-        {/each}
-      </section>
+        {#each items as item (item.id)}
+        <div class="langbox rounded bg-gray-300 my-4 w-full border_ border-black_ shadow-lg p-2 px-4" >
+            <input idx={item.id} key={item.key} type="checkbox" checked={item.active} class="checkbox" on:click={checkInput}> <span class="px-2"> {item.name} </span>
+        </div>
 
+      {/each}
+    </section>
 
 </div>
