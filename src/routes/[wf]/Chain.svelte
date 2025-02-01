@@ -4,16 +4,15 @@
     import Morphs from './Morphs.svelte'
     const log = console.log
 
-    let { chain } = $props()
+    let { chain, dicts } = $props()
     // log('______CHAIN chain', chain)
+    // log('______CHAIN dicts', dicts)
 
-    let trns = []
-
-    $effect(()=> {
-        for (let cdict of chain.cdicts) {
-            log('_C', cdict.rdict, cdict.trn)
-        }
-    })
+    // $effect(()=> {
+    //     for (let cdict of chain.cdicts) {
+    //         log('_C', cdict.rdict, cdict.trn)
+    //     }
+    // })
 
     function toggle(ev) {
       let target = ev.target
@@ -44,11 +43,7 @@
       </div>
 
       <!-- {#each Object.entries(cdict.trn) as [dname, trns]} -->
-        <!-- <p> dict key: {dname}</p> -->
-        <!-- <p> trns: {trns}</p> -->
-      <!-- {/each} -->
-      {#each Object.entries(cdict.trn) as [dname, trns]}
-
+        {#each [] as [dname, trns]}
           <div class="flex justify-between sticky_ border_ border-green-500_ px-2">
               <div class="grow trns max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2" on:click="{toggle}">
                   {#each cdict.trn[dname] as trn}
@@ -63,6 +58,22 @@
           </div>
 
         {/each}
+      {/each}
+
+      {#each dicts as dict}
+        <div class="flex justify-between sticky_ border_ border-green-500_ px-2">
+            <div class="grow trns max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2" on:click="{toggle}">
+                {#each dict.trns as trn}
+                  {@html trn}<br>
+                <!-- {@html trn.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")}<br> -->
+              {/each}
+            </div>
+
+            <div class="cursor-pointer border_ border-blue-500_ text-green-500 font-bold p-2" >
+                {dict.dname}
+            </div>
+        </div>
 
       {/each}
+
 </div>
