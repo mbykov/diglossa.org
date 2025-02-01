@@ -12,40 +12,35 @@
 
     let wf = $derived(data.wf)
     let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
-    let fetchImage = new Promise(() => {});
 
     let chains = $state([])
     let chain = $state({})
+    let rawtdicts = $state([])
+    let dicts = $state([])
 
     $effect(async ()=> {
-        log('_____________________________effect dnames', dnames)
-        log('_____________________________effect wf', wf)
+        // log('_____________________________effect dnames', dnames)
+        // log('_____________________________effect wf', wf)
 		const response = await fetch('/api?dnames=' + dnames + '&wf=' + wf)
         let json = await response.json()
-        log('_____here_response', json)
-        // fetchImage = json // await response.json()
+        // log('_____here_response', json)
+
         chains = json.chains
+        dicts = json.tdicts
         chain = chains[0]
-        log('_____here_chain', chain.cdicts)
+        // log('_____here_chain cdicts', chain.cdicts)
+        // log('_____here_chain dicts', dicts)
+        // log('_____here_chain dnames', dnames)
+        for (let dict of dicts) {
+            // log('_____here_dict', dict.rdict, dict.dname)
+        }
+
     })
 
     // let chain = $derived(chains[0])
 
-    onMount(async () => {
-        // log('_ON M wf', wf)
-        // const response = await fetch('/api?dkeys=ssss')
-        // let chains = await response.json()
-        // log('_API chains', chains)
-    })
-
-    // fetchImage = (async () => {
-    //     log('_____________________________here wf', data.wf)
-    //     log('_____________________________here dnames', dnames)
-	// 	const response = await fetch('/api?dnames=' + dnames + '&wf=' + wf)
-    //     let json = await response.json()
-    //     log('_____here_response', json)
-    //     return await response.json()
-	// })()
+    // onMount(async () => {
+    // })
 
     // выбрать по клику
     // let chain = $state(data.chains[0])
@@ -61,16 +56,7 @@
 
     <!-- {#if data.chains.length} -->
       {#if chains.length}
-        <Chain {chain}  />
+        <Chain {chain} {dicts} />
       {/if}
 
 </div>
-
-<!-- ====fetchImage -->
-<!-- {#await fetchImage} -->
-<!-- 	<p>...waiting</p> -->
-<!--   {:then res} -->
-<!--     RES={JSON.stringify(res)} -->
-<!-- {:catch error} -->
-<!-- 	<p>An error occurred! {error}</p> -->
-<!--   {/await} -->

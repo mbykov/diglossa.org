@@ -31,11 +31,10 @@
         oright.classList.remove('hidden')
     }
 
-
     let cchunk = $state({})
 
     let { children, data } = $props();
-    // log('_lay_menu', data)
+
     let menu = $derived(data.menu)
 
     onMount(async () => {

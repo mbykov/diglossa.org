@@ -22,9 +22,6 @@
     // log('____HEADER MENU', menu);
     let routes = $derived(menu[locale.current])
 
-    onMount(async () => {
-    })
-
     function toggleNav(ev) {
         open = false
     }
