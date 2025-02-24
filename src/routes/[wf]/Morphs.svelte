@@ -1,10 +1,11 @@
 <script>
     import { AngleDownOutline, AngleUpOutline } from 'flowbite-svelte-icons'
 
-    let { cdict } = $props()
+    let { chain } = $props()
 
     const log = console.log
 
+    let cdict = $derived(chain.cdict)
     let mains = $derived(cdict.morphs.filter(morph=> !/\.du\./.test(morph) && !/\.voc/.test(morph)))
     let stuffs = $derived(cdict.morphs.filter(morph=> /\.du\./.test(morph) || /\.voc/.test(morph)))
 

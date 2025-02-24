@@ -11,9 +11,38 @@ const log = console.log
 export const load = async ({ url, params }) => {
     let wf = cleanString(params.wf)
 
-    console.log('_WF_SERVER_WF', wf)
+    log('_WF_SERVER_WF', wf)
+    let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
+    log('_WF_SERVER_dnames', dnames)
+
+    let conts = await anthrax(wf)
+    log('____+ps, conts', conts)
+
+
+    let dictkeys = _.flatten(conts.map(cont=> cont.chains.map(chain=> chain.cdict.dict)))
+    dictkeys = _.uniq(dictkeys)
+    console.log('____dictkeys', dictkeys)
+
+    let alltdicts = await getTrns(dictkeys, dnames)
+    let rtrns = alltdicts.map(cdict=> cdict.rdict)
+    console.log('____rtrns', rtrns)
+
+    for (let cont of conts) {
+        for (let chain of cont.chains) {
+            chain.cdict.trns = []
+            let tdicts = alltdicts.filter(tdict=> tdict.dict == chain.cdict.dict && tdict.pos == chain.cdict.pos)
+            for (let tdict of tdicts) {
+                chain.cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
+                log('_____KKKKK', tdict.dname, tdict.trns)
+            }
+        }
+    }
+
+    console.log('____trns_conts', conts)
+
 
     return {
-        wf
+        wf,
+        conts
     }
 }

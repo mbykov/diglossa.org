@@ -9,7 +9,6 @@
     import { Button } from 'flowbite-svelte';
 
     import { chunks, locale } from "$lib/shared.svelte";
-    // import { chunks } from "$lib/shared.svelte";
     // import { page } from '$app/state';
 
     const log = console.log
@@ -36,8 +35,21 @@
     let { children, data } = $props();
 
     let menu = $derived(data.menu)
+    let examples = $derived(data.examples)
+    let stexts = $derived(chunks.current)
 
     onMount(async () => {
+        // log('_LAY examples', examples)
+        // log('_LAY stexts', chunks.current)
+        let exchunks = []
+        for (let example of examples) {
+            let exists = chunks.current.find(stext=> stext.title == example.title)
+            if (!exists) {
+                exchunks.push({date: '01.01.2024', title: example.title, rows: example.rows, example: true})
+            }
+        }
+        // log('_LAY exchunks', exchunks)
+        chunks.current.push(...exchunks)
     })
 
     $effect(()=> {
@@ -146,11 +158,11 @@
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window onpaste={onPaste} /> -->
 
-<div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}>
+<div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}> <!--  -->
 
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
-        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" onclick={gotoWF}>
+        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" > <!-- onclick={gotoWF} -->
             <LeftHeader {menu} />
             <Clip {cchunk} />
         </left>

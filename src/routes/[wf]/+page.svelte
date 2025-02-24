@@ -1,50 +1,44 @@
 <script>
 
     import { page } from '$app/state';
-    import Chain from './Chain.svelte'
+    // import Chain from './Chain.svelte'
     import { onMount } from 'svelte'
     import { odicts } from "$lib/shared.svelte";
     import _ from 'lodash'
+    import Morphs from './Morphs.svelte'
 
     const log = console.log
 
+    let unique = {}
     let { data } = $props()
 
     let wf = $derived(data.wf)
     let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
 
-    let chains = $state([])
-    let chain = $state({})
-    let rawtdicts = $state([])
-    let dicts = $state([])
+    let cont = $derived(data.conts[0])
+    // let chain = chains[0]
+    // $inspect(wf, chains);
+    $inspect(cont);
 
-    $effect(async ()=> {
-        // log('_____________________________effect dnames', dnames)
-        // log('_____________________________effect wf', wf)
-		const response = await fetch('/api?dnames=' + dnames + '&wf=' + wf)
-        let json = await response.json()
-        // log('_____here_response', json)
-
-        chains = json.chains
-        dicts = json.tdicts
-        chain = chains[0]
-        // log('_____here_chain cdicts', chain.cdicts)
-        // log('_____here_chain dicts', dicts)
-        // log('_____here_chain dnames', dnames)
-        for (let dict of dicts) {
-            // log('_____here_dict', dict.rdict, dict.dname)
-        }
-
-    })
-
-    // let chain = $derived(chains[0])
-
+    let showDicts = true
+    let showRels = $state(false)
+    let showMore = $state(false)
     // onMount(async () => {
     // })
 
-    // выбрать по клику
-    // let chain = $state(data.chains[0])
-    // let chain = $derived(data.chains[0])
+    function toggle(ev) {
+        let target = ev.target
+        let otrns = target.closest('.trns')
+        if (!otrns) return
+        otrns.classList.toggle('overflow-y-auto')
+        otrns.classList.toggle('max-h-24')
+    }
+
+    function toggleRels() {
+        showRels = !showRels
+        log('_toggleRels', showRels)
+    }
+
 
 </script>
 
@@ -54,9 +48,48 @@
         <div class="head-delete text-red-800"> == SCHEMES == </div>
     </div>
 
-    <!-- {#if data.chains.length} -->
-      {#if chains.length}
-        <Chain {chain} {dicts} />
-      {/if}
+    <div class="dicts-list">
+        <span class="text-green-400">dicts</span>:
+        {#each cont.rcdicts as rdict}
+          <span class="rdict cursor-pointer px-1">{rdict}</span>
+        {/each}
+        <span class="text-green-400 cursor-pointer" onclick="{toggleRels}">relatives</span>:
+          {#if showRels}
+            {#each cont.rels as rdict}
+              <span class="px-1">{rdict}</span>
+            {/each}
+          {:else}
+            {cont.rels.length}
+          {/if}
 
+    </div>
+
+    {#each cont.chains as chain}
+
+      <div class="cdict-head flex justify-between py-4">
+          <div class="cdict-rdict ">
+              dict: <span class="text-green-800 font-bold">{chain.cdict.rdict}</span>
+          </div>
+          <div class="cdict-morphs">
+              {#if chain.morphs}
+                <Morphs {chain} />
+              {/if}
+          </div>
+      </div>
+
+      <div class="dict-translations px-2">
+          <div class="" >
+              {#each chain.cdict.trns as trn}
+                <div class="trns grow_ max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2 " onclick="{toggle}">
+                    <div class="text-green-500 font-bold float-right">{trn.dname}</div>
+                    <div >{@html trn.trns}</div>
+                </div>
+              {/each}
+            </div>
+
+      </div>
+
+    {/each}
+
+      <!-- <Chain {chain} /> -->
 </div>

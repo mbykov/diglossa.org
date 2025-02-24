@@ -19,27 +19,38 @@ export async function GET({url}) {
     let dnames = url.searchParams.get('dnames')
     let wf = url.searchParams.get('wf')
 
-    // log('_API server dnames', dnames)
     dnames = dnames.split(',')
+    log('_API server dnames', dnames)
 
 
     let chains = await anthrax(wf)
+    // console.log('____chains', chains)
     let cdicts = _.flatten(chains.map(chain=> chain.cdicts))
-    // console.log('____cdicts', cdicts)
+    console.log('____cdicts', cdicts)
     let dictkeys = cdicts.map(cdict=> cdict.dict)
     dictkeys = _.uniq(dictkeys)
+    console.log('____dictkeys', dictkeys)
 
-    let trnsdicts = await getTrns(dictkeys, dnames)
-    // console.log('____trnsdicts', trnsdicts)
+    let alltdicts = await getTrns(dictkeys, dnames)
+    let rtrns = alltdicts.map(cdict=> cdict.rdict)
+    console.log('____rtrns', rtrns)
 
-    let tdicts = []
+    let tdicts = alltdicts
 
-    for (let dname of dnames) {
-        for (let tdict of trnsdicts) {
-            if (tdict.dname == dname) tdicts.push(tdict)
+
+    for (let chain of chains) {
+        for (let chaincdict of chain.cdicts) {
+            chaincdict.trns = []
+            let tdicts = alltdicts.filter(tdict=> tdict.dict == chaincdict.dict && tdict.pos == chaincdict.pos)
+            for (let tdict of tdicts) {
+                chaincdict.trns.push({dname: tdict.dname, trns: tdict.trns})
+            }
         }
     }
 
+    console.log('____chains', chains)
+
+    
     // log('_API_SERVER_CHAINS', wf, chains, 'tdicts:', tdicts)
 
     let json = JSON.stringify({ok: true, wf, chains, tdicts})
