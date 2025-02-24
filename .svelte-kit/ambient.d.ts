@@ -30,7 +30,6 @@ declare module '$env/static/private' {
 	export const NVM_DIR: string;
 	export const LS_COLORS: string;
 	export const npm_config_node_gyp: string;
-	export const MC_SID: string;
 	export const npm_execpath: string;
 	export const _: string;
 	export const LANG: string;
@@ -39,7 +38,6 @@ declare module '$env/static/private' {
 	export const HOSTNAME: string;
 	export const OLDPWD: string;
 	export const QTDIR: string;
-	export const MC_TMPDIR: string;
 	export const EDITOR: string;
 	export const GPG_TTY: string;
 	export const GTK_OVERLAY_SCROLLING: string;
@@ -155,7 +153,6 @@ declare module '$env/dynamic/private' {
 		NVM_DIR: string;
 		LS_COLORS: string;
 		npm_config_node_gyp: string;
-		MC_SID: string;
 		npm_execpath: string;
 		_: string;
 		LANG: string;
@@ -164,7 +161,6 @@ declare module '$env/dynamic/private' {
 		HOSTNAME: string;
 		OLDPWD: string;
 		QTDIR: string;
-		MC_TMPDIR: string;
 		EDITOR: string;
 		GPG_TTY: string;
 		GTK_OVERLAY_SCROLLING: string;

@@ -14,5 +14,6 @@ let defaultDicts = [
 ]
 
 export const odicts = new LocalStorage("dicts", []);
+export const oexample = new LocalStorage("example", {});
 
 // if (!odicts.current.length) odicts.current = defaultDicts

@@ -6,11 +6,16 @@
     import _ from 'lodash'
 
     import { chunks } from "$lib/shared.svelte";
-    import { onMount } from 'svelte'
+    // import { onMount } from 'svelte'
 
     const log = console.log
 
-    let stexts = $derived(chunks.current)
+    // let stexts = $derived(chunks.current)
+    let stexts = $derived.by(()=> {
+        // return chunks.current
+        let texts = chunks.current.filter(chunk=> !chunk.example)
+        return texts
+    })
 
     function delChunk(ev) {
         if (!ev.target.classList.contains('delete')) return
@@ -22,12 +27,18 @@
     function gotoChunk(ev) {
         let ochunk = ev.target.closest('.stext')
         if (!ochunk) return
-        let index = ochunk.getAttribute('index')
+        // let index = ochunk.getAttribute('index')
+        let title = ochunk.getAttribute('title')
 
         for (let chunk of chunks.current) {
             chunk.current = false
         }
-        chunks.current[index].current = true
+
+        let byTitle = chunks.current.find(stext=> stext.title == title)
+        byTitle.current = true
+
+        // if (!chunks.current[index]) return
+        // chunks.current[index].current = true
     }
 
 </script>
@@ -37,7 +48,7 @@
 
     {#each [...stexts].reverse() as text, index}
       {@const reverseIndex = stexts.length - 1 - index}
-    <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" index={reverseIndex} onclick={gotoChunk}>
+    <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" title={text.title} index={reverseIndex} onclick={gotoChunk}>
         <div class="stext-head px-2">
             <span class="bg-green-300 rounded p-1 px-2">{text.date}</span> - <span class="font-bold">{text.title}</span>
         </div>

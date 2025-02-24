@@ -1,5 +1,5 @@
 <script>
-    import { chunks, fontsize, locale } from "$lib/shared.svelte";
+    import { chunks, fontsize, locale, oexample } from "$lib/shared.svelte";
     import { Button } from 'flowbite-svelte';
     import { getContext } from 'svelte';
     import _ from 'lodash';
@@ -12,6 +12,8 @@
 
     let chunk = $state({})
     let ctext = $state({})
+    let example = $state({})
+    // let example = $derived(oexample.current)
 
     onMount(async () => {
         setfontsize()
@@ -20,10 +22,6 @@
     $effect(()=> {
         let cchunk = ''
         for (let cchunk of chunks.current) {
-            // let cc = JSON.parse(JSON.stringify(cchunk))
-            // if (cc.current) cchunk = cc
-            // else continue
-            // log('___________________CUR', cchunk.current, cchunk.title)
             delete cchunk.new
             if (cchunk.current) setCchunk(cchunk)
         }
@@ -33,6 +31,15 @@
         chunk = param
     }
 
+    let chunk_ = $derived.by(() => {
+        let cchunk = {}
+        for (let chunk of chunks.current) {
+            delete chunk.new
+            if (chunk.current) cchunk = chunk
+        }
+		return cchunk
+	});
+
     function onPaste(ev) {
         const copiedText = ev.clipboardData.getData('text/plain');
         let rows = copiedText.trim().split('\n')
@@ -41,7 +48,11 @@
         if (!title) return
         let now = new Date()
         let date = now.toLocaleDateString(locale.current)
+
+        // let newchunk = {date, title, rows, new: true, current: true}
+        // chunks.current.push(newchunk)
         chunk = {date, title, rows, new: true}
+        // log('______________________savepaste', chunk)
     }
 
     function saveCurrent(ev) {
