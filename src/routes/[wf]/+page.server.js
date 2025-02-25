@@ -28,6 +28,7 @@ export const load = async ({ url, params }) => {
     console.log('____rtrns', rtrns)
 
     for (let cont of conts) {
+        if (cont.indecl) continue
         for (let chain of cont.chains) {
             chain.cdict.trns = []
             let tdicts = alltdicts.filter(tdict=> tdict.dict == chain.cdict.dict && tdict.pos == chain.cdict.pos)
