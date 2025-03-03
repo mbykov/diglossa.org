@@ -16,31 +16,38 @@ export const load = async ({ url, params }) => {
     log('_WF_SERVER_dnames', dnames)
 
     let conts = await anthrax(wf)
-    log('____+ps, conts', conts)
+    log('____+ps, conts', conts.length)
+
+    if (!conts) {
+        log('_no_conts')
+        return {
+            wf,
+            conts: []
+        }
+    }
 
 
-    let dictkeys = _.flatten(conts.map(cont=> cont.chains.map(chain=> chain.cdict.dict)))
+    let dictkeys = _.flatten(conts.map(cont=> cont.cdicts.map(chain=> chain.cdict.dict)))
     dictkeys = _.uniq(dictkeys)
     console.log('____dictkeys', dictkeys)
 
     let alltdicts = await getTrns(dictkeys, dnames)
     let rtrns = alltdicts.map(cdict=> cdict.rdict)
-    console.log('____rtrns', rtrns)
+    // console.log('____rtrns', rtrns)
 
     for (let cont of conts) {
         if (cont.indecl) continue
-        for (let chain of cont.chains) {
+        for (let chain of cont.cdicts) {
             chain.cdict.trns = []
             let tdicts = alltdicts.filter(tdict=> tdict.dict == chain.cdict.dict && tdict.pos == chain.cdict.pos)
             for (let tdict of tdicts) {
                 chain.cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
-                log('_____KKKKK', tdict.dname, tdict.trns)
+                // log('_____KKKKK', tdict.dname, tdict.trns)
             }
         }
     }
 
-    console.log('____trns_conts', conts)
-
+    // console.log('____trns_conts', conts)
 
     return {
         wf,
