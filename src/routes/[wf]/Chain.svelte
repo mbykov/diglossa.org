@@ -1,18 +1,19 @@
 <script>
-
-    // import { odicts } from "$lib/shared.svelte";
     import Morphs from './Morphs.svelte'
     import _ from 'lodash'
     const log = console.log
 
-    let { chain } = $props()
-    // chain = {...chain}
-    log('______CHAIN.svelte chain', chain)
-    // let schemes = $derived(chain.cdicts.map(cdict=> cdict.scheme))
-    // schemes = JSON.parse(JSON.stringify(schemes))
-    // let json = JSON.stringify(schemes)
-    // schemes = JSON.parse(json)
-    // log('______schemes', schemes)
+    let { cont } = $props()
+    // log('______Data keys', _.keys(cont))
+
+    // let cont = $derived(data.conts[0])
+    // log('______CONT.svelte cont', cont)
+
+    let showDicts = true
+    let showRels = $state(false)
+    let showMore = $state(false)
+    // onMount(async () => {
+    // })
 
     function toggle(ev) {
         let target = ev.target
@@ -22,40 +23,78 @@
         otrns.classList.toggle('max-h-24')
     }
 
+    function toggleRelsList(ev) {
+        let target = ev.target
+        if (!target.classList.contains('rels-list')) return
+        showRels = !showRels
+    }
+
+    function toggleDict(ev) {
+        let target = ev.target
+        if (!target.classList.contains('rdict')) return
+        let wf = target.textContent
+        log('_xxx DICT', wf)
+        let otobehidden = document.querySelectorAll('.translations')
+        let selector = ['[rdict="', wf, '"]'].join('')
+        // let tobeshown = document.querySelectorAll('[rdict="ὄκλασμα"]')
+        let otobeshown = document.querySelectorAll(selector)
+        // log('_xxx DICT', tobehidden)
+        // log('_xxx DICT', tobeshown)
+        otobehidden.forEach(o=> o.classList.add('hidden'))
+        otobeshown.forEach(o=> o.classList.remove('hidden'))
+    }
+
+
 </script>
 
-
 <!-- {#each Object.entries(cdict.trn) as [dname, trns]} -->
-<div class="anthrax-chain">
+<div class="anthrax-container">
 
-    {#each chain.cdicts as cdict}
-      <!-- <p>{JSON.stringify(cdict.trns)}</p> -->
-      <div class="cdict-head flex justify-between py-4">
-          <div class="cdict-rdict ">
-              dict: <span class="text-green-800 font-bold">{cdict.rdict}</span>
-          </div>
-          <div class="cdict-morphs">
-              {#if cdict.morphs}
-                <Morphs {cdict} />
-              {/if}
-          </div>
-      </div>
+    <div class="dicts-list pt-2" onclick="{toggleDict}">
+        <span class="text-green-400">dicts</span>:
+        {#each cont.rdicts as rdict}
+          <span class="rdict cursor-pointer px-1">{rdict}</span>
+        {/each}
+        <span class="text-green-400 cursor-pointer rels-list" onclick="{toggleRelsList}">relatives</span>:
+          {#if showRels}
+            {#each cont.rels as rdict}
+              <span class="px-1">{rdict}</span>
+            {/each}
+          {:else}
+            {cont.rels.length}
+          {/if}
 
-      <!-- {@html trn.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")}<br> -->
-      <div class="flex_ justify-between_ sticky_ border_ border-green-500_ px-2">
-          <div class="" >
-              {#each cdict.trns as trn}
-                <div class="trns grow max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2 flex justify-between" onclick="{toggle}">
-                    <div >{@html trn.trns}</div>
-                    <div class="cursor-pointer_ border_ border-blue-500_ text-green-500 font-bold p-2 float-right">{trn.dname}</div>
-                </div>
-              {/each}
+    </div>
+
+    {#each cont.cdicts as chain, idx}
+
+        <div class="translations rdict={chain.cdict.rdict} px-2" rdict={chain.cdict.rdict}>
+        <div class="cdict-head flex justify-between py-4">
+            <div class="cdict-rdict ">
+                dict: <span class="text-green-800 font-bold">{chain.cdict.rdict}</span>
             </div>
+            <div class="cdict-morphs">
+                {#if chain.morphs}
+                  <Morphs {chain} />
+                {/if}
+              </div>
+        </div>
 
-        <!-- <div class="cursor-pointer border_ border-blue-500_ text-green-500 font-bold p-2" > -->
-        <!--   {cdict.dname} -->
-        <!-- </div> -->
-      </div>
+        <!-- <div class="translations rdict={chain.cdict.rdict} px-2" rdict={chain.cdict.rdict}> -->
+            {#each chain.cdict.trns as trn}
+              <div class="trns grow_ max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2 " onclick="{toggle}">
+                  <div class="text-green-500 font-bold float-right">{trn.dname}</div>
+                  <!-- <div >{@html trn.trns}</div> -->
+                  <div >
+                      {#each trn.trns as row}
+                        <p>{row}</p>
+                      {/each}
+                  </div>
+
+              </div>
+            {/each}
+
+          </div>
 
       {/each}
 
