@@ -9,9 +9,12 @@
 		let schemes = []
 		for (let cont of conts) {
             for (let scheme of cont.schemes) {
-                let htmls = scheme.map(segment=> segment.seg)
-                let htmls_ = scheme.map(segment=> {
-                    return '<span class=">' + segment.seg + '</span>'
+                let htmls = scheme.map(segment=> {
+                    let span = ''
+                    if (segment.type == 'pref') span = '<span class="segment cursor-pointer seg-pref" dict='+segment.seg+'>' + segment.seg + '</span>'
+                    else if (segment.type == 'stem') span = '<span class="segment cursor-pointer seg-dict" dict='+segment.dict+'>' + segment.seg + '</span>'
+                    else span = '<span class=" ">' + segment.seg + '</span>'
+                    return span
                 })
                 let html = htmls.join('-')
 			    schemes.push(html)
@@ -20,16 +23,12 @@
 		return schemes
 	});
 
-    $inspect('_schms conts', conts)
-    $inspect('_schemes', schemes)
-
-    function showSegment() {
-        log('_showSegment')
-    }
+    // $inspect('_schms conts', conts)
+    // $inspect('_schemes', schemes)
 
 </script>
 
-<div class="bg-white px-4 w-60 flex justify-between" on:click={showSegment}>
+<div class="bg-white px-4 w-60 flex justify-between">
     <ul class="pr-8_">
         {#each schemes as html}
           <li>

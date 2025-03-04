@@ -26,7 +26,6 @@ export const load = async ({ url, params }) => {
         }
     }
 
-
     let dictkeys = _.flatten(conts.map(cont=> cont.cdicts.map(chain=> chain.cdict.dict)))
     dictkeys = _.uniq(dictkeys)
     console.log('____dictkeys', dictkeys)
