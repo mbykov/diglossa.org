@@ -2,6 +2,7 @@
 import _ from "lodash"
 import { anthrax } from "@mbykov/anthrax"
 import { getTrns } from "@mbykov/anthrax/getTrns"
+import { getCacheD } from "@mbykov/anthrax/getCacheD"
 // import { createDBs } from "@mbykov/anthrax/createDBs"
 import { cleanString } from "@mbykov/anthrax/cleanString"
 import { odicts } from "$lib/shared.svelte";
@@ -26,7 +27,7 @@ export const load = async ({ url, params }) => {
         }
     }
 
-    let dictkeys = _.flatten(conts.map(cont=> cont.cdicts.map(chain=> chain.cdict.dict)))
+    let dictkeys = _.flatten(conts.map(cont=> cont.cdicts.map(cdict=> cdict.dict)))
     dictkeys = _.uniq(dictkeys)
     console.log('____dictkeys', dictkeys)
 
@@ -34,13 +35,16 @@ export const load = async ({ url, params }) => {
     let rtrns = alltdicts.map(cdict=> cdict.rdict)
     // console.log('____rtrns', rtrns)
 
+    let cachedicts = await getCacheD(dictkeys)
+    console.log('____cachedicts', cachedicts.length)
+
     for (let cont of conts) {
         if (cont.indecl) continue
-        for (let chain of cont.cdicts) {
-            chain.cdict.trns = []
-            let tdicts = alltdicts.filter(tdict=> tdict.dict == chain.cdict.dict && tdict.pos == chain.cdict.pos)
+        for (let cdict of cont.cdicts) {
+            cdict.trns = []
+            let tdicts = alltdicts.filter(tdict=> tdict.dict == cdict.dict && tdict.pos == cdict.pos)
             for (let tdict of tdicts) {
-                chain.cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
+                cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
                 // log('_____KKKKK', tdict.dname, tdict.trns)
             }
         }
