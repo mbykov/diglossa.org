@@ -2,16 +2,20 @@
     import Cdict from './Cdict.svelte'
     import Morphs from './Morphs.svelte'
     import _ from 'lodash'
+    import {oxia, comb, plain, strip} from 'orthos'
     const log = console.log
 
-    let { cont } = $props()
+    let { cont, wf } = $props()
 
-    let cdicts = $state(cont.cdicts)
+    let cdicts = $derived(cont.cdicts)
+    // let cdicts = $state(cont.cdicts)
+    // let cdicts = cont.cdicts
+    // cdicts = cdicts
     // let rdicts = $derived(cdicts.map(cdict=> cdict.dict))
     cdicts.forEach(cdict=> cdict.show = true)
 
-    // $inspect('_Chain_cont', cont);
-    $inspect('_Chain_cdicts', cdicts);
+    $inspect('_Chain_cont', cont);
+    $inspect('_Chain_cdicts', wf, cdicts);
 
     let contrels = $derived(cont.rels.map(rel=> ('<span class="relat query-dict cursor-pointer px-1_ ">' + rel + '</span>')).join(', ') )
     let morerels = $derived(cont.morels.map(rel=> ('<span class="morel query-dict cursor-pointer px-1_ ">' + rel + '</span> ')).join(', ') )
@@ -41,30 +45,34 @@
         let target = ev.target
         if (!target.classList.contains('query-dict')) return
         let wf = target.textContent
-        log('_toggle DICT', wf)
-        let dict = cdicts.find(cdict=> cdict.dict == wf)
-        log('_exists', dict)
+        log('_showDICT', wf)
+        log('_ALREADY_cdicts', wf, $state.snapshot(cdicts))
+        let cwf = comb(wf)
+        let dict = cdicts.find(cdict=> cdict.dict == cwf)
+        log('_exists', wf, dict)
+        log('_exists_snap', $state.snapshot(dict))
 
-        if (!dict) {
-            dict = await queryDict(wf)
+        cdicts.forEach(cdict=> cdict.show = false)
+        if (!dict ) {
+            let newcdicts = await queryDict(wf)
+            cdicts.push(...newcdicts)
+            log('_EST newcdicts', $state.snapshot(cdicts))
+        } else {
+            dict.show = true
+            log('_EST', $state.snapshot(cdicts))
         }
-
+        // cdicts = cdicts
+        unique = {}
     }
 
     async function queryDict(wf) {
         let query_url = '/api/dict?wf=' +wf
         let getresp = await fetch(query_url)
         let response = await getresp.json()
-        // log('_FETCH RESP', response)
         let newcdicts = response.cdicts
-        log('_FETCH newcdicts', newcdicts)
+        // log('_FETCH RESP', response)
         newcdicts.forEach(cdict=> cdict.show = true)
-        cdicts.forEach(cdict=> cdict.show = false)
-        log('_before cdicts', cdicts)
-        cdicts.push(...newcdicts)
-        log('_after cdicts', cdicts)
-        unique = {}
-        // cdicts.forEach(cdict=> cdict.show = true)
+        return newcdicts
     }
 
 
@@ -89,12 +97,12 @@
         {/if}
       </div>
 
-    {#key unique}
+    <!-- {#key unique} -->
       {#each cdicts as cdict, idx}
-          {#if cdict.show}
-            <Cdict {cdict} />
-          {/if}
-        {/each}
-      {/key}
+        {#if cdict.show}
+          <Cdict {cdict} />
+        {/if}
+      {/each}
+    <!-- {/key} -->
 
 </div>

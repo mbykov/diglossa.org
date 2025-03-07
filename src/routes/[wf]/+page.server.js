@@ -44,6 +44,7 @@ export const load = async ({ url, params }) => {
             cdict.trns = []
             let tdicts = alltdicts.filter(tdict=> tdict.dict == cdict.dict && tdict.pos == cdict.pos)
             for (let tdict of tdicts) {
+                cdict.show = true
                 cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
                 // log('_____KKKKK', tdict.dname, tdict.trns)
             }
