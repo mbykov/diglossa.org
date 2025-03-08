@@ -5,9 +5,12 @@
 
     let { conts } = $props()
 
+    // $inspect('_schemes conts', conts)
+
     let schemes = $derived.by(() => {
 		let schemes = []
 		for (let cont of conts) {
+            if (!cont.schemes) continue
             for (let scheme of cont.schemes) {
                 let htmls = scheme.map(segment=> {
                     let span = ''

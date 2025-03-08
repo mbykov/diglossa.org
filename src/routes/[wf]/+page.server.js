@@ -13,11 +13,11 @@ export const load = async ({ url, params }) => {
     let wf = cleanString(params.wf)
 
     log('_WF_SERVER_WF', wf)
-    let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
-    log('_WF_SERVER_dnames', dnames)
+    // let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
+    // log('_WF_SERVER_dnames', dnames)
 
     let conts = await anthrax(wf)
-    log('____+ps, conts', conts.length)
+    log('____+ps, conts', conts)
 
     if (!conts) {
         log('_no_conts')
@@ -31,7 +31,7 @@ export const load = async ({ url, params }) => {
     dictkeys = _.uniq(dictkeys)
     console.log('____dictkeys', dictkeys)
 
-    let alltdicts = await getTrns(dictkeys, dnames)
+    let alltdicts = await getTrns(dictkeys) // , dnames
     let rtrns = alltdicts.map(cdict=> cdict.rdict)
     // console.log('____rtrns', rtrns)
 
@@ -39,12 +39,12 @@ export const load = async ({ url, params }) => {
     console.log('____cachedicts', cachedicts.length)
 
     for (let cont of conts) {
-        if (cont.indecl) continue
         for (let cdict of cont.cdicts) {
+            cdict.show = true
+            if (cont.indecl) continue
             cdict.trns = []
             let tdicts = alltdicts.filter(tdict=> tdict.dict == cdict.dict && tdict.pos == cdict.pos)
             for (let tdict of tdicts) {
-                cdict.show = true
                 cdict.trns.push({dname: tdict.dname, trns: tdict.trns})
                 // log('_____KKKKK', tdict.dname, tdict.trns)
             }
