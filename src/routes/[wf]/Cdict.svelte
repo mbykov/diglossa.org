@@ -21,7 +21,7 @@
 
     <div class="cdict-head flex justify-between py-4">
         <div class="cdict-rdict ">
-            dict: <span class="text-green-800 font-bold">{cdict.rdict}</span>
+            dict: <span class="text-green-800 font-bold">{cdict.rdict}</span> <span class="px-4">{cdict.pos}</span>
         </div>
         <div class="cdict-morphs">
             {#if cdict.morphs}

@@ -12,8 +12,7 @@
     let { data } = $props()
 
     let wf = $derived(data.wf)
-    // let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
-    $inspect('_+page_data.wf', wf);
+    // $inspect('_+page_data.wf', wf);
 
     let conts = $derived(data.conts)
     $inspect('_+page_conts', conts);
@@ -39,7 +38,8 @@
       <div> waiting...</div>
     {:then}
       {#each conts as cont}
-        <Chain {cont} {wf} />
+        <!-- <Chain {cont} {wf} contcdicts={cont.cdicts}/> -->
+        <Chain cdicts={cont.cdicts} rels={cont.rels} morels={cont.morels}/>
       {/each}
     {:catch error}
 	  <p style="color: red">{error.message}</p>
