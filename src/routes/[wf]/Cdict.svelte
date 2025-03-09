@@ -32,7 +32,7 @@
 
     {#each cdict.trns as trn}
       <div class="trns grow_ max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2 " onclick="{toggle}">
-          <div class="text-green-500 font-bold float-right">{trn.dname}</div>
+          <div class="text-green-500 font-bold float-right">{trn.dname.replace(/^i/, '')}</div>
           <div >
               {#each trn.trns || trn.strs as row}
                 <p>{row}</p>

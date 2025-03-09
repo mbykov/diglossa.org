@@ -8,7 +8,6 @@
 
     const log = console.log
 
-    let unique = {}
     let { data } = $props()
 
     let wf = $derived(data.wf)
