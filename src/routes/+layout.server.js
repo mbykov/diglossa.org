@@ -1,4 +1,5 @@
-import { createDBs } from "@mbykov/anthrax/createDBs"
+//
+import { createDBs } from "@mbykov/anthrax/remote"
 
 const log = console.log
 

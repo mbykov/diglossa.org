@@ -91,7 +91,7 @@
       </div>
 
       {#each cdicts as cdict, idx}
-        {#if cdict.show}
+        {#if true}
           <Cdict {cdict} />
         {/if}
       {/each}
