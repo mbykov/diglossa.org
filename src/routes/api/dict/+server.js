@@ -1,6 +1,5 @@
-import { anthrax } from "@mbykov/anthrax"
-import { getDicts } from "@mbykov/anthrax/getDicts"
-import { getCacheD } from "@mbykov/anthrax/getCacheD"
+//
+import { getCacheD } from '@mbykov/anthrax/remote';
 import { prefDocs } from "@mbykov/anthrax/prefDocs"
 import { cleanString } from "@mbykov/anthrax/cleanString"
 import { odicts } from "$lib/shared.svelte";
