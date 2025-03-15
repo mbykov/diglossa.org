@@ -5,7 +5,7 @@
 
     let { cdict } = $props()
 
-    $inspect('_Cdict', cdict)
+    // $inspect('_Cdict', cdict)
 
     function toggle(ev) {
         let target = ev.target
@@ -34,11 +34,12 @@
       <div class="trns grow_ max-h-24 overflow-y-auto bg-gray-200 p-4 w-full my-2 " onclick="{toggle}">
           <div class="text-green-500 font-bold float-right">{trn.dname.replace(/^i/, '')}</div>
           <div >
-              {#each trn.trns || trn.strs as row}
-                <p>{row}</p>
-              {/each}
-            </div>
-
+            {#each trn.trns || trn.strs as row}
+                <!-- <p>{row}</p> -->
+            <p>{@html row.replace(/([\u{0370}-\u{03FF}\u{1F00}-\u{1FFF}]+)/ug, "<span class=\"wf\">$1</span>")}</p>
+                   <!-- <p>{@html trn.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")}</p> -->
+                 {/each}
+               </div>
       </div>
     {/each}
 
