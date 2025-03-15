@@ -35,21 +35,20 @@
     let { children, data } = $props();
 
     let menu = $derived(data.menu)
-    let examples = $derived(data.examples)
+    // let examples = $derived(data.examples)
     let stexts = $derived(chunks.current)
 
     onMount(async () => {
         // log('_LAY examples', examples)
-        // log('_LAY stexts', chunks.current)
-        let exchunks = []
-        for (let example of examples) {
-            let exists = chunks.current.find(stext=> stext.title == example.title)
-            if (!exists) {
-                exchunks.push({date: '01.01.2024', title: example.title, rows: example.rows, example: true})
-            }
-        }
-        // log('_LAY exchunks', exchunks)
-        chunks.current.push(...exchunks)
+        // let exchunks = []
+        // for (let example of examples) {
+        //     let exists = chunks.current.find(stext=> stext.title == example.title)
+        //     if (!exists) {
+        //         exchunks.push({date: '01.01.2024', title: example.title, rows: example.rows, example: true})
+        //     }
+        // }
+        // // log('_LAY exchunks', exchunks)
+        // chunks.current.push(...exchunks)
     })
 
     $effect(()=> {

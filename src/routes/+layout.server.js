@@ -25,14 +25,14 @@ export const load = async ({ url, params }) => {
 
 
     let examples = []
-    const expaths = import.meta.glob('/src/lib/examples/*.js', { eager: true })
-    // log('_example_paths', expaths)
-    for (const path in expaths) {
-		const file = expaths[path]
-        // log('_FILE', file)
-        log('_example-title', file.examples.title)
-        examples.push(file.examples)
-	}
+    // const expaths = import.meta.glob('/src/lib/examples/*.js', { eager: true })
+    // // log('_example_paths', expaths)
+    // for (const path in expaths) {
+	// 	const file = expaths[path]
+    //     // log('_FILE', file)
+    //     log('_example-title', file.example.title)
+    //     examples.push(file.examples)
+	// }
 
 
     // log('_MENU', menu)

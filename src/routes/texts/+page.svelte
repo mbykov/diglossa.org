@@ -35,6 +35,7 @@
         }
 
         let byTitle = chunks.current.find(stext=> stext.title == title)
+        // log('_GOTO', $state.snapshot(byTitle))
         byTitle.current = true
 
         // if (!chunks.current[index]) return

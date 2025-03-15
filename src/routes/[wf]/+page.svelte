@@ -14,7 +14,7 @@
     // $inspect('_+page_data.wf', wf);
 
     let conts = $derived(data.conts)
-    $inspect('_+page_conts', conts);
+    // $inspect('_+page_conts', conts);
 
     function showSegment(ev) {
         if (!ev.target.classList.contains('segment')) return

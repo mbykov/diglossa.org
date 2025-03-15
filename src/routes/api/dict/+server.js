@@ -2,7 +2,7 @@
 import { getCacheD } from '@mbykov/anthrax/remote';
 import { prefDocs } from "@mbykov/anthrax/prefDocs"
 import { cleanString } from "@mbykov/anthrax/cleanString"
-import { odicts } from "$lib/shared.svelte";
+// import { odicts } from "$lib/shared.svelte";
 import {oxia, comb, plain, strip} from 'orthos'
 import _ from 'lodash'
 
@@ -17,7 +17,7 @@ export async function GET({url}) {
     let pref = url.searchParams.get('pref')
     let cwf = comb(wf)
 
-    log('_api_SERVER_WF', wf)
+    // log('_api_SERVER_WF', wf)
     // let dnames = _.compact(odicts.current.map(dict=> dict.active ? dict.key : false))
     // log('_api_SERVER_dnames', dnames)
 
@@ -30,8 +30,8 @@ export async function GET({url}) {
 
     let dictkeys = [cwf]
     let cdicts = await getCacheD(dictkeys)
-    console.log('____ap-dict/dictkeys', dictkeys)
-    console.log('____ap-dict/cdicts', cdicts)
+    // console.log('____api-dict/dictkeys', dictkeys)
+    // console.log('____api-dict/cdicts', cdicts)
 
     // let tdicts = alltdicts
 

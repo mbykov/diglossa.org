@@ -3,9 +3,9 @@
     import Morphs from './Morphs.svelte'
     import _ from 'lodash'
     import {oxia, comb, plain, strip} from 'orthos'
+
     const log = console.log
 
-    // let { cont, wf, contcdicts } = $props()
     let { cdicts: _cdicts, rels, morels } = $props()
 
     let cdicts = $state(_cdicts)
@@ -13,11 +13,14 @@
     // _cdicts.forEach(cdict=> cdict.show = true)
 
     $effect(() => {
-	    cdicts = _cdicts
+	    cdicts = _cdicts.map(cdict=> {
+            cdict.show = true
+            return cdict
+        })
     });
 
     cdicts.forEach(cdict=> cdict.show = true)
-    // $inspect('_chain_cdicts', cdicts);
+    $inspect('_chain_cdicts', cdicts);
     // $inspect('_morels_', morels);
 
 
@@ -44,18 +47,22 @@
     async function showDict(ev) {
         let target = ev.target
         if (!target.classList.contains('query-dict')) return
+
+        cdicts.forEach(cdict=> cdict.show = false)
+
         let wf = target.textContent
         let cwf = comb(wf)
         let dict = cdicts.find(cdict=> cdict.dict == cwf)
 
-        cdicts.forEach(cdict=> cdict.show = false)
         if (!dict ) {
             let newcdicts = await queryDict(wf)
             cdicts.push(...newcdicts)
         } else {
             dict.show = true
-            log('_EST', $state.snapshot(cdicts))
+            // log('_EST', $state.snapshot(cdicts))
         }
+        showRels = false
+        showMore = false
     }
 
     async function queryDict(wf) {
@@ -91,7 +98,7 @@
       </div>
 
       {#each cdicts as cdict, idx}
-        {#if true}
+        {#if cdict.show}
           <Cdict {cdict} />
         {/if}
       {/each}

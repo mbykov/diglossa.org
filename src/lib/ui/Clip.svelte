@@ -1,7 +1,7 @@
 <script>
     import { chunks, fontsize, locale, oexample } from "$lib/shared.svelte";
     import { Button } from 'flowbite-svelte';
-    import { getContext } from 'svelte';
+    // import { getContext } from 'svelte';
     import _ from 'lodash';
     import { onMount } from 'svelte'
     import { setfontsize } from "$lib/ui/setFontSize.js";
