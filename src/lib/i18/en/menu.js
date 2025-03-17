@@ -6,5 +6,5 @@ export const routes = [
 	{ name: 'saved texts', href: '/texts/'  },
 	{ name: 'examples', href: '/examples/'  },
 	{ name: 'settings', href: '/settings'  },
-	{ name: 'Hellen Schmidt', href: '/'  },
+	{ name: 'contacts', href: '/contacts'  },
 ]

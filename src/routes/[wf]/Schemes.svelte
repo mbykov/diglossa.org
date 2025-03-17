@@ -5,7 +5,7 @@
 
     let { conts } = $props()
 
-    // $inspect('_schemes conts', conts)
+    $inspect('_schemes conts', conts)
 
     let schemes = $derived.by(() => {
 		let schemes = []
