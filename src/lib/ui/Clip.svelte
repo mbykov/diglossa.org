@@ -41,6 +41,8 @@
 	});
 
     function onPaste(ev) {
+        log('____________________CLIP ON PASTE')
+        return
         const copiedText = ev.clipboardData.getData('text/plain');
         let rows = copiedText.trim().split('\n')
         if (!rows.length) return
@@ -64,7 +66,7 @@
 
 </script>
 
-<svelte:window onpaste={onPaste} />
+<!-- <svelte:window onpaste={onPaste} /> -->
 
 {#await chunk then ctext}
   <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" >

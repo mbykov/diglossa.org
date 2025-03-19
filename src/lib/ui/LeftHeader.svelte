@@ -26,10 +26,14 @@
     function toggleNav(ev) {
         if (open) open = !open
     }
+    
+    function onKeyDown(ev) {
+        if (open) open = !open
+    }
 
 </script>
 
-<svelte:window on:click={toggleNav} />
+<svelte:window on:click={toggleNav} on:keydown={onKeyDown}/>
 
 <nav class="header px-4 relative bg-white" >
     <div class="h-14">

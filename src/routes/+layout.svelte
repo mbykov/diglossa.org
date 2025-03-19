@@ -66,6 +66,9 @@
     }
 
     function onPaste(ev) {
+        log('_LAYOUT ON PASTE')
+        return
+
         const copiedText = ev.clipboardData.getData('text/plain');
         let rows = copiedText.trim().split('\n')
         if (!rows.length) return
@@ -152,8 +155,8 @@
     }
 </script>
 
-<svelte:window on:keydown={onKeyDown} />
-<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
+<!-- <svelte:window on:keydown={onKeyDown} /> -->
+<svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window onpaste={onPaste} /> -->
 
