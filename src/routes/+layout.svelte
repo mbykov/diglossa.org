@@ -13,6 +13,7 @@
 
     const log = console.log
 
+    // enclitics 
 
     function showLeft() {
         let oleft = document.querySelector('.left')
