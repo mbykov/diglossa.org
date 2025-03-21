@@ -21,13 +21,15 @@
         if (!ev.target.classList.contains('delete')) return
         let ochunk = ev.target.closest('.stext')
         let index = ochunk.getAttribute('index')
-        chunks.current.splice(index, 1)
+        let title = ochunk.getAttribute('title')
+
+        chunks.current = chunks.current.filter(chunk=> chunk.title != title)
     }
 
     function gotoChunk(ev) {
         let ochunk = ev.target.closest('.stext')
         if (!ochunk) return
-        // let index = ochunk.getAttribute('index')
+        if (ev.target.classList.contains('delete')) return
         let title = ochunk.getAttribute('title')
 
         for (let chunk of chunks.current) {
@@ -35,11 +37,8 @@
         }
 
         let byTitle = chunks.current.find(stext=> stext.title == title)
-        // log('_GOTO', $state.snapshot(byTitle))
         byTitle.current = true
 
-        // if (!chunks.current[index]) return
-        // chunks.current[index].current = true
     }
 
 </script>
@@ -47,7 +46,8 @@
 <div class="p-4 px-8 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll">
     <h2 class="font-bold px-4">saved texts</h2>
 
-    {#each [...stexts].reverse() as text, index}
+    <!-- {#each [...stexts].reverse() as text, index} -->
+    {#each [...stexts] as text, index}
       {@const reverseIndex = stexts.length - 1 - index}
     <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" title={text.title} index={reverseIndex} onclick={gotoChunk}>
         <div class="stext-head px-2">
@@ -57,7 +57,7 @@
     </div>
 
     <div class="stext-body px-2">
-        {text.rows.slice(0,2)}
+        <!-- {text.rows.slice(0,2)} -->
     </div>
   {/each}
 </div>

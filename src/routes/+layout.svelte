@@ -19,7 +19,7 @@
 
     let pathname = $derived(page.url.pathname)
 
-    $inspect('pathname', pathname)
+    // $inspect('pathname', pathname)
 
     // enclitics
 
@@ -78,7 +78,7 @@
     }
 
     function onPaste(ev) {
-        log('_LAYOUT ON PASTE')
+        // log('_LAYOUT ON PASTE')
         return
 
         const copiedText = ev.clipboardData.getData('text/plain');
@@ -165,8 +165,8 @@
 
 </script>
 
-<!-- <svelte:window on:keydown={onKeyDown} /> -->
-<svelte:window on:keydown={onKeyDown} on:paste={onPaste} />
+<svelte:window on:keydown={onKeyDown} />
+<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window onpaste={onPaste} /> -->
 

@@ -25,7 +25,7 @@
 
     <h1 class="font-bold px-4 text-2xl"> settings </h1>
 
-    <h1 class="font-bold p-4 pb-2"> interfase language </h1>
+    <h1 class="font-bold p-4 pb-2"> interface language </h1>
 
     <SetDefaultLocale />
 

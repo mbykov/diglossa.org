@@ -8,12 +8,10 @@
     import { getContext } from 'svelte';
 
     const log = console.log
+
     let { newchunk } = $props()
 
     let chunk = $state({})
-    // let ctext = $state({})
-    // let example = $state({})
-    // let example = $derived(oexample.current)
 
     onMount(async () => {
         setfontsize()
@@ -39,44 +37,34 @@
     }
 
     function onClipPaste(ev) {
-        log('____________________CLIP ON PASTE')
-
         const copiedText = ev.clipboardData.getData('text/plain');
         let rows = copiedText.trim().split('\n')
         if (!rows.length) return
-        let title = rows[0].slice(0, 25)
+        let title = rows[0].slice(0, 100)
         if (!title) return
         let now = new Date()
         let date = now.toLocaleDateString(locale.current)
 
-        // let newchunk = {date, title, rows, new: true, current: true}
-        // chunks.current.push(newchunk)
-        chunk = {date, title, rows, new: true}
-        // log('______________________savepaste', chunk)
+        chunk = {date, title, rows, current: true, new: true}
     }
 
     function saveCurrent(ev) {
         let newch = JSON.parse(JSON.stringify(chunk))
-        log('______________________saveCurrent', newch)
         delete newch.new
-        chunks.current.push(newch)
-    }
-
-    function onNewChunk(ev) {
-        log('_CLIP GET NEW CHUNK', ev.detail)
+        for (let chunk of chunks.current) {
+            chunk.current = false
+        }
+        chunks.current.unshift(newch)
     }
 
 
 </script>
 
-<!-- <svelte:window on:paste={onClipPaste} on:new-text-chunk={() => onNewChunk} /> -->
 <svelte:window on:paste={onClipPaste} />
 
-<!-- {#if ctext} -->
 {#await chunk then ctext}
   <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" >
       {#if ctext.new}
-        <!-- === {JSON.stringify(ctext)} === -->
         <Button color="green" class="float-right" on:click={saveCurrent}>Save</Button>
       {/if}
 
@@ -96,4 +84,3 @@
   </div>
 
 {/await}
-<!-- {/if} -->
