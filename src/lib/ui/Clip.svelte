@@ -5,19 +5,22 @@
     import _ from 'lodash';
     import { onMount } from 'svelte'
     import { setfontsize } from "$lib/ui/setFontSize.js";
+    import { getContext } from 'svelte';
 
     const log = console.log
-
-    // let { cchunk } = $props()
+    let { newchunk } = $props()
 
     let chunk = $state({})
-    let ctext = $state({})
-    let example = $state({})
+    // let ctext = $state({})
+    // let example = $state({})
     // let example = $derived(oexample.current)
 
     onMount(async () => {
         setfontsize()
     })
+
+    // $inspect('_clip C', chunk)
+    // $inspect('_clip NC', newchunk)
 
     $effect(()=> {
         let cchunk = ''
@@ -27,22 +30,17 @@
         }
     })
 
+    $effect(()=> {
+        if (newchunk) chunk = newchunk
+    })
+
     function setCchunk(param) {
         chunk = param
     }
 
-    let chunk_ = $derived.by(() => {
-        let cchunk = {}
-        for (let chunk of chunks.current) {
-            delete chunk.new
-            if (chunk.current) cchunk = chunk
-        }
-		return cchunk
-	});
-
-    function onPaste(ev) {
+    function onClipPaste(ev) {
         log('____________________CLIP ON PASTE')
-        return
+
         const copiedText = ev.clipboardData.getData('text/plain');
         let rows = copiedText.trim().split('\n')
         if (!rows.length) return
@@ -64,10 +62,17 @@
         chunks.current.push(newch)
     }
 
+    function onNewChunk(ev) {
+        log('_CLIP GET NEW CHUNK', ev.detail)
+    }
+
+
 </script>
 
-<!-- <svelte:window onpaste={onPaste} /> -->
+<!-- <svelte:window on:paste={onClipPaste} on:new-text-chunk={() => onNewChunk} /> -->
+<svelte:window on:paste={onClipPaste} />
 
+<!-- {#if ctext} -->
 {#await chunk then ctext}
   <div class="p-4 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll" >
       {#if ctext.new}
@@ -75,6 +80,7 @@
         <Button color="green" class="float-right" on:click={saveCurrent}>Save</Button>
       {/if}
 
+      {#if ctext.title}
       <div class="stext flex flex-row justify-between py-2 px-4 cursor-pointer" >
           <div class="stext-head px-2">
               <span class="bg-green-300 rounded p-1 px-2">{ctext.date}</span> - <span class="font-bold">{ctext.title}</span>
@@ -86,6 +92,8 @@
             <p class="text pb-2">{@html row.replace(/([^\p{P} \n]+)/ug, " <span class=\"wf\">$1</span>")}</p>
           {/each}
       </div>
+      {/if}
   </div>
 
 {/await}
+<!-- {/if} -->

@@ -5,15 +5,23 @@
     import LeftHeader from "$lib/ui/LeftHeader.svelte"
     import RightHeader from "$lib/ui/RightHeader.svelte"
     import Clip from "$lib/ui/Clip.svelte"
+    import Home from "./+page.svelte"
     import { goto } from '$app/navigation';
     import { Button } from 'flowbite-svelte';
 
+    import { page } from '$app/state';
+
     import { chunks, locale } from "$lib/shared.svelte";
-    // import { page } from '$app/state';
 
     const log = console.log
 
-    // enclitics 
+    let clipchild
+
+    let pathname = $derived(page.url.pathname)
+
+    $inspect('pathname', pathname)
+
+    // enclitics
 
     function showLeft() {
         let oleft = document.querySelector('.left')
@@ -32,6 +40,9 @@
     }
 
     let cchunk = $state({})
+    let message = $state('hello')
+
+    // $inspect('_M', message)
 
     let { children, data } = $props();
 
@@ -58,7 +69,7 @@
             let cc = JSON.parse(JSON.stringify(chunk))
             if (cc.current) cchunk = cc
             else continue
-            setCchunk(cchunk)
+            // setCchunk(cchunk)
         }
     })
 
@@ -78,7 +89,7 @@
         let now = new Date()
         let date = now.toLocaleDateString(locale.current)
         cchunk = {date, title, rows}
-        // log('_lay onPaste cchunk', cchunk)
+        log('_lay onPaste cchunk', cchunk)
         // showLeft()
     }
 
@@ -148,12 +159,10 @@
 
     function closeAll() {
         goto('/')
-        // let oforms = document.querySelector('#popup-forms')
-        // if (oforms && !oforms.classList.contains('hidden')) {
-        // oforms.classList.add('hidden')
-        // }
         console.log('_CLOSED ALL')
     }
+
+
 </script>
 
 <!-- <svelte:window on:keydown={onKeyDown} /> -->
@@ -161,18 +170,22 @@
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window onpaste={onPaste} /> -->
 
-<div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" onclick={gotoWF}> <!--  -->
+<div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" on:click={gotoWF} > <!--  -->
 
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
         <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" > <!-- onclick={gotoWF} -->
             <LeftHeader {menu} />
-            <Clip {cchunk} />
+            <Clip newchunk={message}/>
         </left>
 
-        <main class="right w-full md:w-1/2_ w-full p-4_ sm:hidden_ md:block">
+        <main class="right w-full md:w-1/2_ w-full p-4_ sm:hidden_ md:block"  >
             <RightHeader />
-	        {@render children()}
+            {#if pathname == '/'}
+              <Home bind:value={message} />
+            {:else}
+	          {@render children() }
+            {/if}
         </main>
 
     </div>

@@ -20,9 +20,7 @@
     });
 
     cdicts.forEach(cdict=> cdict.show = true)
-    $inspect('_chain_cdicts', cdicts);
-    // $inspect('_morels_', morels);
-
+    // $inspect('_chain_cdicts', cdicts);
 
     let contrels = $derived(rels.map(rel=> ('<span class="relat query-dict cursor-pointer px-1_ ">' + rel + '</span>')).join(', ') )
     let morerels = $derived(morels.map(rel=> ('<span class="morel query-dict cursor-pointer px-1_ ">' + rel + '</span> ')).join(', ') )

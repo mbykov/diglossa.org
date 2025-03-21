@@ -1,6 +1,6 @@
 <script>
     import { Hamburger } from 'svelte-hamburgers';
-    import { fly } from 'svelte/transition';
+    // import { fly } from 'svelte/transition';
 
     import { Drawer, Drawerhead, Button, uiHelpers } from 'svelte-5-ui-lib';
     // import { InfoCircleSolid } from "flowbite-svelte-icons";
@@ -26,7 +26,7 @@
     function toggleNav(ev) {
         if (open) open = !open
     }
-    
+
     function onKeyDown(ev) {
         if (open) open = !open
     }
