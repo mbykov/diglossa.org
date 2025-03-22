@@ -15,7 +15,7 @@
                 let htmls = scheme.map(segment=> {
                     let span = ''
                     if (segment.type == 'pref') span = '<span class="segment cursor-pointer seg-pref" dict='+segment.seg+'>' + segment.seg + '</span>'
-                    else if (segment.type == 'stem') span = '<span class="segment cursor-pointer seg-dict" dict='+segment.dict+'>' + segment.seg + '</span>'
+                    else if (segment.type == 'stem') span = '<span class="segment cursor-pointer query-dict" dict='+segment.dict+'>' + segment.seg + '</span>'
                     else span = '<span class=" ">' + segment.seg + '</span>'
                     return span
                 })

@@ -2,6 +2,7 @@
     import { goto } from '$app/navigation';
     import { page } from '$app/state';
     import _ from 'lodash'
+    import {showLeft, showRight} from "$lib/ui/switchPanel.js"
 
     import { chunks } from "$lib/shared.svelte";
     // import { onMount } from 'svelte'
@@ -20,10 +21,7 @@
     function gotoChunk(ev) {
         let ochunk = ev.target.closest('.stext')
         if (!ochunk) return
-        // let index = ochunk.getAttribute('index')
         let title = ochunk.getAttribute('title')
-        // log('_goto', title)
-        // log('_examples', examples)
 
         for (let chunk of chunks.current) {
             chunk.current = false
@@ -34,10 +32,7 @@
         byTitle.example = true
 
         chunks.current.push(byTitle)
-
-        // if (!chunks.current[index]) return
-        // chunks.current[index].current = true
-        // log('________E, chunks.current', chunks.current)
+        showLeft()
     }
 
 </script>

@@ -17,7 +17,7 @@
         setfontsize()
     })
 
-    // $inspect('_clip C', chunk)
+    // $inspect('_clip Chunk', chunk)
     // $inspect('_clip NC', newchunk)
 
     $effect(()=> {

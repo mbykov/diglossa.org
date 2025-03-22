@@ -2,6 +2,7 @@
 	import '../app.css';
     import { onMount } from 'svelte'
 
+    import {showLeft, showRight} from "$lib/ui/switchPanel.js"
     import LeftHeader from "$lib/ui/LeftHeader.svelte"
     import RightHeader from "$lib/ui/RightHeader.svelte"
     import Clip from "$lib/ui/Clip.svelte"
@@ -15,33 +16,13 @@
 
     const log = console.log
 
-    let clipchild
-
     let pathname = $derived(page.url.pathname)
-
     // $inspect('pathname', pathname)
 
     // enclitics
 
-    function showLeft() {
-        let oleft = document.querySelector('.left')
-        if (!oleft) return
-        let oright = document.querySelector('.right')
-        oleft.classList.remove('hidden')
-        oright.classList.add('hidden')
-    }
-
-    function showRight() {
-        let oleft = document.querySelector('.left')
-        if (!oleft) return
-        let oright = document.querySelector('.right')
-        oleft.classList.add('hidden')
-        oright.classList.remove('hidden')
-    }
-
     let cchunk = $state({})
-    let message = $state('hello')
-
+    let message = $state('') // hello
     // $inspect('_M', message)
 
     let { children, data } = $props();
@@ -50,18 +31,8 @@
     // let examples = $derived(data.examples)
     let stexts = $derived(chunks.current)
 
-    onMount(async () => {
-        // log('_LAY examples', examples)
-        // let exchunks = []
-        // for (let example of examples) {
-        //     let exists = chunks.current.find(stext=> stext.title == example.title)
-        //     if (!exists) {
-        //         exchunks.push({date: '01.01.2024', title: example.title, rows: example.rows, example: true})
-        //     }
-        // }
-        // // log('_LAY exchunks', exchunks)
-        // chunks.current.push(...exchunks)
-    })
+    // onMount(async () => {
+    // })
 
     $effect(()=> {
         let cchunk = ''
@@ -77,28 +48,13 @@
         cchunk = param
     }
 
-    function onPaste(ev) {
-        // log('_LAYOUT ON PASTE')
-        return
-
-        const copiedText = ev.clipboardData.getData('text/plain');
-        let rows = copiedText.trim().split('\n')
-        if (!rows.length) return
-        let title = rows[0].slice(0, 25)
-        if (!title) return
-        let now = new Date()
-        let date = now.toLocaleDateString(locale.current)
-        cchunk = {date, title, rows}
-        log('_lay onPaste cchunk', cchunk)
-        // showLeft()
-    }
-
     function gotoWF(ev) {
         let owf = ev.target
         if (!owf.classList.contains('wf')) return
         let wf = owf.textContent
         if (!wf) return
         let wfurl = '/' + wf
+        showRight()
         goto(wfurl)
     }
 
@@ -166,15 +122,13 @@
 </script>
 
 <svelte:window on:keydown={onKeyDown} />
-<!-- <svelte:window on:keydown={onKeyDown} on:paste={onPaste} /> -->
 <!-- <svelte:window on:keydown|preventDefault={onKeyDown} on:paste={onPaste} /> -->
-<!-- <svelte:window onpaste={onPaste} /> -->
 
 <div class="flex flex-col min-h-screen p-4_ w-full overflow-y-hidden" on:click={gotoWF} > <!--  -->
 
     <div class="flex flex-row justify-between flex-grow bg-gray-200 ">
 
-        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" > <!-- onclick={gotoWF} -->
+        <left class="left w-full md:w-1/2_ p-4_ bg-gray-300 hidden md:block" >
             <LeftHeader {menu} />
             <Clip newchunk={message}/>
         </left>

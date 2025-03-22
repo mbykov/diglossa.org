@@ -1,15 +1,14 @@
 <script>
     import { Hamburger } from 'svelte-hamburgers';
-    // import { fly } from 'svelte/transition';
-
     import { Drawer, Drawerhead, Button, uiHelpers } from 'svelte-5-ui-lib';
+    import {showLeft, showRight} from "$lib/ui/switchPanel.js"
     // import { InfoCircleSolid } from "flowbite-svelte-icons";
+
     const drawer = uiHelpers();
     let drawerStatus = $state(false);
     const closeDrawer = drawer.close;
 
     $effect(() => {
-        // drawerStatus = drawer.isOpen;
         drawerStatus = open
     });
 
@@ -52,7 +51,7 @@
 
     anthrax.js v.1.1.1
 
-    <ul class="focus:outline-none w-48 dark:text-white bg-white p-4">
+    <ul class="focus:outline-none w-48 dark:text-white bg-white p-4" on:click={showRight}>
         {#each routes as route}
           <li class="py-2"><a href="{route.href}" class="cursor-pointer hover:text-slate-500">{route.name}</a></li>
         {/each}

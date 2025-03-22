@@ -15,16 +15,16 @@
 
     const log = console.log
 
-    let dictionary
-    let currentCheckBox = {idx: null, checked: false}
+    // let dictionary
+    // let currentCheckBox = {idx: null, checked: false}
 
     let defaultDicts = [
-        {id: 1, key: 'wkt', lang: 'en', name: 'Wiktionary', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 1, key: 'wkt', lang: 'en', name: 'Wiktionary', active: true, href: 'https://en.wiktionary.org/wiki/Category:Ancient_Greek_language'},
         {id: 2, key: 'lsj', lang: 'en', name: 'Liddell, Sckott', active: true, href: 'https://perseids-project.github.io/lsj-js/'},
         {id: 3, key: 'dvr', lang: 'ru', name: 'И.Х.Дворецкий', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {id: 4, key: 'bbh', lang: 'en', name: 'BibleHub', active: true, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {id: 5, key: 'bll', lang: 'fr', name: 'xx Bailly', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
-        {id: 6, key: 'suda', lang: 'en', name: 'Souda', active: false, href: 'https://en.wiktionary.org/wiki/Ancient_Greek'},
+        {id: 4, key: 'bbh', lang: 'en', name: 'BibleHub', active: true, href: 'https://biblehub.com/greek/'},
+        {id: 5, key: 'bll', lang: 'fr', name: 'xx Bailly', active: false, href: 'http://gerardgreco.free.fr/IMG/pdf/bailly-2020-hugo-chavez-2023-02-28.pdf'},
+        {id: 6, key: 'suda', lang: 'en', name: 'Souda', active: false, href: 'http://www.physics.ntua.gr/mourmouras/ilias_odysseia/Lexiko/souida.html'},
     ]
 
     let items_ = [
@@ -40,7 +40,7 @@
         if (!odicts.current.length) odicts.current = defaultDicts
         // odicts.current = defaultDicts
         let dictkeys = odicts.current.map(dict=> dict.key)
-        log('_dictkeys', dictkeys)
+        // log('_dictkeys', dictkeys)
 
         for await (let dict of odicts.current) {
             // log('_d', dict.id, dict.key, dict.active)
@@ -70,9 +70,12 @@
 </script>
 
 <div class="p-4 px-8 h-[calc(100vh-86px)] h-screen_ overflow-y-scroll">
-    <div class="header flex p-4 pb-4">
-        <h2 class="font-bold text-2xl px-4"> dictionaries </h2>
-        <span class="text-gray-500 py-1"> draggable </span>
+    <div class="header flex_ p-4 pb-4">
+        <h2 class="font-bold text-2xl px-4"> dictionaries
+            <span class="text-sm text-gray-500 py-1"> draggable </span>
+            </h2>
+
+            <h2 class="font-bold px-4 text-red-500"> dictionary ordering is not ready yet  </h2>
     </div>
 
     <section use:dndzone="{{items}}" on:consider="{handleDndConsider}" on:finalize="{handleDndFinalize}">

@@ -1,21 +1,17 @@
 <script>
-    // import DefLocale from "$lib/ui/DefLocale.svelte"
+    // import _ from 'lodash'
     import SetDefaultFontSize from "$lib/ui/SetDefaultFontSize.svelte"
     import SetDefaultLocale from "$lib/ui/SetDefaultLocale.svelte"
 
     // import { page } from '$app/state';
     import { onMount } from 'svelte'
-    // import _ from 'lodash'
 
     import { locale } from "$lib/shared.svelte";
-
-    // import { Radio, Helper, RadioButton, ButtonGroup } from 'svelte-5-ui-lib';
 
     const log = console.log
 
     onMount(async () => {
-        log('_settings: locale.current', locale.current)
-
+        // log('_settings: locale.current', locale.current)
     });
 
 

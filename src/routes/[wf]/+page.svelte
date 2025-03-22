@@ -12,13 +12,15 @@
 
     let wf = $derived(data.wf)
     // $inspect('_+page_data.wf', wf);
+    let newwf = $state('')
 
     let conts = $derived(data.conts)
     // $inspect('_+page_conts', conts);
 
     function showSegment(ev) {
         if (!ev.target.classList.contains('segment')) return
-        log('_showSegment', ev.target)
+        // log('_showSegment', ev.target)
+        newwf = ev.target.getAttribute('dict')
     }
 
 
@@ -38,7 +40,7 @@
     {:then}
       {#each conts as cont}
         <!-- <Chain {cont} {wf} contcdicts={cont.cdicts}/> -->
-        <Chain cdicts={cont.cdicts} rels={cont.rels} morels={cont.morels}/>
+        <Chain {cont} {newwf} />
       {/each}
     {:catch error}
 	  <p style="color: red">{error.message}</p>

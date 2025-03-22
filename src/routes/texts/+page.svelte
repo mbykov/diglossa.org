@@ -1,8 +1,8 @@
 <script>
     import { goto } from '$app/navigation';
     import { page } from '$app/state';
-    import { setContext, getContext } from 'svelte';
-    // import { Button } from 'flowbite-svelte';
+    import {showLeft, showRight} from "$lib/ui/switchPanel.js"
+
     import _ from 'lodash'
 
     import { chunks } from "$lib/shared.svelte";
@@ -38,7 +38,7 @@
 
         let byTitle = chunks.current.find(stext=> stext.title == title)
         byTitle.current = true
-
+        showLeft()
     }
 
 </script>

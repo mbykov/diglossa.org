@@ -6,8 +6,8 @@
         <a href="http://t.me/diglossa_chat" target="blank"> t.me/diglossa_chat</a>
     </p>
 
-        <p>
-        email: m.bykob@gmail.com
+    <p>
+        email: m.bykov@gmail.com
     </p>
 
 </div>
