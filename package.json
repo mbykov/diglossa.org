@@ -19,7 +19,7 @@
 		"flowbite-svelte": "^0.47.4",
 		"flowbite-svelte-icons": "^2.0.2",
 		"mdsvex": "^0.11.2",
-		"svelte": "^5.0.0",
+		"svelte": "^5.25.0",
 		"svelte-5-ui-lib": "^0.12.2",
 		"svelte-check": "^4.0.0",
 		"svelte-dnd-action": "^0.9.56",

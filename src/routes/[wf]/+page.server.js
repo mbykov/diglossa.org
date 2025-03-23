@@ -18,7 +18,9 @@ export const load = async ({ url, params }) => {
     log('____+ps, conts', conts)
 
     for (let cont of conts) {
-        // log('____+ps, cdicts', cont.cdicts)
+        for (let cdict of cont.cdicts) {
+            cdict.show = true
+        }
     }
 
     return {

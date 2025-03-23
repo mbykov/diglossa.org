@@ -1,6 +1,5 @@
 <script>
     import Cdict from './Cdict.svelte'
-    import Morphs from './Morphs.svelte'
     import _ from 'lodash'
     import {oxia, comb, plain, strip} from 'orthos'
 

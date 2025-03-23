@@ -19,7 +19,7 @@
 </script>
 
 {#key showStuff}
-<div class="bg-white px-4 w-60 flex justify-between" on:click={toggleStuff}>
+<div class="bg-white px-4 w-64 flex justify-between" on:click={toggleStuff}>
     <div class="pr-8_">
         {#each mains as morph}
           <p>{morph}</p>
